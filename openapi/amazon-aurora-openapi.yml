@@ -1,0 +1,121 @@
+openapi: 3.1.0
+info:
+  title: Amazon Aurora API
+  description: >-
+    The Amazon Aurora API is accessed via the Amazon RDS API and provides
+    programmatic management of Aurora DB clusters, instances, cluster
+    snapshots, parameter groups, and endpoints for both MySQL and PostgreSQL
+    compatible editions.
+  version: '2014-10-31'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/premiumsupport/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-logo:
+    url: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
+servers:
+  - url: https://rds.{region}.amazonaws.com
+    description: Amazon RDS regional endpoint (Aurora)
+    variables:
+      region:
+        default: us-east-1
+        description: AWS region
+        enum:
+          - us-east-1
+          - us-east-2
+          - us-west-1
+          - us-west-2
+          - eu-west-1
+          - eu-west-2
+          - eu-west-3
+          - eu-central-1
+          - ap-northeast-1
+          - ap-northeast-2
+          - ap-southeast-1
+          - ap-southeast-2
+          - ap-south-1
+          - sa-east-1
+          - ca-central-1
+security:
+  - sigv4: []
+tags:
+  - name: DB Clusters
+    description: Operations for managing Aurora DB clusters
+  - name: DB Instances
+    description: Operations for managing Aurora DB instances
+  - name: Cluster Snapshots
+    description: Operations for managing Aurora cluster snapshots
+  - name: Cluster Endpoints
+    description: Operations for managing Aurora custom endpoints
+  - name: Parameter Groups
+    description: Operations for managing DB cluster parameter groups
+paths:
+  /:
+    post:
+      operationId: CreateDBCluster
+      summary: Create an Aurora DB cluster
+      description: Creates a new Amazon Aurora DB cluster.
+      tags:
+        - DB Clusters
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateDBClusterInput'
+      responses:
+        '200':
+          description: DB cluster created successfully
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CreateDBClusterOutput'
+        '400':
+          description: Invalid request
+        '500':
+          description: Internal server error
+components:
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4
+  schemas:
+    CreateDBClusterInput:
+      type: object
+      required:
+        - DBClusterIdentifier
+        - Engine
+      properties:
+        DBClusterIdentifier:
+          type: string
+          description: The DB cluster identifier
+        Engine:
+          type: string
+          description: The database engine (aurora-mysql or aurora-postgresql)
+          enum:
+            - aurora-mysql
+            - aurora-postgresql
+        EngineVersion:
+          type: string
+        MasterUsername:
+          type: string
+        MasterUserPassword:
+          type: string
+        DatabaseName:
+          type: string
+    CreateDBClusterOutput:
+      type: object
+      properties:
+        DBCluster:
+          type: object
+          properties:
+            DBClusterIdentifier:
+              type: string
+            Status:
+              type: string
+            Engine:
+              type: string

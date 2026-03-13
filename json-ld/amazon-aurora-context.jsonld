@@ -1,0 +1,175 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "rds": "https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/",
+    "aws": "https://aws.amazon.com/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+
+    "DBCluster": {
+      "@id": "rds:API_DBCluster",
+      "@context": {
+        "DBClusterIdentifier": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "DBClusterArn": {
+          "@id": "rds:DBClusterArn",
+          "@type": "xsd:string"
+        },
+        "Engine": {
+          "@id": "rds:Engine",
+          "@type": "xsd:string"
+        },
+        "EngineVersion": {
+          "@id": "schema:version",
+          "@type": "xsd:string"
+        },
+        "Status": {
+          "@id": "rds:DBClusterStatus",
+          "@type": "xsd:string"
+        },
+        "Endpoint": {
+          "@id": "schema:url",
+          "@type": "xsd:string"
+        },
+        "ReaderEndpoint": {
+          "@id": "rds:ReaderEndpoint",
+          "@type": "xsd:string"
+        },
+        "Port": {
+          "@id": "rds:Port",
+          "@type": "xsd:integer"
+        },
+        "MasterUsername": {
+          "@id": "rds:MasterUsername",
+          "@type": "xsd:string"
+        },
+        "DatabaseName": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "StorageEncrypted": {
+          "@id": "rds:StorageEncrypted",
+          "@type": "xsd:boolean"
+        },
+        "DeletionProtection": {
+          "@id": "rds:DeletionProtection",
+          "@type": "xsd:boolean"
+        },
+        "BackupRetentionPeriod": {
+          "@id": "rds:BackupRetentionPeriod",
+          "@type": "xsd:integer"
+        },
+        "ClusterCreateTime": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "AvailabilityZones": {
+          "@id": "rds:AvailabilityZones",
+          "@container": "@list"
+        },
+        "DBClusterMembers": {
+          "@id": "rds:DBClusterMembers",
+          "@container": "@list"
+        },
+        "VpcSecurityGroups": {
+          "@id": "rds:VpcSecurityGroups",
+          "@container": "@list"
+        },
+        "tags": {
+          "@id": "schema:keywords",
+          "@container": "@list"
+        }
+      }
+    },
+
+    "DBClusterMember": {
+      "@id": "rds:DBClusterMember",
+      "@context": {
+        "DBInstanceIdentifier": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "IsClusterWriter": {
+          "@id": "rds:IsClusterWriter",
+          "@type": "xsd:boolean"
+        },
+        "PromotionTier": {
+          "@id": "rds:PromotionTier",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "DBInstance": {
+      "@id": "rds:API_DBInstance",
+      "@context": {
+        "DBInstanceIdentifier": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "DBInstanceClass": {
+          "@id": "rds:DBInstanceClass",
+          "@type": "xsd:string"
+        },
+        "Engine": {
+          "@id": "rds:Engine",
+          "@type": "xsd:string"
+        },
+        "DBInstanceStatus": {
+          "@id": "rds:DBInstanceStatus",
+          "@type": "xsd:string"
+        },
+        "DBClusterIdentifier": {
+          "@id": "rds:DBClusterIdentifier",
+          "@type": "xsd:string"
+        },
+        "AvailabilityZone": {
+          "@id": "rds:AvailabilityZone",
+          "@type": "xsd:string"
+        },
+        "InstanceCreateTime": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "DBClusterSnapshot": {
+      "@id": "rds:API_DBClusterSnapshot",
+      "@context": {
+        "DBClusterSnapshotIdentifier": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "DBClusterIdentifier": {
+          "@id": "rds:DBClusterIdentifier",
+          "@type": "xsd:string"
+        },
+        "SnapshotCreateTime": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "Engine": {
+          "@id": "rds:Engine",
+          "@type": "xsd:string"
+        },
+        "Status": {
+          "@id": "rds:SnapshotStatus",
+          "@type": "xsd:string"
+        },
+        "SnapshotType": {
+          "@id": "rds:SnapshotType",
+          "@type": "xsd:string"
+        },
+        "StorageEncrypted": {
+          "@id": "rds:StorageEncrypted",
+          "@type": "xsd:boolean"
+        }
+      }
+    }
+  }
+}

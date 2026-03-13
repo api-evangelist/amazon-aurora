@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.apievangelist.com/amazon-aurora/db-cluster",
+  "title": "Amazon Aurora DB Cluster",
+  "description": "Schema defining the structure of an Amazon Aurora DB cluster resource, including cluster configuration, instances, endpoints, storage, backup, and security settings.",
+  "type": "object",
+  "required": [
+    "DBClusterIdentifier",
+    "Engine"
+  ],
+  "properties": {
+    "DBClusterIdentifier": {
+      "type": "string",
+      "description": "The user-supplied DB cluster identifier.",
+      "pattern": "^[a-zA-Z][a-zA-Z0-9-]*$",
+      "maxLength": 63
+    },
+    "DBClusterArn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) for the DB cluster."
+    },
+    "Engine": {
+      "type": "string",
+      "description": "The database engine for the DB cluster.",
+      "enum": [
+        "aurora-mysql",
+        "aurora-postgresql"
+      ]
+    },
+    "EngineVersion": {
+      "type": "string",
+      "description": "The version of the database engine."
+    },
+    "Status": {
+      "type": "string",
+      "description": "The current state of the DB cluster."
+    },
+    "Endpoint": {
+      "type": "string",
+      "description": "The connection endpoint for the primary instance of the DB cluster."
+    },
+    "ReaderEndpoint": {
+      "type": "string",
+      "description": "The reader endpoint for the DB cluster."
+    },
+    "Port": {
+      "type": "integer",
+      "description": "The port that the database engine is listening on."
+    },
+    "MasterUsername": {
+      "type": "string",
+      "description": "The master username for the DB cluster."
+    },
+    "DatabaseName": {
+      "type": "string",
+      "description": "The name of the initial database created when the cluster was created."
+    },
+    "DBClusterMembers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DBClusterMember"
+      },
+      "description": "The list of DB instances that make up the DB cluster."
+    },
+    "AvailabilityZones": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The list of Availability Zones that instances in the DB cluster can be created in."
+    },
+    "BackupRetentionPeriod": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 35,
+      "description": "The number of days for which automatic DB snapshots are retained."
+    },
+    "PreferredBackupWindow": {
+      "type": "string",
+      "description": "The daily time range during which automated backups are created."
+    },
+    "PreferredMaintenanceWindow": {
+      "type": "string",
+      "description": "The weekly time range during which system maintenance can occur."
+    },
+    "StorageEncrypted": {
+      "type": "boolean",
+      "description": "Whether the DB cluster is encrypted."
+    },
+    "KmsKeyId": {
+      "type": "string",
+      "description": "The AWS KMS key identifier for the encrypted DB cluster."
+    },
+    "DeletionProtection": {
+      "type": "boolean",
+      "description": "Whether the DB cluster has deletion protection enabled."
+    },
+    "VpcSecurityGroups": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/VpcSecurityGroupMembership"
+      },
+      "description": "The list of VPC security groups that the DB cluster belongs to."
+    },
+    "DBSubnetGroup": {
+      "type": "string",
+      "description": "The name of the DB subnet group associated with the DB cluster."
+    },
+    "ClusterCreateTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time when the DB cluster was created."
+    },
+    "Tags": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Tag"
+      },
+      "description": "Tags associated with the DB cluster."
+    }
+  },
+  "$defs": {
+    "DBClusterMember": {
+      "type": "object",
+      "description": "A member of a DB cluster.",
+      "properties": {
+        "DBInstanceIdentifier": {
+          "type": "string",
+          "description": "The instance identifier for the DB cluster member."
+        },
+        "IsClusterWriter": {
+          "type": "boolean",
+          "description": "Whether the cluster member is the primary instance."
+        },
+        "DBClusterParameterGroupStatus": {
+          "type": "string",
+          "description": "The status of the DB cluster parameter group."
+        },
+        "PromotionTier": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 15,
+          "description": "The failover priority order for the DB instance."
+        }
+      }
+    },
+    "VpcSecurityGroupMembership": {
+      "type": "object",
+      "description": "A VPC security group associated with the DB cluster.",
+      "properties": {
+        "VpcSecurityGroupId": {
+          "type": "string",
+          "description": "The name of the VPC security group."
+        },
+        "Status": {
+          "type": "string",
+          "description": "The membership status of the VPC security group."
+        }
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "description": "A key-value pair for tagging AWS resources.",
+      "required": [
+        "Key"
+      ],
+      "properties": {
+        "Key": {
+          "type": "string",
+          "description": "The key of the tag.",
+          "maxLength": 128
+        },
+        "Value": {
+          "type": "string",
+          "description": "The value of the tag.",
+          "maxLength": 256
+        }
+      }
+    }
+  }
+}
