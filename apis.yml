@@ -1,14 +1,17 @@
+aid: amazon-aurora
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/apis.yml
 name: Amazon Aurora
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+specificationVersion: '0.19'
 description: >-
   Amazon Aurora is a MySQL and PostgreSQL-compatible relational database
   built for the cloud that combines the performance and availability of
   traditional enterprise databases with the simplicity and cost-effectiveness
   of open source databases.
-image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-url: https://aws.amazon.com/rds/aurora/
-type: Index
 created: '2024-01-15'
-modified: '2026-03-13'
+modified: '2026-03-16'
 tags:
 - Database
 - MySQL
