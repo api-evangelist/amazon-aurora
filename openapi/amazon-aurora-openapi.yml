@@ -55,7 +55,7 @@ paths:
   /:
     post:
       operationId: CreateDBCluster
-      summary: Create an Aurora DB cluster
+      summary: Amazon Aurora Create an Aurora DB cluster
       description: Creates a new Amazon Aurora DB cluster.
       tags:
         - DB Clusters
