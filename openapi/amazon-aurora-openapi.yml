@@ -43,14 +43,6 @@ security:
 tags:
   - name: DB Clusters
     description: Operations for managing Aurora DB clusters
-  - name: DB Instances
-    description: Operations for managing Aurora DB instances
-  - name: Cluster Snapshots
-    description: Operations for managing Aurora cluster snapshots
-  - name: Cluster Endpoints
-    description: Operations for managing Aurora custom endpoints
-  - name: Parameter Groups
-    description: Operations for managing DB cluster parameter groups
 paths:
   /:
     post:
