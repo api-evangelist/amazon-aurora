@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-create-db-instance-output-structure.json",
+  "title": "CreateDBInstanceOutput",
+  "description": "JSON Structure for the Amazon Aurora CreateDBInstanceOutput object.",
+  "type": "object",
+  "properties": {}
+}

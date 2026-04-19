@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-reboot-db-cluster-input-structure.json",
+  "title": "RebootDBClusterInput",
+  "description": "JSON Structure for the Amazon Aurora RebootDBClusterInput object.",
+  "type": "object",
+  "properties": {}
+}

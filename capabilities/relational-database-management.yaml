@@ -1,0 +1,170 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: Relational Database Management Workflow
+  description: Workflow capability for managing Amazon Aurora relational database clusters including creation, scaling, snapshots, and global database configurations.
+  tags:
+    - Amazon Aurora
+    - MySQL
+    - PostgreSQL
+    - Relational Database
+    - AWS
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+imports:
+  - namespace: aurora
+    from: shared/aurora-api.yaml
+
+capability:
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: relational-db-rest
+      resources:
+        - path: /v1/clusters
+          name: clusters
+          description: Aurora DB cluster management
+          operations:
+            - method: POST
+              name: create-db-cluster
+              description: Create a new Aurora DB cluster
+              call: "aurora.create-db-cluster"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: describe-db-clusters
+              description: List Aurora DB clusters
+              call: "aurora.describe-db-clusters"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: relational-db-mcp
+      transport: http
+      tools:
+        - name: describe-db-clusters
+          description: List all Aurora DB clusters to understand available databases and their status.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "aurora.describe-db-clusters"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-db-cluster
+          description: Create a new Aurora MySQL or PostgreSQL compatible DB cluster.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "aurora.create-db-cluster"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: modify-db-cluster
+          description: Modify the configuration of an existing Aurora DB cluster.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "aurora.modify-db-cluster"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: start-db-cluster
+          description: Start a stopped Aurora DB cluster to resume database operations.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "aurora.start-db-cluster"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: stop-db-cluster
+          description: Stop an Aurora DB cluster to reduce costs when not in use.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "aurora.stop-db-cluster"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-db-instance
+          description: Add a new read replica or writer instance to an Aurora DB cluster.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "aurora.create-db-instance"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: describe-db-instances
+          description: List all DB instances in Aurora clusters.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "aurora.describe-db-instances"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-db-cluster-snapshot
+          description: Create a snapshot of an Aurora DB cluster for backup or cloning.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "aurora.create-db-cluster-snapshot"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: describe-db-cluster-snapshots
+          description: List available Aurora DB cluster snapshots for backup management.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "aurora.describe-db-cluster-snapshots"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: restore-db-cluster-from-snapshot
+          description: Restore an Aurora DB cluster from a snapshot for disaster recovery.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "aurora.restore-db-cluster-from-snapshot"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+personas:
+  - name: Database Administrator
+    description: Manages Aurora DB clusters, instances, parameter groups, and backup configurations.
+    tools:
+      - describe-db-clusters
+      - create-db-cluster
+      - modify-db-cluster
+      - start-db-cluster
+      - stop-db-cluster
+      - create-db-instance
+      - describe-db-instances
+      - create-db-cluster-snapshot
+      - describe-db-cluster-snapshots
+
+  - name: Cloud Architect
+    description: Designs multi-region Aurora architectures and manages global database deployments.
+    tools:
+      - describe-db-clusters
+      - create-db-cluster
+      - restore-db-cluster-from-snapshot
+      - describe-db-cluster-snapshots
+      - describe-db-instances

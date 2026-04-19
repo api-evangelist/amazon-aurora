@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-filter-schema.json",
+  "title": "Filter",
+  "description": "JSON Schema for the Amazon Aurora Filter object.",
+  "type": "object",
+  "properties": {}
+}

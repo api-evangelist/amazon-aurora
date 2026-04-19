@@ -1,0 +1,198 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: Amazon Aurora API
+  description: Shared capability definition for the Amazon Aurora API covering DB clusters, DB instances, snapshots, parameter groups, endpoints, and global clusters.
+  tags:
+    - Amazon Aurora
+    - MySQL
+    - PostgreSQL
+    - Relational Database
+    - AWS
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY
+      AWS_REGION: AWS_REGION
+
+capability:
+  consumes:
+    - type: http
+      namespace: aurora
+      baseUri: https://rds.us-east-1.amazonaws.com
+      description: Amazon Aurora via Amazon RDS API for managed MySQL and PostgreSQL database clusters.
+      authentication:
+        type: apikey
+        key: Authorization
+        value: "{{AWS_ACCESS_KEY_ID}}"
+        placement: header
+      resources:
+        - name: create-db-cluster
+          path: /?Action=CreateDBCluster
+          description: Create an Aurora DB cluster.
+          operations:
+            - name: create-db-cluster
+              method: POST
+              description: Creates a new Aurora DB cluster.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: describe-db-clusters
+          path: /?Action=DescribeDBClusters
+          description: List Aurora DB clusters.
+          operations:
+            - name: describe-db-clusters
+              method: POST
+              description: Returns information about DB clusters.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: modify-db-cluster
+          path: /?Action=ModifyDBCluster
+          description: Modify an Aurora DB cluster.
+          operations:
+            - name: modify-db-cluster
+              method: POST
+              description: Modifies a DB cluster.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: delete-db-cluster
+          path: /?Action=DeleteDBCluster
+          description: Delete an Aurora DB cluster.
+          operations:
+            - name: delete-db-cluster
+              method: POST
+              description: Deletes a DB cluster.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: create-db-instance
+          path: /?Action=CreateDBInstance
+          description: Create an Aurora DB instance.
+          operations:
+            - name: create-db-instance
+              method: POST
+              description: Creates a new DB instance in a cluster.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: describe-db-instances
+          path: /?Action=DescribeDBInstances
+          description: List Aurora DB instances.
+          operations:
+            - name: describe-db-instances
+              method: POST
+              description: Returns information about DB instances.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: create-db-cluster-snapshot
+          path: /?Action=CreateDBClusterSnapshot
+          description: Create a DB cluster snapshot.
+          operations:
+            - name: create-db-cluster-snapshot
+              method: POST
+              description: Creates a cluster snapshot.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: describe-db-cluster-snapshots
+          path: /?Action=DescribeDBClusterSnapshots
+          description: List DB cluster snapshots.
+          operations:
+            - name: describe-db-cluster-snapshots
+              method: POST
+              description: Returns information about cluster snapshots.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: aurora-rest
+      resources:
+        - path: /v1/clusters
+          name: clusters
+          description: Aurora DB clusters
+          operations:
+            - method: GET
+              name: describe-db-clusters
+              description: List DB clusters
+              call: "aurora.describe-db-clusters"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: aurora-mcp
+      transport: http
+      tools:
+        - name: describe-db-clusters
+          description: List all Amazon Aurora DB clusters in the account.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "aurora.describe-db-clusters"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-db-cluster
+          description: Create a new Amazon Aurora DB cluster with MySQL or PostgreSQL compatibility.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "aurora.create-db-cluster"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: describe-db-instances
+          description: List all DB instances associated with Aurora clusters.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "aurora.describe-db-instances"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: describe-db-cluster-snapshots
+          description: List snapshots of Aurora DB clusters.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "aurora.describe-db-cluster-snapshots"
+          outputParameters:
+            - type: object
+              mapping: "$."

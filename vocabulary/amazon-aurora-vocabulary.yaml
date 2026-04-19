@@ -1,0 +1,265 @@
+vocabulary:
+  label: Amazon Aurora Vocabulary
+  description: Core terms, actions, and workflows for the Amazon Aurora MySQL and PostgreSQL-compatible relational database service.
+  tags:
+    - Amazon Aurora
+    - MySQL
+    - PostgreSQL
+    - Relational Database
+    - AWS
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+resources:
+  - name: DBCluster
+    description: An Amazon Aurora DB cluster containing one or more DB instances sharing the same cluster volume.
+    properties:
+      - DBClusterIdentifier
+      - DBClusterArn
+      - Status
+      - Engine
+      - EngineVersion
+      - Endpoint
+      - ReaderEndpoint
+      - MasterUsername
+      - DatabaseName
+      - BackupRetentionPeriod
+    related:
+      - DBInstance
+      - DBClusterSnapshot
+      - DBClusterParameterGroup
+      - DBClusterEndpoint
+      - GlobalCluster
+
+  - name: DBInstance
+    description: A compute and memory resource within an Aurora DB cluster that processes database requests.
+    properties:
+      - DBInstanceIdentifier
+      - DBInstanceClass
+      - DBInstanceStatus
+      - Engine
+      - DBClusterIdentifier
+      - Endpoint
+      - AvailabilityZone
+    related:
+      - DBCluster
+
+  - name: DBClusterSnapshot
+    description: A point-in-time backup of an Aurora DB cluster stored in Amazon S3.
+    properties:
+      - DBClusterSnapshotIdentifier
+      - DBClusterIdentifier
+      - Status
+      - Engine
+      - EngineVersion
+      - SnapshotCreateTime
+      - SnapshotType
+    related:
+      - DBCluster
+
+  - name: DBClusterParameterGroup
+    description: A set of database engine parameters that apply to all instances in an Aurora DB cluster.
+    properties:
+      - DBClusterParameterGroupName
+      - DBParameterGroupFamily
+      - Description
+      - DBClusterParameterGroupArn
+    related:
+      - DBCluster
+
+  - name: DBClusterEndpoint
+    description: A custom endpoint for an Aurora DB cluster that load-balances connections to selected instances.
+    properties:
+      - DBClusterEndpointIdentifier
+      - DBClusterIdentifier
+      - Endpoint
+      - Status
+      - EndpointType
+      - CustomEndpointType
+      - StaticMembers
+    related:
+      - DBCluster
+      - DBInstance
+
+  - name: GlobalCluster
+    description: An Amazon Aurora Global Database that spans multiple AWS Regions with fast replication.
+    properties:
+      - GlobalClusterIdentifier
+      - GlobalClusterArn
+      - Status
+      - Engine
+      - EngineVersion
+      - DatabaseName
+      - GlobalClusterMembers
+    related:
+      - DBCluster
+
+actions:
+  - name: CreateDBCluster
+    description: Create a new Aurora MySQL or PostgreSQL DB cluster.
+    resource: DBCluster
+    method: POST
+    path: /?Action=CreateDBCluster
+
+  - name: DeleteDBCluster
+    description: Delete an Aurora DB cluster and optionally create a final snapshot.
+    resource: DBCluster
+    method: POST
+    path: /?Action=DeleteDBCluster
+
+  - name: DescribeDBClusters
+    description: List Aurora DB clusters with their configuration and status.
+    resource: DBCluster
+    method: POST
+    path: /?Action=DescribeDBClusters
+
+  - name: ModifyDBCluster
+    description: Modify the configuration of an existing Aurora DB cluster.
+    resource: DBCluster
+    method: POST
+    path: /?Action=ModifyDBCluster
+
+  - name: StartDBCluster
+    description: Start a stopped Aurora DB cluster.
+    resource: DBCluster
+    method: POST
+    path: /?Action=StartDBCluster
+
+  - name: StopDBCluster
+    description: Stop an Aurora DB cluster to reduce costs.
+    resource: DBCluster
+    method: POST
+    path: /?Action=StopDBCluster
+
+  - name: RebootDBCluster
+    description: Reboot an Aurora DB cluster to apply pending changes.
+    resource: DBCluster
+    method: POST
+    path: /?Action=RebootDBCluster
+
+  - name: RestoreDBClusterFromSnapshot
+    description: Restore an Aurora DB cluster from a cluster snapshot.
+    resource: DBCluster
+    method: POST
+    path: /?Action=RestoreDBClusterFromSnapshot
+
+  - name: CreateDBInstance
+    description: Create a new DB instance within an Aurora cluster.
+    resource: DBInstance
+    method: POST
+    path: /?Action=CreateDBInstance
+
+  - name: DeleteDBInstance
+    description: Delete an Aurora DB instance.
+    resource: DBInstance
+    method: POST
+    path: /?Action=DeleteDBInstance
+
+  - name: DescribeDBInstances
+    description: List DB instances associated with Aurora clusters.
+    resource: DBInstance
+    method: POST
+    path: /?Action=DescribeDBInstances
+
+  - name: CreateDBClusterSnapshot
+    description: Create a snapshot of an Aurora DB cluster.
+    resource: DBClusterSnapshot
+    method: POST
+    path: /?Action=CreateDBClusterSnapshot
+
+  - name: DeleteDBClusterSnapshot
+    description: Delete an Aurora DB cluster snapshot.
+    resource: DBClusterSnapshot
+    method: POST
+    path: /?Action=DeleteDBClusterSnapshot
+
+  - name: DescribeDBClusterSnapshots
+    description: List Aurora DB cluster snapshots.
+    resource: DBClusterSnapshot
+    method: POST
+    path: /?Action=DescribeDBClusterSnapshots
+
+  - name: CreateDBClusterParameterGroup
+    description: Create a custom DB cluster parameter group.
+    resource: DBClusterParameterGroup
+    method: POST
+    path: /?Action=CreateDBClusterParameterGroup
+
+  - name: DescribeDBClusterParameterGroups
+    description: List DB cluster parameter groups.
+    resource: DBClusterParameterGroup
+    method: POST
+    path: /?Action=DescribeDBClusterParameterGroups
+
+  - name: CreateDBClusterEndpoint
+    description: Create a custom endpoint for an Aurora DB cluster.
+    resource: DBClusterEndpoint
+    method: POST
+    path: /?Action=CreateDBClusterEndpoint
+
+  - name: DescribeDBClusterEndpoints
+    description: List endpoints for an Aurora DB cluster.
+    resource: DBClusterEndpoint
+    method: POST
+    path: /?Action=DescribeDBClusterEndpoints
+
+  - name: CreateGlobalCluster
+    description: Create an Aurora Global Database spanning multiple AWS Regions.
+    resource: GlobalCluster
+    method: POST
+    path: /?Action=CreateGlobalCluster
+
+  - name: DeleteGlobalCluster
+    description: Delete an Aurora Global Database.
+    resource: GlobalCluster
+    method: POST
+    path: /?Action=DeleteGlobalCluster
+
+  - name: DescribeGlobalClusters
+    description: List Aurora Global Databases.
+    resource: GlobalCluster
+    method: POST
+    path: /?Action=DescribeGlobalClusters
+
+workflows:
+  - name: DeployAuroraCluster
+    description: End-to-end workflow for deploying a production Aurora DB cluster.
+    steps:
+      - action: CreateDBClusterParameterGroup
+        description: Create a custom parameter group for the cluster
+      - action: CreateDBCluster
+        description: Create the Aurora DB cluster with the parameter group
+      - action: CreateDBInstance
+        description: Add writer and reader instances to the cluster
+      - action: CreateDBClusterEndpoint
+        description: Create custom endpoints for read/write routing
+      - action: CreateDBClusterSnapshot
+        description: Take an initial backup snapshot
+
+personas:
+  - name: Database Administrator
+    description: Manages Aurora DB clusters, instances, parameter groups, and backup policies.
+    actions:
+      - CreateDBCluster
+      - ModifyDBCluster
+      - DeleteDBCluster
+      - DescribeDBClusters
+      - StartDBCluster
+      - StopDBCluster
+      - CreateDBInstance
+      - DeleteDBInstance
+      - DescribeDBInstances
+      - CreateDBClusterSnapshot
+      - DescribeDBClusterSnapshots
+      - CreateDBClusterParameterGroup
+
+  - name: Cloud Architect
+    description: Designs high-availability and multi-region Aurora database architectures.
+    actions:
+      - CreateGlobalCluster
+      - DeleteGlobalCluster
+      - DescribeGlobalClusters
+      - DescribeDBClusters
+      - RestoreDBClusterFromSnapshot
+      - CreateDBClusterEndpoint
+      - DescribeDBClusterEndpoints

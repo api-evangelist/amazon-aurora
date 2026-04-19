@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-describe-db-cluster-parameter-groups-output-schema.json",
+  "title": "DescribeDBClusterParameterGroupsOutput",
+  "description": "JSON Schema for the Amazon Aurora DescribeDBClusterParameterGroupsOutput object.",
+  "type": "object",
+  "properties": {}
+}

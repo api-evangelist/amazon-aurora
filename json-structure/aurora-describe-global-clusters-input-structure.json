@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-describe-global-clusters-input-structure.json",
+  "title": "DescribeGlobalClustersInput",
+  "description": "JSON Structure for the Amazon Aurora DescribeGlobalClustersInput object.",
+  "type": "object",
+  "properties": {}
+}

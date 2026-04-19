@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-start-db-cluster-output-structure.json",
+  "title": "StartDBClusterOutput",
+  "description": "JSON Structure for the Amazon Aurora StartDBClusterOutput object.",
+  "type": "object",
+  "properties": {}
+}

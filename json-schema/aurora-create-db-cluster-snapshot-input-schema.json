@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-create-db-cluster-snapshot-input-schema.json",
+  "title": "CreateDBClusterSnapshotInput",
+  "description": "JSON Schema for the Amazon Aurora CreateDBClusterSnapshotInput object.",
+  "type": "object",
+  "properties": {}
+}

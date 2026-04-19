@@ -1,0 +1,5 @@
+{
+  "$schema": "https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-describe-db-clusters-output-schema.json",
+  "title": "DescribeDBClustersOutput Example",
+  "description": "An example of the Amazon Aurora DescribeDBClustersOutput object."
+}

@@ -1,0 +1,5 @@
+{
+  "$schema": "https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-delete-db-instance-output-schema.json",
+  "title": "DeleteDBInstanceOutput Example",
+  "description": "An example of the Amazon Aurora DeleteDBInstanceOutput object."
+}

@@ -1,0 +1,5 @@
+{
+  "$schema": "https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-create-db-cluster-parameter-group-input-schema.json",
+  "title": "CreateDBClusterParameterGroupInput Example",
+  "description": "An example of the Amazon Aurora CreateDBClusterParameterGroupInput object."
+}

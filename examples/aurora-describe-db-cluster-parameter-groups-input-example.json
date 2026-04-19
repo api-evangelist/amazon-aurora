@@ -1,0 +1,5 @@
+{
+  "$schema": "https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-describe-db-cluster-parameter-groups-input-schema.json",
+  "title": "DescribeDBClusterParameterGroupsInput Example",
+  "description": "An example of the Amazon Aurora DescribeDBClusterParameterGroupsInput object."
+}

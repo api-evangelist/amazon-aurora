@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-describe-db-cluster-snapshots-input-structure.json",
+  "title": "DescribeDBClusterSnapshotsInput",
+  "description": "JSON Structure for the Amazon Aurora DescribeDBClusterSnapshotsInput object.",
+  "type": "object",
+  "properties": {}
+}

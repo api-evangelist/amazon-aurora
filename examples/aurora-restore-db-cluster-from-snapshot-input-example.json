@@ -1,0 +1,5 @@
+{
+  "$schema": "https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-restore-db-cluster-from-snapshot-input-schema.json",
+  "title": "RestoreDBClusterFromSnapshotInput Example",
+  "description": "An example of the Amazon Aurora RestoreDBClusterFromSnapshotInput object."
+}

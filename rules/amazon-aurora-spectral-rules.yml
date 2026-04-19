@@ -1,0 +1,131 @@
+rules:
+  aurora-operation-id-camel-case:
+    description: All operationIds must be camelCase
+    message: "{{property}} must be camelCase"
+    severity: warn
+    given: "$.paths[*][*].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  aurora-summary-prefix:
+    description: All operation summaries must start with Amazon Aurora
+    message: Summary must start with Amazon Aurora
+    severity: warn
+    given: "$.paths[*][*].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^Amazon Aurora"
+
+  aurora-has-tags:
+    description: All operations must have tags
+    message: Operation must have at least one tag
+    severity: warn
+    given: "$.paths[*][*]"
+    then:
+      field: tags
+      function: truthy
+
+  aurora-response-200:
+    description: All operations must have a 200 response
+    message: Operation must define a 200 response
+    severity: error
+    given: "$.paths[*][*].responses"
+    then:
+      field: "200"
+      function: truthy
+
+  aurora-create-cluster-required:
+    description: CreateDBClusterInput must require DBClusterIdentifier and Engine
+    message: CreateDBClusterInput must have required fields
+    severity: error
+    given: "$.components.schemas.CreateDBClusterInput"
+    then:
+      field: required
+      function: truthy
+
+  aurora-engine-enum:
+    description: Engine must use valid enum values for Aurora
+    message: Engine must be aurora-mysql or aurora-postgresql
+    severity: error
+    given: "$.components.schemas.CreateDBClusterInput.properties.Engine"
+    then:
+      field: enum
+      function: truthy
+
+  aurora-endpoint-type-enum:
+    description: CreateDBClusterEndpoint EndpointType must use valid enum values
+    message: EndpointType must be READER or ANY
+    severity: error
+    given: "$.components.schemas.CreateDBClusterEndpointInput.properties.EndpointType"
+    then:
+      field: enum
+      function: truthy
+
+  aurora-security-sigv4:
+    description: API must use sigv4 security scheme
+    message: Security must include sigv4
+    severity: error
+    given: "$.security[*]"
+    then:
+      field: sigv4
+      function: defined
+
+  aurora-server-url-fixed:
+    description: Server URL must be fixed without variables
+    message: Server URL must not use variables
+    severity: warn
+    given: "$.servers[*]"
+    then:
+      field: variables
+      function: falsy
+
+  aurora-example-microcks-default:
+    description: All examples must have x-microcks-default set to true
+    message: Example must have x-microcks-default true
+    severity: warn
+    given: "$.paths[*][*].responses[*].content[*].examples.default"
+    then:
+      field: x-microcks-default
+      function: truthy
+
+  aurora-db-cluster-identifier-string:
+    description: DBCluster DBClusterIdentifier must be string type
+    message: DBClusterIdentifier must be a string
+    severity: error
+    given: "$.components.schemas.DBCluster.properties.DBClusterIdentifier"
+    then:
+      field: type
+      function: truthy
+
+  aurora-filter-values-array:
+    description: Filter Values must be an array
+    message: Filter Values must be an array
+    severity: error
+    given: "$.components.schemas.Filter.properties.Values"
+    then:
+      field: type
+      function: enumeration
+      functionOptions:
+        values:
+          - array
+
+  aurora-global-cluster-identifier-string:
+    description: GlobalCluster GlobalClusterIdentifier must be string type
+    message: GlobalClusterIdentifier must be a string
+    severity: error
+    given: "$.components.schemas.GlobalCluster.properties.GlobalClusterIdentifier"
+    then:
+      field: type
+      function: truthy
+
+  aurora-snapshot-status-defined:
+    description: DBClusterSnapshot Status must be defined
+    message: DBClusterSnapshot must have a Status property
+    severity: warn
+    given: "$.components.schemas.DBClusterSnapshot.properties"
+    then:
+      field: Status
+      function: truthy

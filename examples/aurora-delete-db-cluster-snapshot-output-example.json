@@ -1,0 +1,5 @@
+{
+  "$schema": "https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-delete-db-cluster-snapshot-output-schema.json",
+  "title": "DeleteDBClusterSnapshotOutput Example",
+  "description": "An example of the Amazon Aurora DeleteDBClusterSnapshotOutput object."
+}

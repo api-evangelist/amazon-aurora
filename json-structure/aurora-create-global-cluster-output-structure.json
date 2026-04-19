@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-create-global-cluster-output-structure.json",
+  "title": "CreateGlobalClusterOutput",
+  "description": "JSON Structure for the Amazon Aurora CreateGlobalClusterOutput object.",
+  "type": "object",
+  "properties": {}
+}

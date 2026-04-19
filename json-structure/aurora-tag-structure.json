@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-tag-structure.json",
+  "title": "Tag",
+  "description": "JSON Structure for the Amazon Aurora Tag object.",
+  "type": "object",
+  "properties": {}
+}

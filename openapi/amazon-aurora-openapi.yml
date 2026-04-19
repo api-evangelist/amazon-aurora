@@ -2,10 +2,7 @@ openapi: 3.1.0
 info:
   title: Amazon Aurora API
   description: >-
-    The Amazon Aurora API is accessed via the Amazon RDS API and provides
-    programmatic management of Aurora DB clusters, instances, cluster
-    snapshots, parameter groups, and endpoints for both MySQL and PostgreSQL
-    compatible editions.
+    Amazon Aurora is a MySQL and PostgreSQL-compatible relational database built for the cloud that combines the performance and availability of traditional enterprise databases with the simplicity and cost-effectiveness of open source databases. The Aurora API is accessed through the Amazon RDS API.
   version: '2014-10-31'
   contact:
     name: AWS Support
@@ -13,61 +10,836 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  x-logo:
-    url: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
 servers:
-  - url: https://rds.{region}.amazonaws.com
-    description: Amazon RDS regional endpoint (Aurora)
-    variables:
-      region:
-        default: us-east-1
-        description: AWS region
-        enum:
-          - us-east-1
-          - us-east-2
-          - us-west-1
-          - us-west-2
-          - eu-west-1
-          - eu-west-2
-          - eu-west-3
-          - eu-central-1
-          - ap-northeast-1
-          - ap-northeast-2
-          - ap-southeast-1
-          - ap-southeast-2
-          - ap-south-1
-          - sa-east-1
-          - ca-central-1
+  - url: https://rds.us-east-1.amazonaws.com
+    description: Amazon Aurora API endpoint (via Amazon RDS)
 security:
   - sigv4: []
 tags:
   - name: DB Clusters
     description: Operations for managing Aurora DB clusters
+  - name: DB Instances
+    description: Operations for managing Aurora DB instances within clusters
+  - name: DB Cluster Snapshots
+    description: Operations for managing Aurora cluster snapshots
+  - name: DB Cluster Parameter Groups
+    description: Operations for managing Aurora cluster parameter groups
+  - name: DB Cluster Endpoints
+    description: Operations for managing Aurora cluster endpoints
+  - name: Global Clusters
+    description: Operations for managing Aurora Global Databases
 paths:
-  /:
+  /?Action=CreateDBCluster:
     post:
-      operationId: CreateDBCluster
-      summary: Amazon Aurora Create an Aurora DB cluster
-      description: Creates a new Amazon Aurora DB cluster.
+      operationId: createDBCluster
+      summary: Amazon Aurora Create DB Cluster
+      description: Creates a new Amazon Aurora DB cluster. You can use the ReplicationSourceIdentifier parameter to create an Amazon Aurora DB cluster as a read replica of another DB cluster.
       tags:
         - DB Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
       requestBody:
         required: true
         content:
-          application/x-www-form-urlencoded:
+          application/json:
             schema:
               $ref: '#/components/schemas/CreateDBClusterInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: "my-aurora-cluster"
+                  Engine: "aurora-postgresql"
+                  EngineVersion: "15.3"
+                  MasterUsername: "admin"
+                  MasterUserPassword: "MyPassword123!"
+                  DatabaseName: "mydb"
+                  VpcSecurityGroupIds:
+                    - "sg-12345678"
+                  DBSubnetGroupName: "my-subnet-group"
+                  BackupRetentionPeriod: 7
+                  Tags:
+                    - Key: "Environment"
+                      Value: "Production"
       responses:
         '200':
           description: DB cluster created successfully
           content:
-            application/xml:
+            application/json:
               schema:
                 $ref: '#/components/schemas/CreateDBClusterOutput'
-        '400':
-          description: Invalid request
-        '500':
-          description: Internal server error
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    CreateDBClusterResult:
+                      DBCluster:
+                        DBClusterIdentifier: "my-aurora-cluster"
+                        Status: "creating"
+                        Engine: "aurora-postgresql"
+                        EngineVersion: "15.3"
+                        DBClusterArn: "arn:aws:rds:us-east-1:123456789012:cluster:my-aurora-cluster"
+  /?Action=DeleteDBCluster:
+    post:
+      operationId: deleteDBCluster
+      summary: Amazon Aurora Delete DB Cluster
+      description: Deletes a previously provisioned DB cluster. When you delete a DB cluster, all automated backups for that DB cluster are deleted and can't be recovered.
+      tags:
+        - DB Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteDBClusterInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: "my-aurora-cluster"
+                  SkipFinalSnapshot: true
+      responses:
+        '200':
+          description: DB cluster deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteDBClusterOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DeleteDBClusterResult:
+                      DBCluster:
+                        DBClusterIdentifier: "my-aurora-cluster"
+                        Status: "deleting"
+  /?Action=DescribeDBClusters:
+    post:
+      operationId: describeDBClusters
+      summary: Amazon Aurora Describe DB Clusters
+      description: Returns information about provisioned Amazon Aurora DB clusters.
+      tags:
+        - DB Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeDBClustersInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  MaxRecords: 20
+      responses:
+        '200':
+          description: DB clusters described successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeDBClustersOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DescribeDBClustersResult:
+                      DBClusters:
+                        - DBClusterIdentifier: "my-aurora-cluster"
+                          Status: "available"
+                          Engine: "aurora-postgresql"
+                          EngineVersion: "15.3"
+                          Endpoint: "my-aurora-cluster.cluster-xyz.us-east-1.rds.amazonaws.com"
+                      Marker: ""
+  /?Action=ModifyDBCluster:
+    post:
+      operationId: modifyDBCluster
+      summary: Amazon Aurora Modify DB Cluster
+      description: Modifies settings for a DB cluster. You can change one or more database configuration parameters by specifying these parameters and the new values in the request.
+      tags:
+        - DB Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModifyDBClusterInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: "my-aurora-cluster"
+                  BackupRetentionPeriod: 14
+                  ApplyImmediately: true
+      responses:
+        '200':
+          description: DB cluster modified successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModifyDBClusterOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    ModifyDBClusterResult:
+                      DBCluster:
+                        DBClusterIdentifier: "my-aurora-cluster"
+                        Status: "modifying"
+  /?Action=StartDBCluster:
+    post:
+      operationId: startDBCluster
+      summary: Amazon Aurora Start DB Cluster
+      description: Starts an Amazon Aurora DB cluster that was stopped using the StopDBCluster action.
+      tags:
+        - DB Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartDBClusterInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: "my-aurora-cluster"
+      responses:
+        '200':
+          description: DB cluster started successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartDBClusterOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    StartDBClusterResult:
+                      DBCluster:
+                        DBClusterIdentifier: "my-aurora-cluster"
+                        Status: "starting"
+  /?Action=StopDBCluster:
+    post:
+      operationId: stopDBCluster
+      summary: Amazon Aurora Stop DB Cluster
+      description: Stops an Amazon Aurora DB cluster. When you stop a DB cluster, Amazon RDS retains the DB cluster's metadata, including its endpoints and DB parameter groups.
+      tags:
+        - DB Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StopDBClusterInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: "my-aurora-cluster"
+      responses:
+        '200':
+          description: DB cluster stopped successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StopDBClusterOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    StopDBClusterResult:
+                      DBCluster:
+                        DBClusterIdentifier: "my-aurora-cluster"
+                        Status: "stopping"
+  /?Action=RebootDBCluster:
+    post:
+      operationId: rebootDBCluster
+      summary: Amazon Aurora Reboot DB Cluster
+      description: Reboots an Amazon Aurora DB cluster.
+      tags:
+        - DB Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RebootDBClusterInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: "my-aurora-cluster"
+      responses:
+        '200':
+          description: DB cluster rebooted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RebootDBClusterOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    RebootDBClusterResult:
+                      DBCluster:
+                        DBClusterIdentifier: "my-aurora-cluster"
+                        Status: "rebooting"
+  /?Action=RestoreDBClusterFromSnapshot:
+    post:
+      operationId: restoreDBClusterFromSnapshot
+      summary: Amazon Aurora Restore DB Cluster From Snapshot
+      description: Creates a new DB cluster from a DB snapshot or DB cluster snapshot.
+      tags:
+        - DB Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestoreDBClusterFromSnapshotInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: "my-restored-cluster"
+                  SnapshotIdentifier: "my-cluster-snapshot"
+                  Engine: "aurora-postgresql"
+      responses:
+        '200':
+          description: DB cluster restore started successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestoreDBClusterFromSnapshotOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    RestoreDBClusterFromSnapshotResult:
+                      DBCluster:
+                        DBClusterIdentifier: "my-restored-cluster"
+                        Status: "creating"
+  /?Action=CreateDBInstance:
+    post:
+      operationId: createDBInstance
+      summary: Amazon Aurora Create DB Instance
+      description: Creates a new DB instance. DB instances are the compute and memory capacity of an Aurora DB cluster.
+      tags:
+        - DB Instances
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDBInstanceInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBInstanceIdentifier: "my-aurora-instance"
+                  DBInstanceClass: "db.r6g.large"
+                  Engine: "aurora-postgresql"
+                  DBClusterIdentifier: "my-aurora-cluster"
+      responses:
+        '200':
+          description: DB instance created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDBInstanceOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    CreateDBInstanceResult:
+                      DBInstance:
+                        DBInstanceIdentifier: "my-aurora-instance"
+                        DBInstanceStatus: "creating"
+                        DBInstanceClass: "db.r6g.large"
+  /?Action=DeleteDBInstance:
+    post:
+      operationId: deleteDBInstance
+      summary: Amazon Aurora Delete DB Instance
+      description: Deletes a previously provisioned DB instance.
+      tags:
+        - DB Instances
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteDBInstanceInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBInstanceIdentifier: "my-aurora-instance"
+      responses:
+        '200':
+          description: DB instance deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteDBInstanceOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DeleteDBInstanceResult:
+                      DBInstance:
+                        DBInstanceIdentifier: "my-aurora-instance"
+                        DBInstanceStatus: "deleting"
+  /?Action=DescribeDBInstances:
+    post:
+      operationId: describeDBInstances
+      summary: Amazon Aurora Describe DB Instances
+      description: Returns information about provisioned RDS instances associated with Aurora clusters.
+      tags:
+        - DB Instances
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeDBInstancesInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  MaxRecords: 20
+      responses:
+        '200':
+          description: DB instances described successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeDBInstancesOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DescribeDBInstancesResult:
+                      DBInstances:
+                        - DBInstanceIdentifier: "my-aurora-instance"
+                          DBInstanceStatus: "available"
+                          DBInstanceClass: "db.r6g.large"
+                          Engine: "aurora-postgresql"
+                      Marker: ""
+  /?Action=CreateDBClusterSnapshot:
+    post:
+      operationId: createDBClusterSnapshot
+      summary: Amazon Aurora Create DB Cluster Snapshot
+      description: Creates a snapshot of a DB cluster.
+      tags:
+        - DB Cluster Snapshots
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDBClusterSnapshotInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterSnapshotIdentifier: "my-cluster-snapshot"
+                  DBClusterIdentifier: "my-aurora-cluster"
+                  Tags:
+                    - Key: "Purpose"
+                      Value: "Backup"
+      responses:
+        '200':
+          description: DB cluster snapshot created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDBClusterSnapshotOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    CreateDBClusterSnapshotResult:
+                      DBClusterSnapshot:
+                        DBClusterSnapshotIdentifier: "my-cluster-snapshot"
+                        Status: "creating"
+                        DBClusterIdentifier: "my-aurora-cluster"
+  /?Action=DeleteDBClusterSnapshot:
+    post:
+      operationId: deleteDBClusterSnapshot
+      summary: Amazon Aurora Delete DB Cluster Snapshot
+      description: Deletes a DB cluster snapshot. If the snapshot is being copied, the copy operation is terminated.
+      tags:
+        - DB Cluster Snapshots
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteDBClusterSnapshotInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterSnapshotIdentifier: "my-cluster-snapshot"
+      responses:
+        '200':
+          description: DB cluster snapshot deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteDBClusterSnapshotOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DeleteDBClusterSnapshotResult:
+                      DBClusterSnapshot:
+                        DBClusterSnapshotIdentifier: "my-cluster-snapshot"
+                        Status: "deleted"
+  /?Action=DescribeDBClusterSnapshots:
+    post:
+      operationId: describeDBClusterSnapshots
+      summary: Amazon Aurora Describe DB Cluster Snapshots
+      description: Returns information about DB cluster snapshots.
+      tags:
+        - DB Cluster Snapshots
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeDBClusterSnapshotsInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: "my-aurora-cluster"
+                  MaxRecords: 20
+      responses:
+        '200':
+          description: DB cluster snapshots described successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeDBClusterSnapshotsOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DescribeDBClusterSnapshotsResult:
+                      DBClusterSnapshots:
+                        - DBClusterSnapshotIdentifier: "my-cluster-snapshot"
+                          Status: "available"
+                          DBClusterIdentifier: "my-aurora-cluster"
+                      Marker: ""
+  /?Action=CreateDBClusterParameterGroup:
+    post:
+      operationId: createDBClusterParameterGroup
+      summary: Amazon Aurora Create DB Cluster Parameter Group
+      description: Creates a new DB cluster parameter group. Parameters in a DB cluster parameter group apply to all of the instances in a DB cluster.
+      tags:
+        - DB Cluster Parameter Groups
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDBClusterParameterGroupInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterParameterGroupName: "my-aurora-pg-params"
+                  DBParameterGroupFamily: "aurora-postgresql15"
+                  Description: "Custom parameter group for Aurora PostgreSQL"
+      responses:
+        '200':
+          description: DB cluster parameter group created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDBClusterParameterGroupOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    CreateDBClusterParameterGroupResult:
+                      DBClusterParameterGroup:
+                        DBClusterParameterGroupName: "my-aurora-pg-params"
+                        DBParameterGroupFamily: "aurora-postgresql15"
+                        Description: "Custom parameter group for Aurora PostgreSQL"
+  /?Action=DescribeDBClusterParameterGroups:
+    post:
+      operationId: describeDBClusterParameterGroups
+      summary: Amazon Aurora Describe DB Cluster Parameter Groups
+      description: Returns a list of DBClusterParameterGroup descriptions.
+      tags:
+        - DB Cluster Parameter Groups
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeDBClusterParameterGroupsInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  MaxRecords: 20
+      responses:
+        '200':
+          description: DB cluster parameter groups described successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeDBClusterParameterGroupsOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DescribeDBClusterParameterGroupsResult:
+                      DBClusterParameterGroups:
+                        - DBClusterParameterGroupName: "my-aurora-pg-params"
+                          DBParameterGroupFamily: "aurora-postgresql15"
+                      Marker: ""
+  /?Action=CreateDBClusterEndpoint:
+    post:
+      operationId: createDBClusterEndpoint
+      summary: Amazon Aurora Create DB Cluster Endpoint
+      description: Creates a new custom endpoint and associates it with an Amazon Aurora DB cluster.
+      tags:
+        - DB Cluster Endpoints
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDBClusterEndpointInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: "my-aurora-cluster"
+                  DBClusterEndpointIdentifier: "my-custom-endpoint"
+                  EndpointType: "READER"
+                  StaticMembers:
+                    - "my-aurora-instance-1"
+      responses:
+        '200':
+          description: DB cluster endpoint created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDBClusterEndpointOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DBClusterEndpointIdentifier: "my-custom-endpoint"
+                    DBClusterIdentifier: "my-aurora-cluster"
+                    EndpointType: "CUSTOM"
+                    CustomEndpointType: "READER"
+                    Status: "creating"
+  /?Action=DescribeDBClusterEndpoints:
+    post:
+      operationId: describeDBClusterEndpoints
+      summary: Amazon Aurora Describe DB Cluster Endpoints
+      description: Returns information about endpoints for an Amazon Aurora DB cluster.
+      tags:
+        - DB Cluster Endpoints
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeDBClusterEndpointsInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: "my-aurora-cluster"
+                  MaxRecords: 20
+      responses:
+        '200':
+          description: DB cluster endpoints described successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeDBClusterEndpointsOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DescribeDBClusterEndpointsResult:
+                      DBClusterEndpoints:
+                        - DBClusterEndpointIdentifier: "my-custom-endpoint"
+                          EndpointType: "CUSTOM"
+                          Endpoint: "my-custom-endpoint.cluster-xyz.us-east-1.rds.amazonaws.com"
+                          Status: "available"
+                      Marker: ""
+  /?Action=CreateGlobalCluster:
+    post:
+      operationId: createGlobalCluster
+      summary: Amazon Aurora Create Global Cluster
+      description: Creates an Aurora global database spread across multiple Amazon Web Services Regions.
+      tags:
+        - Global Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGlobalClusterInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  GlobalClusterIdentifier: "my-global-cluster"
+                  SourceDBClusterIdentifier: "arn:aws:rds:us-east-1:123456789012:cluster:my-aurora-cluster"
+      responses:
+        '200':
+          description: Global cluster created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateGlobalClusterOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    CreateGlobalClusterResult:
+                      GlobalCluster:
+                        GlobalClusterIdentifier: "my-global-cluster"
+                        Status: "creating"
+  /?Action=DeleteGlobalCluster:
+    post:
+      operationId: deleteGlobalCluster
+      summary: Amazon Aurora Delete Global Cluster
+      description: Deletes a global database cluster. The primary and secondary clusters must already be detached or deleted before attempting to delete a global cluster.
+      tags:
+        - Global Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteGlobalClusterInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  GlobalClusterIdentifier: "my-global-cluster"
+      responses:
+        '200':
+          description: Global cluster deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteGlobalClusterOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DeleteGlobalClusterResult:
+                      GlobalCluster:
+                        GlobalClusterIdentifier: "my-global-cluster"
+                        Status: "deleting"
+  /?Action=DescribeGlobalClusters:
+    post:
+      operationId: describeGlobalClusters
+      summary: Amazon Aurora Describe Global Clusters
+      description: Returns information about Aurora global database clusters.
+      tags:
+        - Global Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeGlobalClustersInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  MaxRecords: 20
+      responses:
+        '200':
+          description: Global clusters described successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeGlobalClustersOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DescribeGlobalClustersResult:
+                      GlobalClusters:
+                        - GlobalClusterIdentifier: "my-global-cluster"
+                          Status: "available"
+                          Engine: "aurora-postgresql"
+                      Marker: ""
 components:
   securitySchemes:
     sigv4:
@@ -76,6 +848,199 @@ components:
       in: header
       description: AWS Signature Version 4
   schemas:
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+    DBCluster:
+      type: object
+      properties:
+        DBClusterIdentifier:
+          type: string
+        DBClusterArn:
+          type: string
+        Status:
+          type: string
+        Engine:
+          type: string
+        EngineVersion:
+          type: string
+        Endpoint:
+          type: string
+        ReaderEndpoint:
+          type: string
+        MultiAZ:
+          type: boolean
+        DatabaseName:
+          type: string
+        BackupRetentionPeriod:
+          type: integer
+        DBClusterParameterGroup:
+          type: string
+        DBSubnetGroup:
+          type: string
+        VpcSecurityGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/VpcSecurityGroupMembership'
+        ClusterCreateTime:
+          type: string
+          format: date-time
+        MasterUsername:
+          type: string
+        StorageEncrypted:
+          type: boolean
+        KmsKeyId:
+          type: string
+        DBClusterMembers:
+          type: array
+          items:
+            $ref: '#/components/schemas/DBClusterMember'
+    DBClusterMember:
+      type: object
+      properties:
+        DBInstanceIdentifier:
+          type: string
+        IsClusterWriter:
+          type: boolean
+        DBClusterParameterGroupStatus:
+          type: string
+        PromotionTier:
+          type: integer
+    VpcSecurityGroupMembership:
+      type: object
+      properties:
+        VpcSecurityGroupId:
+          type: string
+        Status:
+          type: string
+    DBInstance:
+      type: object
+      properties:
+        DBInstanceIdentifier:
+          type: string
+        DBInstanceClass:
+          type: string
+        Engine:
+          type: string
+        DBInstanceStatus:
+          type: string
+        DBClusterIdentifier:
+          type: string
+        Endpoint:
+          $ref: '#/components/schemas/Endpoint'
+        AvailabilityZone:
+          type: string
+        PubliclyAccessible:
+          type: boolean
+        StorageEncrypted:
+          type: boolean
+    Endpoint:
+      type: object
+      properties:
+        Address:
+          type: string
+        Port:
+          type: integer
+        HostedZoneId:
+          type: string
+    DBClusterSnapshot:
+      type: object
+      properties:
+        DBClusterSnapshotIdentifier:
+          type: string
+        DBClusterIdentifier:
+          type: string
+        Status:
+          type: string
+        Engine:
+          type: string
+        EngineVersion:
+          type: string
+        SnapshotCreateTime:
+          type: string
+          format: date-time
+        SnapshotType:
+          type: string
+        AllocatedStorage:
+          type: integer
+        MasterUsername:
+          type: string
+        DBClusterSnapshotArn:
+          type: string
+    DBClusterParameterGroup:
+      type: object
+      properties:
+        DBClusterParameterGroupName:
+          type: string
+        DBParameterGroupFamily:
+          type: string
+        Description:
+          type: string
+        DBClusterParameterGroupArn:
+          type: string
+    DBClusterEndpoint:
+      type: object
+      properties:
+        DBClusterEndpointIdentifier:
+          type: string
+        DBClusterIdentifier:
+          type: string
+        DBClusterEndpointArn:
+          type: string
+        Endpoint:
+          type: string
+        Status:
+          type: string
+        EndpointType:
+          type: string
+        CustomEndpointType:
+          type: string
+        StaticMembers:
+          type: array
+          items:
+            type: string
+        ExcludedMembers:
+          type: array
+          items:
+            type: string
+    GlobalCluster:
+      type: object
+      properties:
+        GlobalClusterIdentifier:
+          type: string
+        GlobalClusterArn:
+          type: string
+        Status:
+          type: string
+        Engine:
+          type: string
+        EngineVersion:
+          type: string
+        DatabaseName:
+          type: string
+        StorageEncrypted:
+          type: boolean
+        DeletionProtection:
+          type: boolean
+        GlobalClusterMembers:
+          type: array
+          items:
+            $ref: '#/components/schemas/GlobalClusterMember'
+    GlobalClusterMember:
+      type: object
+      properties:
+        DBClusterArn:
+          type: string
+        Readers:
+          type: array
+          items:
+            type: string
+        IsWriter:
+          type: boolean
     CreateDBClusterInput:
       type: object
       required:
@@ -84,10 +1049,8 @@ components:
       properties:
         DBClusterIdentifier:
           type: string
-          description: The DB cluster identifier
         Engine:
           type: string
-          description: The database engine (aurora-mysql or aurora-postgresql)
           enum:
             - aurora-mysql
             - aurora-postgresql
@@ -99,15 +1062,535 @@ components:
           type: string
         DatabaseName:
           type: string
+        DBSubnetGroupName:
+          type: string
+        VpcSecurityGroupIds:
+          type: array
+          items:
+            type: string
+        BackupRetentionPeriod:
+          type: integer
+        DBClusterParameterGroupName:
+          type: string
+        StorageEncrypted:
+          type: boolean
+        KmsKeyId:
+          type: string
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        DeletionProtection:
+          type: boolean
+        EnableCloudwatchLogsExports:
+          type: array
+          items:
+            type: string
     CreateDBClusterOutput:
       type: object
       properties:
-        DBCluster:
+        CreateDBClusterResult:
           type: object
           properties:
-            DBClusterIdentifier:
+            DBCluster:
+              $ref: '#/components/schemas/DBCluster'
+    DeleteDBClusterInput:
+      type: object
+      required:
+        - DBClusterIdentifier
+      properties:
+        DBClusterIdentifier:
+          type: string
+        SkipFinalSnapshot:
+          type: boolean
+        FinalDBSnapshotIdentifier:
+          type: string
+    DeleteDBClusterOutput:
+      type: object
+      properties:
+        DeleteDBClusterResult:
+          type: object
+          properties:
+            DBCluster:
+              $ref: '#/components/schemas/DBCluster'
+    DescribeDBClustersInput:
+      type: object
+      properties:
+        DBClusterIdentifier:
+          type: string
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
+          type: string
+    DescribeDBClustersOutput:
+      type: object
+      properties:
+        DescribeDBClustersResult:
+          type: object
+          properties:
+            DBClusters:
+              type: array
+              items:
+                $ref: '#/components/schemas/DBCluster'
+            Marker:
               type: string
-            Status:
+    ModifyDBClusterInput:
+      type: object
+      required:
+        - DBClusterIdentifier
+      properties:
+        DBClusterIdentifier:
+          type: string
+        NewDBClusterIdentifier:
+          type: string
+        BackupRetentionPeriod:
+          type: integer
+        DBClusterParameterGroupName:
+          type: string
+        VpcSecurityGroupIds:
+          type: array
+          items:
+            type: string
+        ApplyImmediately:
+          type: boolean
+        MasterUserPassword:
+          type: string
+        DeletionProtection:
+          type: boolean
+    ModifyDBClusterOutput:
+      type: object
+      properties:
+        ModifyDBClusterResult:
+          type: object
+          properties:
+            DBCluster:
+              $ref: '#/components/schemas/DBCluster'
+    StartDBClusterInput:
+      type: object
+      required:
+        - DBClusterIdentifier
+      properties:
+        DBClusterIdentifier:
+          type: string
+    StartDBClusterOutput:
+      type: object
+      properties:
+        StartDBClusterResult:
+          type: object
+          properties:
+            DBCluster:
+              $ref: '#/components/schemas/DBCluster'
+    StopDBClusterInput:
+      type: object
+      required:
+        - DBClusterIdentifier
+      properties:
+        DBClusterIdentifier:
+          type: string
+    StopDBClusterOutput:
+      type: object
+      properties:
+        StopDBClusterResult:
+          type: object
+          properties:
+            DBCluster:
+              $ref: '#/components/schemas/DBCluster'
+    RebootDBClusterInput:
+      type: object
+      required:
+        - DBClusterIdentifier
+      properties:
+        DBClusterIdentifier:
+          type: string
+    RebootDBClusterOutput:
+      type: object
+      properties:
+        RebootDBClusterResult:
+          type: object
+          properties:
+            DBCluster:
+              $ref: '#/components/schemas/DBCluster'
+    RestoreDBClusterFromSnapshotInput:
+      type: object
+      required:
+        - DBClusterIdentifier
+        - SnapshotIdentifier
+        - Engine
+      properties:
+        DBClusterIdentifier:
+          type: string
+        SnapshotIdentifier:
+          type: string
+        Engine:
+          type: string
+        EngineVersion:
+          type: string
+        DBSubnetGroupName:
+          type: string
+        VpcSecurityGroupIds:
+          type: array
+          items:
+            type: string
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    RestoreDBClusterFromSnapshotOutput:
+      type: object
+      properties:
+        RestoreDBClusterFromSnapshotResult:
+          type: object
+          properties:
+            DBCluster:
+              $ref: '#/components/schemas/DBCluster'
+    CreateDBInstanceInput:
+      type: object
+      required:
+        - DBInstanceIdentifier
+        - DBInstanceClass
+        - Engine
+        - DBClusterIdentifier
+      properties:
+        DBInstanceIdentifier:
+          type: string
+        DBInstanceClass:
+          type: string
+        Engine:
+          type: string
+          enum:
+            - aurora-mysql
+            - aurora-postgresql
+        DBClusterIdentifier:
+          type: string
+        AvailabilityZone:
+          type: string
+        PubliclyAccessible:
+          type: boolean
+        AutoMinorVersionUpgrade:
+          type: boolean
+        PromotionTier:
+          type: integer
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    CreateDBInstanceOutput:
+      type: object
+      properties:
+        CreateDBInstanceResult:
+          type: object
+          properties:
+            DBInstance:
+              $ref: '#/components/schemas/DBInstance'
+    DeleteDBInstanceInput:
+      type: object
+      required:
+        - DBInstanceIdentifier
+      properties:
+        DBInstanceIdentifier:
+          type: string
+        SkipFinalSnapshot:
+          type: boolean
+        FinalDBSnapshotIdentifier:
+          type: string
+    DeleteDBInstanceOutput:
+      type: object
+      properties:
+        DeleteDBInstanceResult:
+          type: object
+          properties:
+            DBInstance:
+              $ref: '#/components/schemas/DBInstance'
+    DescribeDBInstancesInput:
+      type: object
+      properties:
+        DBInstanceIdentifier:
+          type: string
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
+          type: string
+    DescribeDBInstancesOutput:
+      type: object
+      properties:
+        DescribeDBInstancesResult:
+          type: object
+          properties:
+            DBInstances:
+              type: array
+              items:
+                $ref: '#/components/schemas/DBInstance'
+            Marker:
               type: string
-            Engine:
+    CreateDBClusterSnapshotInput:
+      type: object
+      required:
+        - DBClusterSnapshotIdentifier
+        - DBClusterIdentifier
+      properties:
+        DBClusterSnapshotIdentifier:
+          type: string
+        DBClusterIdentifier:
+          type: string
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    CreateDBClusterSnapshotOutput:
+      type: object
+      properties:
+        CreateDBClusterSnapshotResult:
+          type: object
+          properties:
+            DBClusterSnapshot:
+              $ref: '#/components/schemas/DBClusterSnapshot'
+    DeleteDBClusterSnapshotInput:
+      type: object
+      required:
+        - DBClusterSnapshotIdentifier
+      properties:
+        DBClusterSnapshotIdentifier:
+          type: string
+    DeleteDBClusterSnapshotOutput:
+      type: object
+      properties:
+        DeleteDBClusterSnapshotResult:
+          type: object
+          properties:
+            DBClusterSnapshot:
+              $ref: '#/components/schemas/DBClusterSnapshot'
+    DescribeDBClusterSnapshotsInput:
+      type: object
+      properties:
+        DBClusterIdentifier:
+          type: string
+        DBClusterSnapshotIdentifier:
+          type: string
+        SnapshotType:
+          type: string
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
+          type: string
+    DescribeDBClusterSnapshotsOutput:
+      type: object
+      properties:
+        DescribeDBClusterSnapshotsResult:
+          type: object
+          properties:
+            DBClusterSnapshots:
+              type: array
+              items:
+                $ref: '#/components/schemas/DBClusterSnapshot'
+            Marker:
               type: string
+    CreateDBClusterParameterGroupInput:
+      type: object
+      required:
+        - DBClusterParameterGroupName
+        - DBParameterGroupFamily
+        - Description
+      properties:
+        DBClusterParameterGroupName:
+          type: string
+        DBParameterGroupFamily:
+          type: string
+        Description:
+          type: string
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    CreateDBClusterParameterGroupOutput:
+      type: object
+      properties:
+        CreateDBClusterParameterGroupResult:
+          type: object
+          properties:
+            DBClusterParameterGroup:
+              $ref: '#/components/schemas/DBClusterParameterGroup'
+    DescribeDBClusterParameterGroupsInput:
+      type: object
+      properties:
+        DBClusterParameterGroupName:
+          type: string
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
+          type: string
+    DescribeDBClusterParameterGroupsOutput:
+      type: object
+      properties:
+        DescribeDBClusterParameterGroupsResult:
+          type: object
+          properties:
+            DBClusterParameterGroups:
+              type: array
+              items:
+                $ref: '#/components/schemas/DBClusterParameterGroup'
+            Marker:
+              type: string
+    CreateDBClusterEndpointInput:
+      type: object
+      required:
+        - DBClusterIdentifier
+        - DBClusterEndpointIdentifier
+        - EndpointType
+      properties:
+        DBClusterIdentifier:
+          type: string
+        DBClusterEndpointIdentifier:
+          type: string
+        EndpointType:
+          type: string
+          enum:
+            - READER
+            - ANY
+        StaticMembers:
+          type: array
+          items:
+            type: string
+        ExcludedMembers:
+          type: array
+          items:
+            type: string
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    CreateDBClusterEndpointOutput:
+      type: object
+      properties:
+        DBClusterEndpointIdentifier:
+          type: string
+        DBClusterIdentifier:
+          type: string
+        DBClusterEndpointArn:
+          type: string
+        Endpoint:
+          type: string
+        Status:
+          type: string
+        EndpointType:
+          type: string
+        CustomEndpointType:
+          type: string
+    DescribeDBClusterEndpointsInput:
+      type: object
+      properties:
+        DBClusterIdentifier:
+          type: string
+        DBClusterEndpointIdentifier:
+          type: string
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
+          type: string
+    DescribeDBClusterEndpointsOutput:
+      type: object
+      properties:
+        DescribeDBClusterEndpointsResult:
+          type: object
+          properties:
+            DBClusterEndpoints:
+              type: array
+              items:
+                $ref: '#/components/schemas/DBClusterEndpoint'
+            Marker:
+              type: string
+    CreateGlobalClusterInput:
+      type: object
+      required:
+        - GlobalClusterIdentifier
+      properties:
+        GlobalClusterIdentifier:
+          type: string
+        SourceDBClusterIdentifier:
+          type: string
+        Engine:
+          type: string
+        EngineVersion:
+          type: string
+        DatabaseName:
+          type: string
+        StorageEncrypted:
+          type: boolean
+        DeletionProtection:
+          type: boolean
+    CreateGlobalClusterOutput:
+      type: object
+      properties:
+        CreateGlobalClusterResult:
+          type: object
+          properties:
+            GlobalCluster:
+              $ref: '#/components/schemas/GlobalCluster'
+    DeleteGlobalClusterInput:
+      type: object
+      required:
+        - GlobalClusterIdentifier
+      properties:
+        GlobalClusterIdentifier:
+          type: string
+    DeleteGlobalClusterOutput:
+      type: object
+      properties:
+        DeleteGlobalClusterResult:
+          type: object
+          properties:
+            GlobalCluster:
+              $ref: '#/components/schemas/GlobalCluster'
+    DescribeGlobalClustersInput:
+      type: object
+      properties:
+        GlobalClusterIdentifier:
+          type: string
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
+          type: string
+    DescribeGlobalClustersOutput:
+      type: object
+      properties:
+        DescribeGlobalClustersResult:
+          type: object
+          properties:
+            GlobalClusters:
+              type: array
+              items:
+                $ref: '#/components/schemas/GlobalCluster'
+            Marker:
+              type: string
+    Filter:
+      type: object
+      properties:
+        Name:
+          type: string
+        Values:
+          type: array
+          items:
+            type: string

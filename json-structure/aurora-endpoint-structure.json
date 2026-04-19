@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-endpoint-structure.json",
+  "title": "Endpoint",
+  "description": "JSON Structure for the Amazon Aurora Endpoint object.",
+  "type": "object",
+  "properties": {}
+}

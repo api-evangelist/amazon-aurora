@@ -1,0 +1,5 @@
+{
+  "$schema": "https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-delete-global-cluster-input-schema.json",
+  "title": "DeleteGlobalClusterInput Example",
+  "description": "An example of the Amazon Aurora DeleteGlobalClusterInput object."
+}
