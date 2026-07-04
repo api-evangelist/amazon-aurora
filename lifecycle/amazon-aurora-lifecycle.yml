@@ -1,0 +1,39 @@
+generated: '2026-06-20'
+method: searched
+source: >-
+  Amazon Aurora User Guide version policy pages and AWS service pages
+  (Aurora.VersionPolicy, RDS/Aurora SLA, AWS Health status).
+api_versioning:
+  scheme: request-parameter
+  current: '2014-10-31'
+  note: >-
+    The Amazon RDS Query API (through which Aurora is managed) is versioned by
+    the Version request parameter / date stamp 2014-10-31. AWS maintains
+    backward compatibility of this API version.
+engine_versioning:
+  scheme: engine-semver
+  docs: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.VersionPolicy.html
+  note: >-
+    Aurora database engine versions (Aurora MySQL and Aurora PostgreSQL) have
+    their own version numbers, quarterly minor releases, and major versions
+    aligned with the community editions.
+deprecation:
+  policy_url: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.VersionPolicy.Support.html
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    Aurora engine minor/major versions reach end of standard support on
+    published dates; Amazon RDS Extended Support can keep selected major
+    versions available past the community end-of-life. Deprecation is
+    communicated through documentation, console notices, and email, not via
+    RFC 8594 Sunset/Deprecation HTTP headers.
+  extended_support: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/extended-support.html
+upgrades:
+  docs: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.VersionPolicy.Upgrading.html
+  auto_minor_version_upgrade: true
+sla:
+  url: https://aws.amazon.com/rds/aurora/sla/
+  uptime_target: "99.99%"
+  note: Monthly uptime percentage commitment for Multi-AZ Aurora DB clusters.
+status_page: https://health.aws.amazon.com/health/status
+deprecated_operations: []

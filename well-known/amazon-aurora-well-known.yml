@@ -1,0 +1,23 @@
+generated: '2026-06-20'
+method: searched
+source: probed /.well-known/ on the API base host and the AWS provider host
+hosts:
+  - host: https://rds.us-east-1.amazonaws.com
+    note: Amazon Aurora is managed through the Amazon RDS Query API endpoint; no discovery documents are published here.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: https://aws.amazon.com
+    note: Provider-wide security disclosure policy (RFC 9116).
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: amazon-aurora-security.txt

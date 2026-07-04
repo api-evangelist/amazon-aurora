@@ -1,0 +1,88 @@
+generated: '2026-06-20'
+method: searched
+format: aws-query-error
+source: >-
+  Amazon RDS API Reference common and per-action errors
+  (https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/CommonErrors.html
+  and the DBCluster / DBInstance / DBClusterSnapshot / GlobalCluster action
+  error references). The OpenAPI in openapi/ documents only 200 responses, so
+  these fault codes were enriched from the AWS documentation. Errors are
+  returned as AWS Query API XML documents with an <Error><Code> element, not
+  RFC 9457 problem+json.
+problems:
+  - code: DBClusterNotFoundFault
+    status: 404
+    title: DB cluster not found
+    remediation: Verify the DBClusterIdentifier and the AWS Region; the cluster may not exist in this Region.
+  - code: DBClusterAlreadyExistsFault
+    status: 400
+    title: DB cluster identifier already exists
+    remediation: Choose a DBClusterIdentifier that is unique within your AWS account and Region.
+  - code: InvalidDBClusterStateFault
+    status: 400
+    title: DB cluster is not in a valid state for the requested operation
+    remediation: Wait until the cluster reaches an appropriate state (for example available) before retrying.
+  - code: DBClusterQuotaExceededFault
+    status: 403
+    title: DB cluster quota exceeded
+    remediation: Request a service quota increase or delete unused clusters.
+  - code: DBInstanceNotFoundFault
+    status: 404
+    title: DB instance not found
+    remediation: Verify the DBInstanceIdentifier and AWS Region.
+  - code: InvalidDBInstanceStateFault
+    status: 400
+    title: DB instance is not in a valid state for the requested operation
+    remediation: Wait until the instance is in a compatible state before retrying.
+  - code: InsufficientDBInstanceCapacity
+    status: 503
+    title: Insufficient capacity for the requested DB instance class
+    remediation: Retry in a different Availability Zone or with a different DBInstanceClass.
+  - code: DBClusterSnapshotNotFoundFault
+    status: 404
+    title: DB cluster snapshot not found
+    remediation: Verify the DBClusterSnapshotIdentifier exists and is shared with this account.
+  - code: DBClusterSnapshotAlreadyExistsFault
+    status: 400
+    title: DB cluster snapshot already exists
+    remediation: Use a unique DBClusterSnapshotIdentifier.
+  - code: DBClusterParameterGroupNotFoundFault
+    status: 404
+    title: DB cluster parameter group not found
+    remediation: Verify the DBClusterParameterGroupName or create the parameter group first.
+  - code: DBClusterEndpointNotFoundFault
+    status: 404
+    title: DB cluster endpoint not found
+    remediation: Verify the DBClusterEndpointIdentifier for the cluster.
+  - code: DBClusterEndpointAlreadyExistsFault
+    status: 400
+    title: DB cluster endpoint identifier already exists
+    remediation: Choose a unique DBClusterEndpointIdentifier.
+  - code: GlobalClusterNotFoundFault
+    status: 404
+    title: Global cluster not found
+    remediation: Verify the GlobalClusterIdentifier.
+  - code: GlobalClusterAlreadyExistsFault
+    status: 400
+    title: Global cluster identifier already exists
+    remediation: Choose a unique GlobalClusterIdentifier.
+  - code: StorageQuotaExceededFault
+    status: 403
+    title: Storage quota exceeded
+    remediation: Request a storage quota increase or free existing allocated storage.
+  - code: InvalidVPCNetworkStateFault
+    status: 400
+    title: DB subnet group does not cover the required Availability Zones
+    remediation: Update the DB subnet group so it spans the required Availability Zones.
+  - code: AccessDenied
+    status: 403
+    title: The request signature or IAM permissions are invalid
+    remediation: Check the IAM policy and that the request is signed with valid AWS SigV4 credentials.
+  - code: Throttling
+    status: 400
+    title: Request rate exceeded
+    remediation: Implement exponential backoff and retry.
+  - code: ValidationError
+    status: 400
+    title: Request parameters failed validation
+    remediation: Correct the malformed or missing request parameters.

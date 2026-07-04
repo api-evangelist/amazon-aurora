@@ -1,0 +1,45 @@
+generated: '2026-06-20'
+method: derived
+source: >-
+  Derived from openapi/amazon-aurora-openapi.yml (security schemes, request/response
+  shapes, pagination parameters) and Amazon RDS API documentation.
+standards:
+  - id: aws-sigv4
+    conforms: true
+    evidence: securitySchemes.sigv4 uses AWS Signature Version 4 (security requirement sigv4 on every operation).
+  - id: oauth2
+    conforms: false
+    evidence: No OAuth2 security scheme; AWS SigV4 request signing is used instead.
+  - id: oidc
+    conforms: false
+    evidence: No OpenID Connect discovery document (/.well-known/openid-configuration returns 404).
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors are returned as AWS Query API XML error documents, not application/problem+json.
+  - id: pagination
+    conforms: true
+    evidence: Describe* operations accept MaxRecords and Marker and return a Marker for continuation.
+  - id: idempotency
+    conforms: false
+    evidence: No Idempotency-Key header or idempotency token defined in the RDS Query API surface.
+  - id: json-api
+    conforms: false
+    evidence: Responses are AWS Query API action-result envelopes, not JSON:API documents.
+  - id: odata
+    conforms: false
+  - id: fhir-r4
+    conforms: false
+  - id: fapi
+    conforms: false
+  - id: scim2
+    conforms: false
+  - id: psd2
+    conforms: false
+  - id: rest
+    conforms: false
+    evidence: >-
+      Uses the AWS Query protocol (POST with ?Action=... and action-result
+      envelopes) rather than resource-oriented REST.
+  - id: openapi-3.1
+    conforms: true
+    evidence: Repository ships an OpenAPI 3.1.0 description of the API.

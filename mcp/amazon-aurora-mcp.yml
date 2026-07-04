@@ -1,0 +1,54 @@
+generated: '2026-06-20'
+method: searched
+status: published
+source: https://awslabs.github.io/mcp/servers/postgres-mcp-server
+note: >-
+  AWS Labs publishes official open-source MCP servers for Amazon Aurora. These
+  operate on the DATA plane (natural-language to SQL against a running Aurora
+  database) rather than the RDS management API captured in openapi/. The Aurora
+  Postgres server also exposes a create_cluster management tool.
+servers:
+  - name: awslabs.postgres-mcp-server
+    title: Amazon Aurora Postgres MCP Server
+    transport: stdio
+    registry: pypi
+    package: awslabs.postgres-mcp-server
+    url: https://pypi.org/project/awslabs.postgres-mcp-server/
+    repo: https://github.com/awslabs/mcp/tree/main/src/postgres-mcp-server
+    run: uvx awslabs.postgres-mcp-server@latest
+    official: true
+    tools:
+      - name: run_query
+        description: Run a SQL query against the connected Aurora PostgreSQL database.
+      - name: get_table_schema
+        description: Fetch table columns and comments from Postgres.
+      - name: connect_to_database
+        description: Connect to a specific database and cache the connection.
+      - name: is_database_connected
+        description: Check whether a database connection has been established.
+      - name: get_database_connection_info
+        description: Return all cached database connection information.
+      - name: create_cluster
+        description: Create an Aurora PostgreSQL cluster.
+      - name: get_job_status
+        description: Get the status of a background job.
+  - name: awslabs.mysql-mcp-server
+    title: Amazon Aurora MySQL MCP Server
+    transport: stdio
+    registry: pypi
+    package: awslabs.mysql-mcp-server
+    url: https://pypi.org/project/awslabs.mysql-mcp-server/
+    repo: https://github.com/awslabs/mcp/tree/main/src/mysql-mcp-server
+    run: uvx awslabs.mysql-mcp-server@latest
+    official: true
+    note: Converts natural-language questions/commands into MySQL-compatible SQL executed against Aurora MySQL.
+  - name: awslabs.aurora-dsql-mcp-server
+    title: Amazon Aurora DSQL MCP Server
+    transport: stdio
+    registry: pypi
+    package: awslabs.aurora-dsql-mcp-server
+    url: https://pypi.org/project/awslabs.aurora-dsql-mcp-server/
+    repo: https://github.com/awslabs/mcp/tree/main/src/aurora-dsql-mcp-server
+    run: uvx awslabs.aurora-dsql-mcp-server@latest
+    official: true
+    note: Converts natural-language questions/commands into Postgres-compatible SQL executed against Aurora DSQL.

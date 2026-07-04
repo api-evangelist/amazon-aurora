@@ -1,0 +1,61 @@
+generated: '2026-06-20'
+method: searched
+source: >-
+  Amazon Aurora is administered through the Amazon RDS API. These are the
+  first-party AWS SDK client libraries (RDS clients) and the AWS CLI, verified
+  live on their public registries.
+note: >-
+  Aurora has no dedicated SDK; provisioning and management operations
+  (DB clusters, instances, snapshots, parameter groups, endpoints, global
+  clusters) are exposed through the RDS client in each AWS SDK.
+packages:
+  - language: javascript
+    registry: npm
+    name: "@aws-sdk/client-rds"
+    url: https://www.npmjs.com/package/@aws-sdk/client-rds
+    install: npm install @aws-sdk/client-rds
+    official: true
+  - language: python
+    registry: pypi
+    name: boto3
+    url: https://pypi.org/project/boto3/
+    install: pip install boto3
+    official: true
+    note: RDS/Aurora operations available via boto3.client('rds').
+  - language: java
+    registry: maven
+    name: software.amazon.awssdk:rds
+    url: https://central.sonatype.com/artifact/software.amazon.awssdk/rds
+    install: "implementation 'software.amazon.awssdk:rds'"
+    official: true
+  - language: dotnet
+    registry: nuget
+    name: AWSSDK.RDS
+    url: https://www.nuget.org/packages/AWSSDK.RDS
+    install: dotnet add package AWSSDK.RDS
+    official: true
+  - language: go
+    registry: pkg.go.dev
+    name: github.com/aws/aws-sdk-go-v2/service/rds
+    url: https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/rds
+    install: go get github.com/aws/aws-sdk-go-v2/service/rds
+    official: true
+  - language: ruby
+    registry: rubygems
+    name: aws-sdk-rds
+    url: https://rubygems.org/gems/aws-sdk-rds
+    install: gem install aws-sdk-rds
+    official: true
+  - language: php
+    registry: packagist
+    name: aws/aws-sdk-php
+    url: https://packagist.org/packages/aws/aws-sdk-php
+    install: composer require aws/aws-sdk-php
+    official: true
+    note: RDS/Aurora client available via Aws\Rds\RdsClient.
+  - language: cli
+    registry: aws-cli
+    name: aws rds
+    url: https://docs.aws.amazon.com/cli/latest/reference/rds/
+    install: "aws rds create-db-cluster --engine aurora-postgresql ..."
+    official: true

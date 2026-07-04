@@ -1,0 +1,35 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Amazon Aurora API
+  version: 1.0.0
+extends: openapi/amazon-aurora-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: Amazon Web Services
+      x-apievangelist-slug: amazon-aurora
+      x-apievangelist-category:
+        - relational-database
+        - database
+        - aws
+      x-apievangelist-auth: aws-sigv4
+      x-apievangelist-protocol: aws-query
+  - target: $.info
+    update:
+      x-apievangelist-docs: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html
+      x-apievangelist-api-reference: https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/Welcome.html
+      x-apievangelist-status-page: https://health.aws.amazon.com/health/status
+  - target: $.servers[0]
+    update:
+      x-apievangelist-note: >-
+        Amazon Aurora is administered through the regional Amazon RDS Query API
+        endpoint. Substitute the region in the host (for example
+        rds.eu-west-1.amazonaws.com) to target another AWS Region.
+  - target: $
+    update:
+      x-apievangelist-artifacts:
+        packages: packages/amazon-aurora-packages.yml
+        mcp: mcp/amazon-aurora-mcp.yml
+        conformance: conformance/amazon-aurora-conformance.yml
+        errors: errors/amazon-aurora-problem-types.yml
+        lifecycle: lifecycle/amazon-aurora-lifecycle.yml

@@ -13,7 +13,7 @@ tags:
 url: >-
   https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/apis.yml
 created: '2024-01-15'
-modified: '2026-04-19'
+modified: '2026-06-20'
 specificationVersion: '0.19'
 apis:
   - aid: amazon-aurora:amazon-aurora-api
@@ -66,7 +66,34 @@ apis:
       - type: Example
         url: >-
           https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/examples/aurora-create-db-cluster-input-example.json
+      - type: Overlay
+        url: >-
+          https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/overlays/amazon-aurora-openapi-overlay.yaml
+      - type: Conformance
+        url: >-
+          https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/conformance/amazon-aurora-conformance.yml
+      - type: ErrorCatalog
+        url: >-
+          https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/errors/amazon-aurora-problem-types.yml
 common:
+  - type: Packages
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/packages/amazon-aurora-packages.yml
+  - type: MCPServer
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/mcp/amazon-aurora-mcp.yml
+  - type: WellKnown
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/well-known/amazon-aurora-well-known.yml
+  - type: SecurityTxt
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/well-known/amazon-aurora-security.txt
+  - type: LLMsTxt
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/llms/amazon-aurora-llms.txt
+  - type: Lifecycle
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/lifecycle/amazon-aurora-lifecycle.yml
   - type: Features
     data:
       - MySQL and PostgreSQL compatible relational database engine
