@@ -76,6 +76,12 @@ apis:
         url: >-
           https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/errors/amazon-aurora-problem-types.yml
 common:
+  - type: VulnerabilityDisclosure
+    url: security/amazon-aurora-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/amazon-aurora-domain-security.yml
+  - type: Authentication
+    url: authentication/amazon-aurora-authentication.yml
   - type: Packages
     url: >-
       https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/packages/amazon-aurora-packages.yml
