@@ -1,0 +1,181 @@
+openapi: 3.1.0
+info:
+  title: Amazon Aurora DB Cluster Endpoints DB Cluster Parameter Groups API
+  description: Amazon Aurora is a MySQL and PostgreSQL-compatible relational database built for the cloud that combines the performance and availability of traditional enterprise databases with the simplicity and cost-effectiveness of open source databases. The Aurora API is accessed through the Amazon RDS API.
+  version: '2014-10-31'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/premiumsupport/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://rds.us-east-1.amazonaws.com
+  description: Amazon Aurora API endpoint (via Amazon RDS)
+security:
+- sigv4: []
+tags:
+- name: DB Cluster Parameter Groups
+  description: Operations for managing Aurora cluster parameter groups
+paths:
+  /?Action=CreateDBClusterParameterGroup:
+    post:
+      operationId: createDBClusterParameterGroup
+      summary: Amazon Aurora Create DB Cluster Parameter Group
+      description: Creates a new DB cluster parameter group. Parameters in a DB cluster parameter group apply to all of the instances in a DB cluster.
+      tags:
+      - DB Cluster Parameter Groups
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDBClusterParameterGroupInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterParameterGroupName: my-aurora-pg-params
+                  DBParameterGroupFamily: aurora-postgresql15
+                  Description: Custom parameter group for Aurora PostgreSQL
+      responses:
+        '200':
+          description: DB cluster parameter group created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDBClusterParameterGroupOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    CreateDBClusterParameterGroupResult:
+                      DBClusterParameterGroup:
+                        DBClusterParameterGroupName: my-aurora-pg-params
+                        DBParameterGroupFamily: aurora-postgresql15
+                        Description: Custom parameter group for Aurora PostgreSQL
+  /?Action=DescribeDBClusterParameterGroups:
+    post:
+      operationId: describeDBClusterParameterGroups
+      summary: Amazon Aurora Describe DB Cluster Parameter Groups
+      description: Returns a list of DBClusterParameterGroup descriptions.
+      tags:
+      - DB Cluster Parameter Groups
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeDBClusterParameterGroupsInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  MaxRecords: 20
+      responses:
+        '200':
+          description: DB cluster parameter groups described successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeDBClusterParameterGroupsOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DescribeDBClusterParameterGroupsResult:
+                      DBClusterParameterGroups:
+                      - DBClusterParameterGroupName: my-aurora-pg-params
+                        DBParameterGroupFamily: aurora-postgresql15
+                      Marker: ''
+components:
+  schemas:
+    DescribeDBClusterParameterGroupsOutput:
+      type: object
+      properties:
+        DescribeDBClusterParameterGroupsResult:
+          type: object
+          properties:
+            DBClusterParameterGroups:
+              type: array
+              items:
+                $ref: '#/components/schemas/DBClusterParameterGroup'
+            Marker:
+              type: string
+    DBClusterParameterGroup:
+      type: object
+      properties:
+        DBClusterParameterGroupName:
+          type: string
+        DBParameterGroupFamily:
+          type: string
+        Description:
+          type: string
+        DBClusterParameterGroupArn:
+          type: string
+    DescribeDBClusterParameterGroupsInput:
+      type: object
+      properties:
+        DBClusterParameterGroupName:
+          type: string
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
+          type: string
+    CreateDBClusterParameterGroupOutput:
+      type: object
+      properties:
+        CreateDBClusterParameterGroupResult:
+          type: object
+          properties:
+            DBClusterParameterGroup:
+              $ref: '#/components/schemas/DBClusterParameterGroup'
+    CreateDBClusterParameterGroupInput:
+      type: object
+      required:
+      - DBClusterParameterGroupName
+      - DBParameterGroupFamily
+      - Description
+      properties:
+        DBClusterParameterGroupName:
+          type: string
+        DBParameterGroupFamily:
+          type: string
+        Description:
+          type: string
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    Filter:
+      type: object
+      properties:
+        Name:
+          type: string
+        Values:
+          type: array
+          items:
+            type: string
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4

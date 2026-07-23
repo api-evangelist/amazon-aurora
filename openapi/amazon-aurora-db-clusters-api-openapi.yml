@@ -1,0 +1,624 @@
+openapi: 3.1.0
+info:
+  title: Amazon Aurora DB Cluster Endpoints DB Clusters API
+  description: Amazon Aurora is a MySQL and PostgreSQL-compatible relational database built for the cloud that combines the performance and availability of traditional enterprise databases with the simplicity and cost-effectiveness of open source databases. The Aurora API is accessed through the Amazon RDS API.
+  version: '2014-10-31'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/premiumsupport/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://rds.us-east-1.amazonaws.com
+  description: Amazon Aurora API endpoint (via Amazon RDS)
+security:
+- sigv4: []
+tags:
+- name: DB Clusters
+  description: Operations for managing Aurora DB clusters
+paths:
+  /?Action=CreateDBCluster:
+    post:
+      operationId: createDBCluster
+      summary: Amazon Aurora Create DB Cluster
+      description: Creates a new Amazon Aurora DB cluster. You can use the ReplicationSourceIdentifier parameter to create an Amazon Aurora DB cluster as a read replica of another DB cluster.
+      tags:
+      - DB Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDBClusterInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: my-aurora-cluster
+                  Engine: aurora-postgresql
+                  EngineVersion: '15.3'
+                  MasterUsername: admin
+                  MasterUserPassword: MyPassword123!
+                  DatabaseName: mydb
+                  VpcSecurityGroupIds:
+                  - sg-12345678
+                  DBSubnetGroupName: my-subnet-group
+                  BackupRetentionPeriod: 7
+                  Tags:
+                  - Key: Environment
+                    Value: Production
+      responses:
+        '200':
+          description: DB cluster created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDBClusterOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    CreateDBClusterResult:
+                      DBCluster:
+                        DBClusterIdentifier: my-aurora-cluster
+                        Status: creating
+                        Engine: aurora-postgresql
+                        EngineVersion: '15.3'
+                        DBClusterArn: arn:aws:rds:us-east-1:123456789012:cluster:my-aurora-cluster
+  /?Action=DeleteDBCluster:
+    post:
+      operationId: deleteDBCluster
+      summary: Amazon Aurora Delete DB Cluster
+      description: Deletes a previously provisioned DB cluster. When you delete a DB cluster, all automated backups for that DB cluster are deleted and can't be recovered.
+      tags:
+      - DB Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteDBClusterInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: my-aurora-cluster
+                  SkipFinalSnapshot: true
+      responses:
+        '200':
+          description: DB cluster deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteDBClusterOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DeleteDBClusterResult:
+                      DBCluster:
+                        DBClusterIdentifier: my-aurora-cluster
+                        Status: deleting
+  /?Action=DescribeDBClusters:
+    post:
+      operationId: describeDBClusters
+      summary: Amazon Aurora Describe DB Clusters
+      description: Returns information about provisioned Amazon Aurora DB clusters.
+      tags:
+      - DB Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeDBClustersInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  MaxRecords: 20
+      responses:
+        '200':
+          description: DB clusters described successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeDBClustersOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DescribeDBClustersResult:
+                      DBClusters:
+                      - DBClusterIdentifier: my-aurora-cluster
+                        Status: available
+                        Engine: aurora-postgresql
+                        EngineVersion: '15.3'
+                        Endpoint: my-aurora-cluster.cluster-xyz.us-east-1.rds.amazonaws.com
+                      Marker: ''
+  /?Action=ModifyDBCluster:
+    post:
+      operationId: modifyDBCluster
+      summary: Amazon Aurora Modify DB Cluster
+      description: Modifies settings for a DB cluster. You can change one or more database configuration parameters by specifying these parameters and the new values in the request.
+      tags:
+      - DB Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModifyDBClusterInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: my-aurora-cluster
+                  BackupRetentionPeriod: 14
+                  ApplyImmediately: true
+      responses:
+        '200':
+          description: DB cluster modified successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModifyDBClusterOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    ModifyDBClusterResult:
+                      DBCluster:
+                        DBClusterIdentifier: my-aurora-cluster
+                        Status: modifying
+  /?Action=StartDBCluster:
+    post:
+      operationId: startDBCluster
+      summary: Amazon Aurora Start DB Cluster
+      description: Starts an Amazon Aurora DB cluster that was stopped using the StopDBCluster action.
+      tags:
+      - DB Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartDBClusterInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: my-aurora-cluster
+      responses:
+        '200':
+          description: DB cluster started successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartDBClusterOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    StartDBClusterResult:
+                      DBCluster:
+                        DBClusterIdentifier: my-aurora-cluster
+                        Status: starting
+  /?Action=StopDBCluster:
+    post:
+      operationId: stopDBCluster
+      summary: Amazon Aurora Stop DB Cluster
+      description: Stops an Amazon Aurora DB cluster. When you stop a DB cluster, Amazon RDS retains the DB cluster's metadata, including its endpoints and DB parameter groups.
+      tags:
+      - DB Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StopDBClusterInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: my-aurora-cluster
+      responses:
+        '200':
+          description: DB cluster stopped successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StopDBClusterOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    StopDBClusterResult:
+                      DBCluster:
+                        DBClusterIdentifier: my-aurora-cluster
+                        Status: stopping
+  /?Action=RebootDBCluster:
+    post:
+      operationId: rebootDBCluster
+      summary: Amazon Aurora Reboot DB Cluster
+      description: Reboots an Amazon Aurora DB cluster.
+      tags:
+      - DB Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RebootDBClusterInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: my-aurora-cluster
+      responses:
+        '200':
+          description: DB cluster rebooted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RebootDBClusterOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    RebootDBClusterResult:
+                      DBCluster:
+                        DBClusterIdentifier: my-aurora-cluster
+                        Status: rebooting
+  /?Action=RestoreDBClusterFromSnapshot:
+    post:
+      operationId: restoreDBClusterFromSnapshot
+      summary: Amazon Aurora Restore DB Cluster From Snapshot
+      description: Creates a new DB cluster from a DB snapshot or DB cluster snapshot.
+      tags:
+      - DB Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestoreDBClusterFromSnapshotInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: my-restored-cluster
+                  SnapshotIdentifier: my-cluster-snapshot
+                  Engine: aurora-postgresql
+      responses:
+        '200':
+          description: DB cluster restore started successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestoreDBClusterFromSnapshotOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    RestoreDBClusterFromSnapshotResult:
+                      DBCluster:
+                        DBClusterIdentifier: my-restored-cluster
+                        Status: creating
+components:
+  schemas:
+    DescribeDBClustersInput:
+      type: object
+      properties:
+        DBClusterIdentifier:
+          type: string
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
+          type: string
+    VpcSecurityGroupMembership:
+      type: object
+      properties:
+        VpcSecurityGroupId:
+          type: string
+        Status:
+          type: string
+    DeleteDBClusterOutput:
+      type: object
+      properties:
+        DeleteDBClusterResult:
+          type: object
+          properties:
+            DBCluster:
+              $ref: '#/components/schemas/DBCluster'
+    DBCluster:
+      type: object
+      properties:
+        DBClusterIdentifier:
+          type: string
+        DBClusterArn:
+          type: string
+        Status:
+          type: string
+        Engine:
+          type: string
+        EngineVersion:
+          type: string
+        Endpoint:
+          type: string
+        ReaderEndpoint:
+          type: string
+        MultiAZ:
+          type: boolean
+        DatabaseName:
+          type: string
+        BackupRetentionPeriod:
+          type: integer
+        DBClusterParameterGroup:
+          type: string
+        DBSubnetGroup:
+          type: string
+        VpcSecurityGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/VpcSecurityGroupMembership'
+        ClusterCreateTime:
+          type: string
+          format: date-time
+        MasterUsername:
+          type: string
+        StorageEncrypted:
+          type: boolean
+        KmsKeyId:
+          type: string
+        DBClusterMembers:
+          type: array
+          items:
+            $ref: '#/components/schemas/DBClusterMember'
+    Filter:
+      type: object
+      properties:
+        Name:
+          type: string
+        Values:
+          type: array
+          items:
+            type: string
+    DeleteDBClusterInput:
+      type: object
+      required:
+      - DBClusterIdentifier
+      properties:
+        DBClusterIdentifier:
+          type: string
+        SkipFinalSnapshot:
+          type: boolean
+        FinalDBSnapshotIdentifier:
+          type: string
+    DescribeDBClustersOutput:
+      type: object
+      properties:
+        DescribeDBClustersResult:
+          type: object
+          properties:
+            DBClusters:
+              type: array
+              items:
+                $ref: '#/components/schemas/DBCluster'
+            Marker:
+              type: string
+    CreateDBClusterInput:
+      type: object
+      required:
+      - DBClusterIdentifier
+      - Engine
+      properties:
+        DBClusterIdentifier:
+          type: string
+        Engine:
+          type: string
+          enum:
+          - aurora-mysql
+          - aurora-postgresql
+        EngineVersion:
+          type: string
+        MasterUsername:
+          type: string
+        MasterUserPassword:
+          type: string
+        DatabaseName:
+          type: string
+        DBSubnetGroupName:
+          type: string
+        VpcSecurityGroupIds:
+          type: array
+          items:
+            type: string
+        BackupRetentionPeriod:
+          type: integer
+        DBClusterParameterGroupName:
+          type: string
+        StorageEncrypted:
+          type: boolean
+        KmsKeyId:
+          type: string
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        DeletionProtection:
+          type: boolean
+        EnableCloudwatchLogsExports:
+          type: array
+          items:
+            type: string
+    StartDBClusterOutput:
+      type: object
+      properties:
+        StartDBClusterResult:
+          type: object
+          properties:
+            DBCluster:
+              $ref: '#/components/schemas/DBCluster'
+    StartDBClusterInput:
+      type: object
+      required:
+      - DBClusterIdentifier
+      properties:
+        DBClusterIdentifier:
+          type: string
+    RestoreDBClusterFromSnapshotOutput:
+      type: object
+      properties:
+        RestoreDBClusterFromSnapshotResult:
+          type: object
+          properties:
+            DBCluster:
+              $ref: '#/components/schemas/DBCluster'
+    StopDBClusterOutput:
+      type: object
+      properties:
+        StopDBClusterResult:
+          type: object
+          properties:
+            DBCluster:
+              $ref: '#/components/schemas/DBCluster'
+    DBClusterMember:
+      type: object
+      properties:
+        DBInstanceIdentifier:
+          type: string
+        IsClusterWriter:
+          type: boolean
+        DBClusterParameterGroupStatus:
+          type: string
+        PromotionTier:
+          type: integer
+    RebootDBClusterOutput:
+      type: object
+      properties:
+        RebootDBClusterResult:
+          type: object
+          properties:
+            DBCluster:
+              $ref: '#/components/schemas/DBCluster'
+    ModifyDBClusterInput:
+      type: object
+      required:
+      - DBClusterIdentifier
+      properties:
+        DBClusterIdentifier:
+          type: string
+        NewDBClusterIdentifier:
+          type: string
+        BackupRetentionPeriod:
+          type: integer
+        DBClusterParameterGroupName:
+          type: string
+        VpcSecurityGroupIds:
+          type: array
+          items:
+            type: string
+        ApplyImmediately:
+          type: boolean
+        MasterUserPassword:
+          type: string
+        DeletionProtection:
+          type: boolean
+    RestoreDBClusterFromSnapshotInput:
+      type: object
+      required:
+      - DBClusterIdentifier
+      - SnapshotIdentifier
+      - Engine
+      properties:
+        DBClusterIdentifier:
+          type: string
+        SnapshotIdentifier:
+          type: string
+        Engine:
+          type: string
+        EngineVersion:
+          type: string
+        DBSubnetGroupName:
+          type: string
+        VpcSecurityGroupIds:
+          type: array
+          items:
+            type: string
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    CreateDBClusterOutput:
+      type: object
+      properties:
+        CreateDBClusterResult:
+          type: object
+          properties:
+            DBCluster:
+              $ref: '#/components/schemas/DBCluster'
+    RebootDBClusterInput:
+      type: object
+      required:
+      - DBClusterIdentifier
+      properties:
+        DBClusterIdentifier:
+          type: string
+    StopDBClusterInput:
+      type: object
+      required:
+      - DBClusterIdentifier
+      properties:
+        DBClusterIdentifier:
+          type: string
+    ModifyDBClusterOutput:
+      type: object
+      properties:
+        ModifyDBClusterResult:
+          type: object
+          properties:
+            DBCluster:
+              $ref: '#/components/schemas/DBCluster'
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4

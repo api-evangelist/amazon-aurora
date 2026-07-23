@@ -1,0 +1,272 @@
+openapi: 3.1.0
+info:
+  title: Amazon Aurora DB Cluster Endpoints DB Instances API
+  description: Amazon Aurora is a MySQL and PostgreSQL-compatible relational database built for the cloud that combines the performance and availability of traditional enterprise databases with the simplicity and cost-effectiveness of open source databases. The Aurora API is accessed through the Amazon RDS API.
+  version: '2014-10-31'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/premiumsupport/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://rds.us-east-1.amazonaws.com
+  description: Amazon Aurora API endpoint (via Amazon RDS)
+security:
+- sigv4: []
+tags:
+- name: DB Instances
+  description: Operations for managing Aurora DB instances within clusters
+paths:
+  /?Action=CreateDBInstance:
+    post:
+      operationId: createDBInstance
+      summary: Amazon Aurora Create DB Instance
+      description: Creates a new DB instance. DB instances are the compute and memory capacity of an Aurora DB cluster.
+      tags:
+      - DB Instances
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDBInstanceInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBInstanceIdentifier: my-aurora-instance
+                  DBInstanceClass: db.r6g.large
+                  Engine: aurora-postgresql
+                  DBClusterIdentifier: my-aurora-cluster
+      responses:
+        '200':
+          description: DB instance created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDBInstanceOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    CreateDBInstanceResult:
+                      DBInstance:
+                        DBInstanceIdentifier: my-aurora-instance
+                        DBInstanceStatus: creating
+                        DBInstanceClass: db.r6g.large
+  /?Action=DeleteDBInstance:
+    post:
+      operationId: deleteDBInstance
+      summary: Amazon Aurora Delete DB Instance
+      description: Deletes a previously provisioned DB instance.
+      tags:
+      - DB Instances
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteDBInstanceInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBInstanceIdentifier: my-aurora-instance
+      responses:
+        '200':
+          description: DB instance deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteDBInstanceOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DeleteDBInstanceResult:
+                      DBInstance:
+                        DBInstanceIdentifier: my-aurora-instance
+                        DBInstanceStatus: deleting
+  /?Action=DescribeDBInstances:
+    post:
+      operationId: describeDBInstances
+      summary: Amazon Aurora Describe DB Instances
+      description: Returns information about provisioned RDS instances associated with Aurora clusters.
+      tags:
+      - DB Instances
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeDBInstancesInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  MaxRecords: 20
+      responses:
+        '200':
+          description: DB instances described successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeDBInstancesOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DescribeDBInstancesResult:
+                      DBInstances:
+                      - DBInstanceIdentifier: my-aurora-instance
+                        DBInstanceStatus: available
+                        DBInstanceClass: db.r6g.large
+                        Engine: aurora-postgresql
+                      Marker: ''
+components:
+  schemas:
+    CreateDBInstanceInput:
+      type: object
+      required:
+      - DBInstanceIdentifier
+      - DBInstanceClass
+      - Engine
+      - DBClusterIdentifier
+      properties:
+        DBInstanceIdentifier:
+          type: string
+        DBInstanceClass:
+          type: string
+        Engine:
+          type: string
+          enum:
+          - aurora-mysql
+          - aurora-postgresql
+        DBClusterIdentifier:
+          type: string
+        AvailabilityZone:
+          type: string
+        PubliclyAccessible:
+          type: boolean
+        AutoMinorVersionUpgrade:
+          type: boolean
+        PromotionTier:
+          type: integer
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    Endpoint:
+      type: object
+      properties:
+        Address:
+          type: string
+        Port:
+          type: integer
+        HostedZoneId:
+          type: string
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+    DBInstance:
+      type: object
+      properties:
+        DBInstanceIdentifier:
+          type: string
+        DBInstanceClass:
+          type: string
+        Engine:
+          type: string
+        DBInstanceStatus:
+          type: string
+        DBClusterIdentifier:
+          type: string
+        Endpoint:
+          $ref: '#/components/schemas/Endpoint'
+        AvailabilityZone:
+          type: string
+        PubliclyAccessible:
+          type: boolean
+        StorageEncrypted:
+          type: boolean
+    DescribeDBInstancesInput:
+      type: object
+      properties:
+        DBInstanceIdentifier:
+          type: string
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
+          type: string
+    Filter:
+      type: object
+      properties:
+        Name:
+          type: string
+        Values:
+          type: array
+          items:
+            type: string
+    DescribeDBInstancesOutput:
+      type: object
+      properties:
+        DescribeDBInstancesResult:
+          type: object
+          properties:
+            DBInstances:
+              type: array
+              items:
+                $ref: '#/components/schemas/DBInstance'
+            Marker:
+              type: string
+    DeleteDBInstanceInput:
+      type: object
+      required:
+      - DBInstanceIdentifier
+      properties:
+        DBInstanceIdentifier:
+          type: string
+        SkipFinalSnapshot:
+          type: boolean
+        FinalDBSnapshotIdentifier:
+          type: string
+    DeleteDBInstanceOutput:
+      type: object
+      properties:
+        DeleteDBInstanceResult:
+          type: object
+          properties:
+            DBInstance:
+              $ref: '#/components/schemas/DBInstance'
+    CreateDBInstanceOutput:
+      type: object
+      properties:
+        CreateDBInstanceResult:
+          type: object
+          properties:
+            DBInstance:
+              $ref: '#/components/schemas/DBInstance'
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4

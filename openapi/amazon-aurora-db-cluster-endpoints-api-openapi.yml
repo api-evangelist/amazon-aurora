@@ -1,0 +1,222 @@
+openapi: 3.1.0
+info:
+  title: Amazon Aurora DB Cluster Endpoints API
+  description: Amazon Aurora is a MySQL and PostgreSQL-compatible relational database built for the cloud that combines the performance and availability of traditional enterprise databases with the simplicity and cost-effectiveness of open source databases. The Aurora API is accessed through the Amazon RDS API.
+  version: '2014-10-31'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/premiumsupport/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://rds.us-east-1.amazonaws.com
+  description: Amazon Aurora API endpoint (via Amazon RDS)
+security:
+- sigv4: []
+tags:
+- name: DB Cluster Endpoints
+  description: Operations for managing Aurora cluster endpoints
+paths:
+  /?Action=CreateDBClusterEndpoint:
+    post:
+      operationId: createDBClusterEndpoint
+      summary: Amazon Aurora Create DB Cluster Endpoint
+      description: Creates a new custom endpoint and associates it with an Amazon Aurora DB cluster.
+      tags:
+      - DB Cluster Endpoints
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDBClusterEndpointInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: my-aurora-cluster
+                  DBClusterEndpointIdentifier: my-custom-endpoint
+                  EndpointType: READER
+                  StaticMembers:
+                  - my-aurora-instance-1
+      responses:
+        '200':
+          description: DB cluster endpoint created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDBClusterEndpointOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DBClusterEndpointIdentifier: my-custom-endpoint
+                    DBClusterIdentifier: my-aurora-cluster
+                    EndpointType: CUSTOM
+                    CustomEndpointType: READER
+                    Status: creating
+  /?Action=DescribeDBClusterEndpoints:
+    post:
+      operationId: describeDBClusterEndpoints
+      summary: Amazon Aurora Describe DB Cluster Endpoints
+      description: Returns information about endpoints for an Amazon Aurora DB cluster.
+      tags:
+      - DB Cluster Endpoints
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeDBClusterEndpointsInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: my-aurora-cluster
+                  MaxRecords: 20
+      responses:
+        '200':
+          description: DB cluster endpoints described successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeDBClusterEndpointsOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DescribeDBClusterEndpointsResult:
+                      DBClusterEndpoints:
+                      - DBClusterEndpointIdentifier: my-custom-endpoint
+                        EndpointType: CUSTOM
+                        Endpoint: my-custom-endpoint.cluster-xyz.us-east-1.rds.amazonaws.com
+                        Status: available
+                      Marker: ''
+components:
+  schemas:
+    DescribeDBClusterEndpointsOutput:
+      type: object
+      properties:
+        DescribeDBClusterEndpointsResult:
+          type: object
+          properties:
+            DBClusterEndpoints:
+              type: array
+              items:
+                $ref: '#/components/schemas/DBClusterEndpoint'
+            Marker:
+              type: string
+    CreateDBClusterEndpointOutput:
+      type: object
+      properties:
+        DBClusterEndpointIdentifier:
+          type: string
+        DBClusterIdentifier:
+          type: string
+        DBClusterEndpointArn:
+          type: string
+        Endpoint:
+          type: string
+        Status:
+          type: string
+        EndpointType:
+          type: string
+        CustomEndpointType:
+          type: string
+    DescribeDBClusterEndpointsInput:
+      type: object
+      properties:
+        DBClusterIdentifier:
+          type: string
+        DBClusterEndpointIdentifier:
+          type: string
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
+          type: string
+    Filter:
+      type: object
+      properties:
+        Name:
+          type: string
+        Values:
+          type: array
+          items:
+            type: string
+    DBClusterEndpoint:
+      type: object
+      properties:
+        DBClusterEndpointIdentifier:
+          type: string
+        DBClusterIdentifier:
+          type: string
+        DBClusterEndpointArn:
+          type: string
+        Endpoint:
+          type: string
+        Status:
+          type: string
+        EndpointType:
+          type: string
+        CustomEndpointType:
+          type: string
+        StaticMembers:
+          type: array
+          items:
+            type: string
+        ExcludedMembers:
+          type: array
+          items:
+            type: string
+    CreateDBClusterEndpointInput:
+      type: object
+      required:
+      - DBClusterIdentifier
+      - DBClusterEndpointIdentifier
+      - EndpointType
+      properties:
+        DBClusterIdentifier:
+          type: string
+        DBClusterEndpointIdentifier:
+          type: string
+        EndpointType:
+          type: string
+          enum:
+          - READER
+          - ANY
+        StaticMembers:
+          type: array
+          items:
+            type: string
+        ExcludedMembers:
+          type: array
+          items:
+            type: string
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4

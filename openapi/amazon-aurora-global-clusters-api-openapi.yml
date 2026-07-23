@@ -1,0 +1,249 @@
+openapi: 3.1.0
+info:
+  title: Amazon Aurora DB Cluster Endpoints Global Clusters API
+  description: Amazon Aurora is a MySQL and PostgreSQL-compatible relational database built for the cloud that combines the performance and availability of traditional enterprise databases with the simplicity and cost-effectiveness of open source databases. The Aurora API is accessed through the Amazon RDS API.
+  version: '2014-10-31'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/premiumsupport/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://rds.us-east-1.amazonaws.com
+  description: Amazon Aurora API endpoint (via Amazon RDS)
+security:
+- sigv4: []
+tags:
+- name: Global Clusters
+  description: Operations for managing Aurora Global Databases
+paths:
+  /?Action=CreateGlobalCluster:
+    post:
+      operationId: createGlobalCluster
+      summary: Amazon Aurora Create Global Cluster
+      description: Creates an Aurora global database spread across multiple Amazon Web Services Regions.
+      tags:
+      - Global Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGlobalClusterInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  GlobalClusterIdentifier: my-global-cluster
+                  SourceDBClusterIdentifier: arn:aws:rds:us-east-1:123456789012:cluster:my-aurora-cluster
+      responses:
+        '200':
+          description: Global cluster created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateGlobalClusterOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    CreateGlobalClusterResult:
+                      GlobalCluster:
+                        GlobalClusterIdentifier: my-global-cluster
+                        Status: creating
+  /?Action=DeleteGlobalCluster:
+    post:
+      operationId: deleteGlobalCluster
+      summary: Amazon Aurora Delete Global Cluster
+      description: Deletes a global database cluster. The primary and secondary clusters must already be detached or deleted before attempting to delete a global cluster.
+      tags:
+      - Global Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteGlobalClusterInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  GlobalClusterIdentifier: my-global-cluster
+      responses:
+        '200':
+          description: Global cluster deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteGlobalClusterOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DeleteGlobalClusterResult:
+                      GlobalCluster:
+                        GlobalClusterIdentifier: my-global-cluster
+                        Status: deleting
+  /?Action=DescribeGlobalClusters:
+    post:
+      operationId: describeGlobalClusters
+      summary: Amazon Aurora Describe Global Clusters
+      description: Returns information about Aurora global database clusters.
+      tags:
+      - Global Clusters
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeGlobalClustersInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  MaxRecords: 20
+      responses:
+        '200':
+          description: Global clusters described successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeGlobalClustersOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DescribeGlobalClustersResult:
+                      GlobalClusters:
+                      - GlobalClusterIdentifier: my-global-cluster
+                        Status: available
+                        Engine: aurora-postgresql
+                      Marker: ''
+components:
+  schemas:
+    GlobalClusterMember:
+      type: object
+      properties:
+        DBClusterArn:
+          type: string
+        Readers:
+          type: array
+          items:
+            type: string
+        IsWriter:
+          type: boolean
+    DeleteGlobalClusterOutput:
+      type: object
+      properties:
+        DeleteGlobalClusterResult:
+          type: object
+          properties:
+            GlobalCluster:
+              $ref: '#/components/schemas/GlobalCluster'
+    DescribeGlobalClustersInput:
+      type: object
+      properties:
+        GlobalClusterIdentifier:
+          type: string
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
+          type: string
+    DescribeGlobalClustersOutput:
+      type: object
+      properties:
+        DescribeGlobalClustersResult:
+          type: object
+          properties:
+            GlobalClusters:
+              type: array
+              items:
+                $ref: '#/components/schemas/GlobalCluster'
+            Marker:
+              type: string
+    Filter:
+      type: object
+      properties:
+        Name:
+          type: string
+        Values:
+          type: array
+          items:
+            type: string
+    CreateGlobalClusterOutput:
+      type: object
+      properties:
+        CreateGlobalClusterResult:
+          type: object
+          properties:
+            GlobalCluster:
+              $ref: '#/components/schemas/GlobalCluster'
+    CreateGlobalClusterInput:
+      type: object
+      required:
+      - GlobalClusterIdentifier
+      properties:
+        GlobalClusterIdentifier:
+          type: string
+        SourceDBClusterIdentifier:
+          type: string
+        Engine:
+          type: string
+        EngineVersion:
+          type: string
+        DatabaseName:
+          type: string
+        StorageEncrypted:
+          type: boolean
+        DeletionProtection:
+          type: boolean
+    GlobalCluster:
+      type: object
+      properties:
+        GlobalClusterIdentifier:
+          type: string
+        GlobalClusterArn:
+          type: string
+        Status:
+          type: string
+        Engine:
+          type: string
+        EngineVersion:
+          type: string
+        DatabaseName:
+          type: string
+        StorageEncrypted:
+          type: boolean
+        DeletionProtection:
+          type: boolean
+        GlobalClusterMembers:
+          type: array
+          items:
+            $ref: '#/components/schemas/GlobalClusterMember'
+    DeleteGlobalClusterInput:
+      type: object
+      required:
+      - GlobalClusterIdentifier
+      properties:
+        GlobalClusterIdentifier:
+          type: string
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4

@@ -1,0 +1,250 @@
+openapi: 3.1.0
+info:
+  title: Amazon Aurora DB Cluster Endpoints DB Cluster Snapshots API
+  description: Amazon Aurora is a MySQL and PostgreSQL-compatible relational database built for the cloud that combines the performance and availability of traditional enterprise databases with the simplicity and cost-effectiveness of open source databases. The Aurora API is accessed through the Amazon RDS API.
+  version: '2014-10-31'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/premiumsupport/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://rds.us-east-1.amazonaws.com
+  description: Amazon Aurora API endpoint (via Amazon RDS)
+security:
+- sigv4: []
+tags:
+- name: DB Cluster Snapshots
+  description: Operations for managing Aurora cluster snapshots
+paths:
+  /?Action=CreateDBClusterSnapshot:
+    post:
+      operationId: createDBClusterSnapshot
+      summary: Amazon Aurora Create DB Cluster Snapshot
+      description: Creates a snapshot of a DB cluster.
+      tags:
+      - DB Cluster Snapshots
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDBClusterSnapshotInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterSnapshotIdentifier: my-cluster-snapshot
+                  DBClusterIdentifier: my-aurora-cluster
+                  Tags:
+                  - Key: Purpose
+                    Value: Backup
+      responses:
+        '200':
+          description: DB cluster snapshot created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDBClusterSnapshotOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    CreateDBClusterSnapshotResult:
+                      DBClusterSnapshot:
+                        DBClusterSnapshotIdentifier: my-cluster-snapshot
+                        Status: creating
+                        DBClusterIdentifier: my-aurora-cluster
+  /?Action=DeleteDBClusterSnapshot:
+    post:
+      operationId: deleteDBClusterSnapshot
+      summary: Amazon Aurora Delete DB Cluster Snapshot
+      description: Deletes a DB cluster snapshot. If the snapshot is being copied, the copy operation is terminated.
+      tags:
+      - DB Cluster Snapshots
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteDBClusterSnapshotInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterSnapshotIdentifier: my-cluster-snapshot
+      responses:
+        '200':
+          description: DB cluster snapshot deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteDBClusterSnapshotOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DeleteDBClusterSnapshotResult:
+                      DBClusterSnapshot:
+                        DBClusterSnapshotIdentifier: my-cluster-snapshot
+                        Status: deleted
+  /?Action=DescribeDBClusterSnapshots:
+    post:
+      operationId: describeDBClusterSnapshots
+      summary: Amazon Aurora Describe DB Cluster Snapshots
+      description: Returns information about DB cluster snapshots.
+      tags:
+      - DB Cluster Snapshots
+      x-microcks-operation:
+        delay: 100
+        dispatcher: QUERY_MATCH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeDBClusterSnapshotsInput'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  DBClusterIdentifier: my-aurora-cluster
+                  MaxRecords: 20
+      responses:
+        '200':
+          description: DB cluster snapshots described successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeDBClusterSnapshotsOutput'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    DescribeDBClusterSnapshotsResult:
+                      DBClusterSnapshots:
+                      - DBClusterSnapshotIdentifier: my-cluster-snapshot
+                        Status: available
+                        DBClusterIdentifier: my-aurora-cluster
+                      Marker: ''
+components:
+  schemas:
+    DeleteDBClusterSnapshotInput:
+      type: object
+      required:
+      - DBClusterSnapshotIdentifier
+      properties:
+        DBClusterSnapshotIdentifier:
+          type: string
+    DescribeDBClusterSnapshotsInput:
+      type: object
+      properties:
+        DBClusterIdentifier:
+          type: string
+        DBClusterSnapshotIdentifier:
+          type: string
+        SnapshotType:
+          type: string
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
+          type: string
+    CreateDBClusterSnapshotOutput:
+      type: object
+      properties:
+        CreateDBClusterSnapshotResult:
+          type: object
+          properties:
+            DBClusterSnapshot:
+              $ref: '#/components/schemas/DBClusterSnapshot'
+    CreateDBClusterSnapshotInput:
+      type: object
+      required:
+      - DBClusterSnapshotIdentifier
+      - DBClusterIdentifier
+      properties:
+        DBClusterSnapshotIdentifier:
+          type: string
+        DBClusterIdentifier:
+          type: string
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    Filter:
+      type: object
+      properties:
+        Name:
+          type: string
+        Values:
+          type: array
+          items:
+            type: string
+    DescribeDBClusterSnapshotsOutput:
+      type: object
+      properties:
+        DescribeDBClusterSnapshotsResult:
+          type: object
+          properties:
+            DBClusterSnapshots:
+              type: array
+              items:
+                $ref: '#/components/schemas/DBClusterSnapshot'
+            Marker:
+              type: string
+    DeleteDBClusterSnapshotOutput:
+      type: object
+      properties:
+        DeleteDBClusterSnapshotResult:
+          type: object
+          properties:
+            DBClusterSnapshot:
+              $ref: '#/components/schemas/DBClusterSnapshot'
+    DBClusterSnapshot:
+      type: object
+      properties:
+        DBClusterSnapshotIdentifier:
+          type: string
+        DBClusterIdentifier:
+          type: string
+        Status:
+          type: string
+        Engine:
+          type: string
+        EngineVersion:
+          type: string
+        SnapshotCreateTime:
+          type: string
+          format: date-time
+        SnapshotType:
+          type: string
+        AllocatedStorage:
+          type: integer
+        MasterUsername:
+          type: string
+        DBClusterSnapshotArn:
+          type: string
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4
