@@ -3,7 +3,19 @@ name: Amazon Aurora
 description: >-
   Amazon Aurora is a MySQL and PostgreSQL-compatible relational database built for the cloud that combines the performance and availability of traditional enterprise databases with the simplicity and cost-effectiveness of open source databases.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/amazon-aurora.png
 tags:
   - Amazon Aurora
   - MySQL
@@ -16,65 +28,300 @@ created: '2024-01-15'
 modified: '2026-06-20'
 specificationVersion: '0.19'
 apis:
-  - aid: amazon-aurora:amazon-aurora-api
-    name: Amazon Aurora API
-    description: >-
-      REST management API for Amazon Aurora covering DB clusters, DB instances, cluster snapshots, parameter groups, custom endpoints, and global database management.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html
-    baseURL: https://rds.us-east-1.amazonaws.com
-    tags:
-      - Amazon Aurora
-      - MySQL
-      - PostgreSQL
-      - Relational Database
-      - AWS
-    properties:
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/openapi/amazon-aurora-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/rules/amazon-aurora-spectral-rules.yml
-      - type: NaftikoCapability
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/capabilities/shared/aurora-api.yaml
-      - type: NaftikoCapability
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/capabilities/relational-database-management.yaml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/vocabulary/amazon-aurora-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-db-cluster-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-create-db-cluster-input-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-db-cluster-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-db-instance-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-ld/amazon-aurora-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/examples/aurora-db-cluster-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/examples/aurora-create-db-cluster-input-example.json
-      - type: Overlay
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/overlays/amazon-aurora-openapi-overlay.yaml
-      - type: Conformance
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/conformance/amazon-aurora-conformance.yml
-      - type: ErrorCatalog
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/errors/amazon-aurora-problem-types.yml
+- aid: amazon-aurora:amazon-aurora-db-cluster-endpoints-api
+  name: Amazon Aurora DB Cluster Endpoints API
+  description: Operations for managing Aurora cluster endpoints
+  humanURL: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html
+  baseURL: https://rds.us-east-1.amazonaws.com
+  tags:
+  - DB Cluster Endpoints
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-aurora-db-cluster-endpoints-api-openapi.yml
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/rules/amazon-aurora-spectral-rules.yml
+  - type: NaftikoCapability
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/capabilities/shared/aurora-api.yaml
+  - type: NaftikoCapability
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/capabilities/relational-database-management.yaml
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/vocabulary/amazon-aurora-vocabulary.yaml
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-db-cluster-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-create-db-cluster-input-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-db-cluster-structure.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-db-instance-structure.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-ld/amazon-aurora-context.jsonld
+  - type: Example
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/examples/aurora-db-cluster-example.json
+  - type: Example
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/examples/aurora-create-db-cluster-input-example.json
+  - type: Conformance
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/conformance/amazon-aurora-conformance.yml
+  - type: ErrorCatalog
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/errors/amazon-aurora-problem-types.yml
+- aid: amazon-aurora:amazon-aurora-db-cluster-parameter-groups-api
+  name: Amazon Aurora DB Cluster Parameter Groups API
+  description: Operations for managing Aurora cluster parameter groups
+  humanURL: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html
+  baseURL: https://rds.us-east-1.amazonaws.com
+  tags:
+  - DB Cluster Parameter Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-aurora-db-cluster-parameter-groups-api-openapi.yml
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/rules/amazon-aurora-spectral-rules.yml
+  - type: NaftikoCapability
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/capabilities/shared/aurora-api.yaml
+  - type: NaftikoCapability
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/capabilities/relational-database-management.yaml
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/vocabulary/amazon-aurora-vocabulary.yaml
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-db-cluster-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-create-db-cluster-input-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-db-cluster-structure.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-db-instance-structure.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-ld/amazon-aurora-context.jsonld
+  - type: Example
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/examples/aurora-db-cluster-example.json
+  - type: Example
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/examples/aurora-create-db-cluster-input-example.json
+  - type: Conformance
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/conformance/amazon-aurora-conformance.yml
+  - type: ErrorCatalog
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/errors/amazon-aurora-problem-types.yml
+- aid: amazon-aurora:amazon-aurora-db-cluster-snapshots-api
+  name: Amazon Aurora DB Cluster Snapshots API
+  description: Operations for managing Aurora cluster snapshots
+  humanURL: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html
+  baseURL: https://rds.us-east-1.amazonaws.com
+  tags:
+  - DB Cluster Snapshots
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-aurora-db-cluster-snapshots-api-openapi.yml
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/rules/amazon-aurora-spectral-rules.yml
+  - type: NaftikoCapability
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/capabilities/shared/aurora-api.yaml
+  - type: NaftikoCapability
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/capabilities/relational-database-management.yaml
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/vocabulary/amazon-aurora-vocabulary.yaml
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-db-cluster-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-create-db-cluster-input-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-db-cluster-structure.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-db-instance-structure.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-ld/amazon-aurora-context.jsonld
+  - type: Example
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/examples/aurora-db-cluster-example.json
+  - type: Example
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/examples/aurora-create-db-cluster-input-example.json
+  - type: Conformance
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/conformance/amazon-aurora-conformance.yml
+  - type: ErrorCatalog
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/errors/amazon-aurora-problem-types.yml
+- aid: amazon-aurora:amazon-aurora-db-clusters-api
+  name: Amazon Aurora DB Clusters API
+  description: Operations for managing Aurora DB clusters
+  humanURL: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html
+  baseURL: https://rds.us-east-1.amazonaws.com
+  tags:
+  - DB Clusters
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-aurora-db-clusters-api-openapi.yml
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/rules/amazon-aurora-spectral-rules.yml
+  - type: NaftikoCapability
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/capabilities/shared/aurora-api.yaml
+  - type: NaftikoCapability
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/capabilities/relational-database-management.yaml
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/vocabulary/amazon-aurora-vocabulary.yaml
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-db-cluster-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-create-db-cluster-input-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-db-cluster-structure.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-db-instance-structure.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-ld/amazon-aurora-context.jsonld
+  - type: Example
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/examples/aurora-db-cluster-example.json
+  - type: Example
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/examples/aurora-create-db-cluster-input-example.json
+  - type: Conformance
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/conformance/amazon-aurora-conformance.yml
+  - type: ErrorCatalog
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/errors/amazon-aurora-problem-types.yml
+- aid: amazon-aurora:amazon-aurora-db-instances-api
+  name: Amazon Aurora DB Instances API
+  description: Operations for managing Aurora DB instances within clusters
+  humanURL: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html
+  baseURL: https://rds.us-east-1.amazonaws.com
+  tags:
+  - DB Instances
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-aurora-db-instances-api-openapi.yml
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/rules/amazon-aurora-spectral-rules.yml
+  - type: NaftikoCapability
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/capabilities/shared/aurora-api.yaml
+  - type: NaftikoCapability
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/capabilities/relational-database-management.yaml
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/vocabulary/amazon-aurora-vocabulary.yaml
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-db-cluster-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-create-db-cluster-input-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-db-cluster-structure.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-db-instance-structure.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-ld/amazon-aurora-context.jsonld
+  - type: Example
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/examples/aurora-db-cluster-example.json
+  - type: Example
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/examples/aurora-create-db-cluster-input-example.json
+  - type: Conformance
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/conformance/amazon-aurora-conformance.yml
+  - type: ErrorCatalog
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/errors/amazon-aurora-problem-types.yml
+- aid: amazon-aurora:amazon-aurora-global-clusters-api
+  name: Amazon Aurora Global Clusters API
+  description: Operations for managing Aurora Global Databases
+  humanURL: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html
+  baseURL: https://rds.us-east-1.amazonaws.com
+  tags:
+  - Global Clusters
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-aurora-global-clusters-api-openapi.yml
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/rules/amazon-aurora-spectral-rules.yml
+  - type: NaftikoCapability
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/capabilities/shared/aurora-api.yaml
+  - type: NaftikoCapability
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/capabilities/relational-database-management.yaml
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/vocabulary/amazon-aurora-vocabulary.yaml
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-db-cluster-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-schema/aurora-create-db-cluster-input-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-db-cluster-structure.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-structure/aurora-db-instance-structure.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/json-ld/amazon-aurora-context.jsonld
+  - type: Example
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/examples/aurora-db-cluster-example.json
+  - type: Example
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/examples/aurora-create-db-cluster-input-example.json
+  - type: Conformance
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/conformance/amazon-aurora-conformance.yml
+  - type: ErrorCatalog
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/errors/amazon-aurora-problem-types.yml
 common:
   - type: AgenticAccess
     url: agentic-access/amazon-aurora-agentic-access.yml
