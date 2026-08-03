@@ -1,0 +1,24 @@
+{
+  "provider": "amazon-aurora",
+  "sources": [
+    "amazon-aurora-db-cluster-endpoints-api-openapi.yml",
+    "amazon-aurora-db-cluster-parameter-groups-api-openapi.yml",
+    "amazon-aurora-db-cluster-snapshots-api-openapi.yml",
+    "amazon-aurora-db-clusters-api-openapi.yml",
+    "amazon-aurora-db-instances-api-openapi.yml",
+    "amazon-aurora-global-clusters-api-openapi.yml"
+  ],
+  "outputs": [
+    "amazon-aurora-db-cluster-endpoints-api-openapi.yml",
+    "amazon-aurora-db-cluster-parameter-groups-api-openapi.yml",
+    "amazon-aurora-db-cluster-snapshots-api-openapi.yml",
+    "amazon-aurora-db-clusters-api-openapi.yml",
+    "amazon-aurora-db-instances-api-openapi.yml",
+    "amazon-aurora-global-clusters-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
