@@ -27,7 +27,7 @@ tags:
 url: https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/apis.yml
 created: '2024-01-15'
 modified: '2026-06-20'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
   - aid: amazon-aurora:amazon-aurora-db-cluster-endpoints-api
     name: Amazon Aurora DB Cluster Endpoints API
