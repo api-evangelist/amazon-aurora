@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Aurora DB Cluster Endpoints DB Cluster Snapshots API",
+    "version": "2014-10-31"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DB Cluster Snapshots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Aurora Create DB Cluster Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rds.us-east-1.amazonaws.com/?Action=CreateDBClusterSnapshot",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a snapshot of a DB cluster."
+        },
+        {
+          "info": {
+            "name": "Amazon Aurora Delete DB Cluster Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rds.us-east-1.amazonaws.com/?Action=DeleteDBClusterSnapshot",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a DB cluster snapshot. If the snapshot is being copied, the copy operation is terminated."
+        },
+        {
+          "info": {
+            "name": "Amazon Aurora Describe DB Cluster Snapshots",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rds.us-east-1.amazonaws.com/?Action=DescribeDBClusterSnapshots",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns information about DB cluster snapshots."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

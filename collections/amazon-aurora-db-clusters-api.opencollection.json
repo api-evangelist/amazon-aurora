@@ -1,0 +1,146 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Aurora DB Cluster Endpoints DB Clusters API",
+    "version": "2014-10-31"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DB Clusters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Aurora Create DB Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rds.us-east-1.amazonaws.com/?Action=CreateDBCluster",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Amazon Aurora DB cluster. You can use the ReplicationSourceIdentifier parameter to create an Amazon Aurora DB cluster as a read replica of another DB cluster."
+        },
+        {
+          "info": {
+            "name": "Amazon Aurora Delete DB Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rds.us-east-1.amazonaws.com/?Action=DeleteDBCluster",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a previously provisioned DB cluster. When you delete a DB cluster, all automated backups for that DB cluster are deleted and can't be recovered."
+        },
+        {
+          "info": {
+            "name": "Amazon Aurora Describe DB Clusters",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rds.us-east-1.amazonaws.com/?Action=DescribeDBClusters",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns information about provisioned Amazon Aurora DB clusters."
+        },
+        {
+          "info": {
+            "name": "Amazon Aurora Modify DB Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rds.us-east-1.amazonaws.com/?Action=ModifyDBCluster",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modifies settings for a DB cluster. You can change one or more database configuration parameters by specifying these parameters and the new values in the request."
+        },
+        {
+          "info": {
+            "name": "Amazon Aurora Start DB Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rds.us-east-1.amazonaws.com/?Action=StartDBCluster",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts an Amazon Aurora DB cluster that was stopped using the StopDBCluster action."
+        },
+        {
+          "info": {
+            "name": "Amazon Aurora Stop DB Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rds.us-east-1.amazonaws.com/?Action=StopDBCluster",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stops an Amazon Aurora DB cluster. When you stop a DB cluster, Amazon RDS retains the DB cluster's metadata, including its endpoints and DB parameter groups."
+        },
+        {
+          "info": {
+            "name": "Amazon Aurora Reboot DB Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rds.us-east-1.amazonaws.com/?Action=RebootDBCluster",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reboots an Amazon Aurora DB cluster."
+        },
+        {
+          "info": {
+            "name": "Amazon Aurora Restore DB Cluster From Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rds.us-east-1.amazonaws.com/?Action=RestoreDBClusterFromSnapshot",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new DB cluster from a DB snapshot or DB cluster snapshot."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Aurora DB Cluster Endpoints API",
+    "version": "2014-10-31"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DB Cluster Endpoints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Aurora Create DB Cluster Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rds.us-east-1.amazonaws.com/?Action=CreateDBClusterEndpoint",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new custom endpoint and associates it with an Amazon Aurora DB cluster."
+        },
+        {
+          "info": {
+            "name": "Amazon Aurora Describe DB Cluster Endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rds.us-east-1.amazonaws.com/?Action=DescribeDBClusterEndpoints",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns information about endpoints for an Amazon Aurora DB cluster."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

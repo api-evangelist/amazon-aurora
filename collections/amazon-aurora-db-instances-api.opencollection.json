@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Aurora DB Cluster Endpoints DB Instances API",
+    "version": "2014-10-31"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DB Instances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Aurora Create DB Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rds.us-east-1.amazonaws.com/?Action=CreateDBInstance",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new DB instance. DB instances are the compute and memory capacity of an Aurora DB cluster."
+        },
+        {
+          "info": {
+            "name": "Amazon Aurora Delete DB Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rds.us-east-1.amazonaws.com/?Action=DeleteDBInstance",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a previously provisioned DB instance."
+        },
+        {
+          "info": {
+            "name": "Amazon Aurora Describe DB Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rds.us-east-1.amazonaws.com/?Action=DescribeDBInstances",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns information about provisioned RDS instances associated with Aurora clusters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

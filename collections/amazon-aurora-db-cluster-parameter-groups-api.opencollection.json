@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Aurora DB Cluster Endpoints DB Cluster Parameter Groups API",
+    "version": "2014-10-31"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DB Cluster Parameter Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Aurora Create DB Cluster Parameter Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rds.us-east-1.amazonaws.com/?Action=CreateDBClusterParameterGroup",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new DB cluster parameter group. Parameters in a DB cluster parameter group apply to all of the instances in a DB cluster."
+        },
+        {
+          "info": {
+            "name": "Amazon Aurora Describe DB Cluster Parameter Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rds.us-east-1.amazonaws.com/?Action=DescribeDBClusterParameterGroups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a list of DBClusterParameterGroup descriptions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,257 @@
+{
+  "item": [
+    {
+      "id": "b687b775-36af-492c-be15-777d15862e63",
+      "name": "DB Cluster Endpoints",
+      "description": {
+        "content": "Operations for managing Aurora cluster endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7c97cf9a-d850-46f0-9de2-997742cd4497",
+          "name": "Amazon Aurora Create DB Cluster Endpoint",
+          "request": {
+            "name": "Amazon Aurora Create DB Cluster Endpoint",
+            "description": {
+              "content": "Creates a new custom endpoint and associates it with an Amazon Aurora DB cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "CreateDBClusterEndpoint"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"DBClusterIdentifier\": \"<string>\",\n  \"DBClusterEndpointIdentifier\": \"<string>\",\n  \"EndpointType\": \"<string>\",\n  \"StaticMembers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"ExcludedMembers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"Tags\": [\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    },\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0c943bca-2165-472f-bc43-15234990ae8c",
+              "name": "DB cluster endpoint created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"DBClusterIdentifier\": \"my-aurora-cluster\",\n  \"DBClusterEndpointIdentifier\": \"my-custom-endpoint\",\n  \"EndpointType\": \"READER\",\n  \"StaticMembers\": [\n    \"my-aurora-instance-1\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"DBClusterEndpointIdentifier\": \"my-custom-endpoint\",\n  \"DBClusterIdentifier\": \"my-aurora-cluster\",\n  \"EndpointType\": \"CUSTOM\",\n  \"CustomEndpointType\": \"READER\",\n  \"Status\": \"creating\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "019798ed-e208-491f-ab3f-467dc528cca7",
+          "name": "Amazon Aurora Describe DB Cluster Endpoints",
+          "request": {
+            "name": "Amazon Aurora Describe DB Cluster Endpoints",
+            "description": {
+              "content": "Returns information about endpoints for an Amazon Aurora DB cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "DescribeDBClusterEndpoints"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"DBClusterIdentifier\": \"<string>\",\n  \"DBClusterEndpointIdentifier\": \"<string>\",\n  \"Filters\": [\n    {\n      \"Name\": \"<string>\",\n      \"Values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"Name\": \"<string>\",\n      \"Values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"MaxRecords\": \"<integer>\",\n  \"Marker\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "692979bf-fb70-4921-a700-bd066204a738",
+              "name": "DB cluster endpoints described successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"DBClusterIdentifier\": \"my-aurora-cluster\",\n  \"MaxRecords\": 20\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"DescribeDBClusterEndpointsResult\": {\n    \"DBClusterEndpoints\": [\n      {\n        \"DBClusterEndpointIdentifier\": \"my-custom-endpoint\",\n        \"EndpointType\": \"CUSTOM\",\n        \"Endpoint\": \"my-custom-endpoint.cluster-xyz.us-east-1.rds.amazonaws.com\",\n        \"Status\": \"available\"\n      }\n    ],\n    \"Marker\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://rds.us-east-1.amazonaws.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "733f6507-4d66-41da-8238-56d0ef7e3d42",
+    "name": "Amazon Aurora DB Cluster Endpoints API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Amazon Aurora is a MySQL and PostgreSQL-compatible relational database built for the cloud that combines the performance and availability of traditional enterprise databases with the simplicity and cost-effectiveness of open source databases. The Aurora API is accessed through the Amazon RDS API.\n\nContact Support:\n Name: AWS Support",
+      "type": "text/plain"
+    }
+  }
+}

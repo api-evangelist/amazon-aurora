@@ -1,0 +1,881 @@
+{
+  "item": [
+    {
+      "id": "570b2b16-72bf-4436-bd5f-a7bff75fc9ed",
+      "name": "DB Clusters",
+      "description": {
+        "content": "Operations for managing Aurora DB clusters",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6c526b51-88c6-454b-9bcf-b827660b0b5b",
+          "name": "Amazon Aurora Create DB Cluster",
+          "request": {
+            "name": "Amazon Aurora Create DB Cluster",
+            "description": {
+              "content": "Creates a new Amazon Aurora DB cluster. You can use the ReplicationSourceIdentifier parameter to create an Amazon Aurora DB cluster as a read replica of another DB cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "CreateDBCluster"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"DBClusterIdentifier\": \"<string>\",\n  \"Engine\": \"<string>\",\n  \"EngineVersion\": \"<string>\",\n  \"MasterUsername\": \"<string>\",\n  \"MasterUserPassword\": \"<string>\",\n  \"DatabaseName\": \"<string>\",\n  \"DBSubnetGroupName\": \"<string>\",\n  \"VpcSecurityGroupIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"BackupRetentionPeriod\": \"<integer>\",\n  \"DBClusterParameterGroupName\": \"<string>\",\n  \"StorageEncrypted\": \"<boolean>\",\n  \"KmsKeyId\": \"<string>\",\n  \"Tags\": [\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    },\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    }\n  ],\n  \"DeletionProtection\": \"<boolean>\",\n  \"EnableCloudwatchLogsExports\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "41b16248-e4da-4645-8b74-be8ef5c693c3",
+              "name": "DB cluster created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"DBClusterIdentifier\": \"my-aurora-cluster\",\n  \"Engine\": \"aurora-postgresql\",\n  \"EngineVersion\": \"15.3\",\n  \"MasterUsername\": \"admin\",\n  \"MasterUserPassword\": \"MyPassword123!\",\n  \"DatabaseName\": \"mydb\",\n  \"VpcSecurityGroupIds\": [\n    \"sg-12345678\"\n  ],\n  \"DBSubnetGroupName\": \"my-subnet-group\",\n  \"BackupRetentionPeriod\": 7,\n  \"Tags\": [\n    {\n      \"Key\": \"Environment\",\n      \"Value\": \"Production\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"CreateDBClusterResult\": {\n    \"DBCluster\": {\n      \"DBClusterIdentifier\": \"my-aurora-cluster\",\n      \"Status\": \"creating\",\n      \"Engine\": \"aurora-postgresql\",\n      \"EngineVersion\": \"15.3\",\n      \"DBClusterArn\": \"arn:aws:rds:us-east-1:123456789012:cluster:my-aurora-cluster\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "baddab1c-d9ba-44e9-b516-0c2cd1b6483d",
+          "name": "Amazon Aurora Delete DB Cluster",
+          "request": {
+            "name": "Amazon Aurora Delete DB Cluster",
+            "description": {
+              "content": "Deletes a previously provisioned DB cluster. When you delete a DB cluster, all automated backups for that DB cluster are deleted and can't be recovered.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "DeleteDBCluster"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"DBClusterIdentifier\": \"<string>\",\n  \"SkipFinalSnapshot\": \"<boolean>\",\n  \"FinalDBSnapshotIdentifier\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f0721be6-ec9d-434a-aa25-17cc87d464cb",
+              "name": "DB cluster deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"DBClusterIdentifier\": \"my-aurora-cluster\",\n  \"SkipFinalSnapshot\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"DeleteDBClusterResult\": {\n    \"DBCluster\": {\n      \"DBClusterIdentifier\": \"my-aurora-cluster\",\n      \"Status\": \"deleting\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6dc740f4-c6db-4992-b896-9cdeb6d490b7",
+          "name": "Amazon Aurora Describe DB Clusters",
+          "request": {
+            "name": "Amazon Aurora Describe DB Clusters",
+            "description": {
+              "content": "Returns information about provisioned Amazon Aurora DB clusters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "DescribeDBClusters"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"DBClusterIdentifier\": \"<string>\",\n  \"Filters\": [\n    {\n      \"Name\": \"<string>\",\n      \"Values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"Name\": \"<string>\",\n      \"Values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"MaxRecords\": \"<integer>\",\n  \"Marker\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e2713f4e-0f6b-4f9e-b99a-593b0cc66827",
+              "name": "DB clusters described successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"MaxRecords\": 20\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"DescribeDBClustersResult\": {\n    \"DBClusters\": [\n      {\n        \"DBClusterIdentifier\": \"my-aurora-cluster\",\n        \"Status\": \"available\",\n        \"Engine\": \"aurora-postgresql\",\n        \"EngineVersion\": \"15.3\",\n        \"Endpoint\": \"my-aurora-cluster.cluster-xyz.us-east-1.rds.amazonaws.com\"\n      }\n    ],\n    \"Marker\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "46f8d879-3b15-4452-be7f-c45c5a80968d",
+          "name": "Amazon Aurora Modify DB Cluster",
+          "request": {
+            "name": "Amazon Aurora Modify DB Cluster",
+            "description": {
+              "content": "Modifies settings for a DB cluster. You can change one or more database configuration parameters by specifying these parameters and the new values in the request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "ModifyDBCluster"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"DBClusterIdentifier\": \"<string>\",\n  \"NewDBClusterIdentifier\": \"<string>\",\n  \"BackupRetentionPeriod\": \"<integer>\",\n  \"DBClusterParameterGroupName\": \"<string>\",\n  \"VpcSecurityGroupIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"ApplyImmediately\": \"<boolean>\",\n  \"MasterUserPassword\": \"<string>\",\n  \"DeletionProtection\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "799dc8d1-5dd9-40f5-96e6-a92f0672b537",
+              "name": "DB cluster modified successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"DBClusterIdentifier\": \"my-aurora-cluster\",\n  \"BackupRetentionPeriod\": 14,\n  \"ApplyImmediately\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ModifyDBClusterResult\": {\n    \"DBCluster\": {\n      \"DBClusterIdentifier\": \"my-aurora-cluster\",\n      \"Status\": \"modifying\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "04d781ee-653e-454e-a68d-339a3655393e",
+          "name": "Amazon Aurora Start DB Cluster",
+          "request": {
+            "name": "Amazon Aurora Start DB Cluster",
+            "description": {
+              "content": "Starts an Amazon Aurora DB cluster that was stopped using the StopDBCluster action.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "StartDBCluster"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"DBClusterIdentifier\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "28b4810f-df7f-4502-a933-9e04827509c5",
+              "name": "DB cluster started successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"DBClusterIdentifier\": \"my-aurora-cluster\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"StartDBClusterResult\": {\n    \"DBCluster\": {\n      \"DBClusterIdentifier\": \"my-aurora-cluster\",\n      \"Status\": \"starting\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc02b8a4-f78c-4937-bd02-dc61947c4803",
+          "name": "Amazon Aurora Stop DB Cluster",
+          "request": {
+            "name": "Amazon Aurora Stop DB Cluster",
+            "description": {
+              "content": "Stops an Amazon Aurora DB cluster. When you stop a DB cluster, Amazon RDS retains the DB cluster's metadata, including its endpoints and DB parameter groups.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "StopDBCluster"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"DBClusterIdentifier\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e9dbe96a-1915-4416-95d7-eb981ea94b2e",
+              "name": "DB cluster stopped successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"DBClusterIdentifier\": \"my-aurora-cluster\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"StopDBClusterResult\": {\n    \"DBCluster\": {\n      \"DBClusterIdentifier\": \"my-aurora-cluster\",\n      \"Status\": \"stopping\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "60a75832-1c47-4cba-aefb-0683ba14c9c3",
+          "name": "Amazon Aurora Reboot DB Cluster",
+          "request": {
+            "name": "Amazon Aurora Reboot DB Cluster",
+            "description": {
+              "content": "Reboots an Amazon Aurora DB cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "RebootDBCluster"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"DBClusterIdentifier\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d4debcaa-6f0f-48ff-9e1f-e01aa1aa68ed",
+              "name": "DB cluster rebooted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"DBClusterIdentifier\": \"my-aurora-cluster\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"RebootDBClusterResult\": {\n    \"DBCluster\": {\n      \"DBClusterIdentifier\": \"my-aurora-cluster\",\n      \"Status\": \"rebooting\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d57c2b4-ded4-4634-bf24-6bfb932c06aa",
+          "name": "Amazon Aurora Restore DB Cluster From Snapshot",
+          "request": {
+            "name": "Amazon Aurora Restore DB Cluster From Snapshot",
+            "description": {
+              "content": "Creates a new DB cluster from a DB snapshot or DB cluster snapshot.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "RestoreDBClusterFromSnapshot"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"DBClusterIdentifier\": \"<string>\",\n  \"SnapshotIdentifier\": \"<string>\",\n  \"Engine\": \"<string>\",\n  \"EngineVersion\": \"<string>\",\n  \"DBSubnetGroupName\": \"<string>\",\n  \"VpcSecurityGroupIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"Tags\": [\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    },\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3ee7ebee-10be-4074-be7a-83bf527116b2",
+              "name": "DB cluster restore started successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"DBClusterIdentifier\": \"my-restored-cluster\",\n  \"SnapshotIdentifier\": \"my-cluster-snapshot\",\n  \"Engine\": \"aurora-postgresql\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"RestoreDBClusterFromSnapshotResult\": {\n    \"DBCluster\": {\n      \"DBClusterIdentifier\": \"my-restored-cluster\",\n      \"Status\": \"creating\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://rds.us-east-1.amazonaws.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "de28bd7d-3bb9-47b0-a806-d63885841e8b",
+    "name": "Amazon Aurora DB Cluster Endpoints DB Clusters API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Amazon Aurora is a MySQL and PostgreSQL-compatible relational database built for the cloud that combines the performance and availability of traditional enterprise databases with the simplicity and cost-effectiveness of open source databases. The Aurora API is accessed through the Amazon RDS API.\n\nContact Support:\n Name: AWS Support",
+      "type": "text/plain"
+    }
+  }
+}
