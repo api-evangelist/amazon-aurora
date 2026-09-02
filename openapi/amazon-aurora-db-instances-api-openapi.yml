@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Amazon Aurora DB Cluster Endpoints DB Instances API
   description: Amazon Aurora is a MySQL and PostgreSQL-compatible relational database built for the cloud that combines the performance and availability of traditional enterprise databases with the simplicity and cost-effectiveness of open source databases. The Aurora API is accessed through the Amazon RDS API.
@@ -135,53 +135,22 @@ paths:
                       Marker: ''
 components:
   schemas:
-    CreateDBInstanceInput:
-      type: object
-      required:
-      - DBInstanceIdentifier
-      - DBInstanceClass
-      - Engine
-      - DBClusterIdentifier
-      properties:
-        DBInstanceIdentifier:
-          type: string
-        DBInstanceClass:
-          type: string
-        Engine:
-          type: string
-          enum:
-          - aurora-mysql
-          - aurora-postgresql
-        DBClusterIdentifier:
-          type: string
-        AvailabilityZone:
-          type: string
-        PubliclyAccessible:
-          type: boolean
-        AutoMinorVersionUpgrade:
-          type: boolean
-        PromotionTier:
-          type: integer
-        Tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    Endpoint:
+    DeleteDBInstanceOutput:
       type: object
       properties:
-        Address:
-          type: string
-        Port:
-          type: integer
-        HostedZoneId:
-          type: string
-    Tag:
+        DeleteDBInstanceResult:
+          type: object
+          properties:
+            DBInstance:
+              $ref: '#/components/schemas/DBInstance'
+    CreateDBInstanceOutput:
       type: object
       properties:
-        Key:
-          type: string
-        Value:
-          type: string
+        CreateDBInstanceResult:
+          type: object
+          properties:
+            DBInstance:
+              $ref: '#/components/schemas/DBInstance'
     DBInstance:
       type: object
       properties:
@@ -216,6 +185,13 @@ components:
           type: integer
         Marker:
           type: string
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
     Filter:
       type: object
       properties:
@@ -225,6 +201,48 @@ components:
           type: array
           items:
             type: string
+    DeleteDBInstanceInput:
+      type: object
+      required:
+      - DBInstanceIdentifier
+      properties:
+        DBInstanceIdentifier:
+          type: string
+        SkipFinalSnapshot:
+          type: boolean
+        FinalDBSnapshotIdentifier:
+          type: string
+    CreateDBInstanceInput:
+      type: object
+      required:
+      - DBInstanceIdentifier
+      - DBInstanceClass
+      - Engine
+      - DBClusterIdentifier
+      properties:
+        DBInstanceIdentifier:
+          type: string
+        DBInstanceClass:
+          type: string
+        Engine:
+          type: string
+          enum:
+          - aurora-mysql
+          - aurora-postgresql
+        DBClusterIdentifier:
+          type: string
+        AvailabilityZone:
+          type: string
+        PubliclyAccessible:
+          type: boolean
+        AutoMinorVersionUpgrade:
+          type: boolean
+        PromotionTier:
+          type: integer
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
     DescribeDBInstancesOutput:
       type: object
       properties:
@@ -237,33 +255,15 @@ components:
                 $ref: '#/components/schemas/DBInstance'
             Marker:
               type: string
-    DeleteDBInstanceInput:
+    Endpoint:
       type: object
-      required:
-      - DBInstanceIdentifier
       properties:
-        DBInstanceIdentifier:
+        Address:
           type: string
-        SkipFinalSnapshot:
-          type: boolean
-        FinalDBSnapshotIdentifier:
+        Port:
+          type: integer
+        HostedZoneId:
           type: string
-    DeleteDBInstanceOutput:
-      type: object
-      properties:
-        DeleteDBInstanceResult:
-          type: object
-          properties:
-            DBInstance:
-              $ref: '#/components/schemas/DBInstance'
-    CreateDBInstanceOutput:
-      type: object
-      properties:
-        CreateDBInstanceResult:
-          type: object
-          properties:
-            DBInstance:
-              $ref: '#/components/schemas/DBInstance'
   securitySchemes:
     sigv4:
       type: apiKey
