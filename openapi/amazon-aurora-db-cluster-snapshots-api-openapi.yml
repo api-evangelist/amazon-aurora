@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon Aurora DB Cluster Endpoints DB Cluster Snapshots API
+  title: Amazon Aurora DB Cluster Snapshots API
   description: Amazon Aurora is a MySQL and PostgreSQL-compatible relational database built for the cloud that combines the performance and availability of traditional enterprise databases with the simplicity and cost-effectiveness of open source databases. The Aurora API is accessed through the Amazon RDS API.
   version: '2014-10-31'
   contact:
@@ -136,37 +136,6 @@ paths:
                       Marker: ''
 components:
   schemas:
-    CreateDBClusterSnapshotInput:
-      type: object
-      required:
-      - DBClusterSnapshotIdentifier
-      - DBClusterIdentifier
-      properties:
-        DBClusterSnapshotIdentifier:
-          type: string
-        DBClusterIdentifier:
-          type: string
-        Tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    DescribeDBClusterSnapshotsInput:
-      type: object
-      properties:
-        DBClusterIdentifier:
-          type: string
-        DBClusterSnapshotIdentifier:
-          type: string
-        SnapshotType:
-          type: string
-        Filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/Filter'
-        MaxRecords:
-          type: integer
-        Marker:
-          type: string
     Filter:
       type: object
       properties:
@@ -176,25 +145,6 @@ components:
           type: array
           items:
             type: string
-    DescribeDBClusterSnapshotsOutput:
-      type: object
-      properties:
-        DescribeDBClusterSnapshotsResult:
-          type: object
-          properties:
-            DBClusterSnapshots:
-              type: array
-              items:
-                $ref: '#/components/schemas/DBClusterSnapshot'
-            Marker:
-              type: string
-    Tag:
-      type: object
-      properties:
-        Key:
-          type: string
-        Value:
-          type: string
     DeleteDBClusterSnapshotInput:
       type: object
       required:
@@ -202,6 +152,22 @@ components:
       properties:
         DBClusterSnapshotIdentifier:
           type: string
+    CreateDBClusterSnapshotOutput:
+      type: object
+      properties:
+        CreateDBClusterSnapshotResult:
+          type: object
+          properties:
+            DBClusterSnapshot:
+              $ref: '#/components/schemas/DBClusterSnapshot'
+    DeleteDBClusterSnapshotOutput:
+      type: object
+      properties:
+        DeleteDBClusterSnapshotResult:
+          type: object
+          properties:
+            DBClusterSnapshot:
+              $ref: '#/components/schemas/DBClusterSnapshot'
     DBClusterSnapshot:
       type: object
       properties:
@@ -226,22 +192,56 @@ components:
           type: string
         DBClusterSnapshotArn:
           type: string
-    DeleteDBClusterSnapshotOutput:
+    DescribeDBClusterSnapshotsOutput:
       type: object
       properties:
-        DeleteDBClusterSnapshotResult:
+        DescribeDBClusterSnapshotsResult:
           type: object
           properties:
-            DBClusterSnapshot:
-              $ref: '#/components/schemas/DBClusterSnapshot'
-    CreateDBClusterSnapshotOutput:
+            DBClusterSnapshots:
+              type: array
+              items:
+                $ref: '#/components/schemas/DBClusterSnapshot'
+            Marker:
+              type: string
+    DescribeDBClusterSnapshotsInput:
       type: object
       properties:
-        CreateDBClusterSnapshotResult:
-          type: object
-          properties:
-            DBClusterSnapshot:
-              $ref: '#/components/schemas/DBClusterSnapshot'
+        DBClusterIdentifier:
+          type: string
+        DBClusterSnapshotIdentifier:
+          type: string
+        SnapshotType:
+          type: string
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
+          type: string
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+    CreateDBClusterSnapshotInput:
+      type: object
+      required:
+      - DBClusterSnapshotIdentifier
+      - DBClusterIdentifier
+      properties:
+        DBClusterSnapshotIdentifier:
+          type: string
+        DBClusterIdentifier:
+          type: string
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
   securitySchemes:
     sigv4:
       type: apiKey

@@ -1,12 +1,7 @@
 {
   "provider": "amazon-aurora",
   "sources": [
-    "amazon-aurora-db-cluster-endpoints-api-openapi.yml",
-    "amazon-aurora-db-cluster-parameter-groups-api-openapi.yml",
-    "amazon-aurora-db-cluster-snapshots-api-openapi.yml",
-    "amazon-aurora-db-clusters-api-openapi.yml",
-    "amazon-aurora-db-instances-api-openapi.yml",
-    "amazon-aurora-global-clusters-api-openapi.yml"
+    "_original/amazon-aurora-openapi.yml"
   ],
   "outputs": [
     "amazon-aurora-db-cluster-endpoints-api-openapi.yml",
@@ -20,7 +15,16 @@
   "errors": [],
   "warnings": [],
   "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "amazon-aurora-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "amazon-aurora-db-cluster-endpoints-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-aurora-db-cluster-parameter-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-aurora-db-cluster-snapshots-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-aurora-db-clusters-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-aurora-db-instances-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-aurora-global-clusters-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

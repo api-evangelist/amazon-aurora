@@ -101,6 +101,72 @@ paths:
                       Marker: ''
 components:
   schemas:
+    Filter:
+      type: object
+      properties:
+        Name:
+          type: string
+        Values:
+          type: array
+          items:
+            type: string
+    DescribeDBClusterEndpointsInput:
+      type: object
+      properties:
+        DBClusterIdentifier:
+          type: string
+        DBClusterEndpointIdentifier:
+          type: string
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
+          type: string
+    DBClusterEndpoint:
+      type: object
+      properties:
+        DBClusterEndpointIdentifier:
+          type: string
+        DBClusterIdentifier:
+          type: string
+        DBClusterEndpointArn:
+          type: string
+        Endpoint:
+          type: string
+        Status:
+          type: string
+        EndpointType:
+          type: string
+        CustomEndpointType:
+          type: string
+        StaticMembers:
+          type: array
+          items:
+            type: string
+        ExcludedMembers:
+          type: array
+          items:
+            type: string
+    CreateDBClusterEndpointOutput:
+      type: object
+      properties:
+        DBClusterEndpointIdentifier:
+          type: string
+        DBClusterIdentifier:
+          type: string
+        DBClusterEndpointArn:
+          type: string
+        Endpoint:
+          type: string
+        Status:
+          type: string
+        EndpointType:
+          type: string
+        CustomEndpointType:
+          type: string
     CreateDBClusterEndpointInput:
       type: object
       required:
@@ -129,79 +195,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-    Filter:
-      type: object
-      properties:
-        Name:
-          type: string
-        Values:
-          type: array
-          items:
-            type: string
-    DBClusterEndpoint:
-      type: object
-      properties:
-        DBClusterEndpointIdentifier:
-          type: string
-        DBClusterIdentifier:
-          type: string
-        DBClusterEndpointArn:
-          type: string
-        Endpoint:
-          type: string
-        Status:
-          type: string
-        EndpointType:
-          type: string
-        CustomEndpointType:
-          type: string
-        StaticMembers:
-          type: array
-          items:
-            type: string
-        ExcludedMembers:
-          type: array
-          items:
-            type: string
-    Tag:
-      type: object
-      properties:
-        Key:
-          type: string
-        Value:
-          type: string
-    CreateDBClusterEndpointOutput:
-      type: object
-      properties:
-        DBClusterEndpointIdentifier:
-          type: string
-        DBClusterIdentifier:
-          type: string
-        DBClusterEndpointArn:
-          type: string
-        Endpoint:
-          type: string
-        Status:
-          type: string
-        EndpointType:
-          type: string
-        CustomEndpointType:
-          type: string
-    DescribeDBClusterEndpointsInput:
-      type: object
-      properties:
-        DBClusterIdentifier:
-          type: string
-        DBClusterEndpointIdentifier:
-          type: string
-        Filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/Filter'
-        MaxRecords:
-          type: integer
-        Marker:
-          type: string
     DescribeDBClusterEndpointsOutput:
       type: object
       properties:
@@ -214,6 +207,13 @@ components:
                 $ref: '#/components/schemas/DBClusterEndpoint'
             Marker:
               type: string
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
   securitySchemes:
     sigv4:
       type: apiKey

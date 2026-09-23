@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon Aurora DB Cluster Endpoints DB Instances API
+  title: Amazon Aurora DB Instances API
   description: Amazon Aurora is a MySQL and PostgreSQL-compatible relational database built for the cloud that combines the performance and availability of traditional enterprise databases with the simplicity and cost-effectiveness of open source databases. The Aurora API is accessed through the Amazon RDS API.
   version: '2014-10-31'
   contact:
@@ -135,43 +135,6 @@ paths:
                       Marker: ''
 components:
   schemas:
-    DeleteDBInstanceOutput:
-      type: object
-      properties:
-        DeleteDBInstanceResult:
-          type: object
-          properties:
-            DBInstance:
-              $ref: '#/components/schemas/DBInstance'
-    CreateDBInstanceOutput:
-      type: object
-      properties:
-        CreateDBInstanceResult:
-          type: object
-          properties:
-            DBInstance:
-              $ref: '#/components/schemas/DBInstance'
-    DBInstance:
-      type: object
-      properties:
-        DBInstanceIdentifier:
-          type: string
-        DBInstanceClass:
-          type: string
-        Engine:
-          type: string
-        DBInstanceStatus:
-          type: string
-        DBClusterIdentifier:
-          type: string
-        Endpoint:
-          $ref: '#/components/schemas/Endpoint'
-        AvailabilityZone:
-          type: string
-        PubliclyAccessible:
-          type: boolean
-        StorageEncrypted:
-          type: boolean
     DescribeDBInstancesInput:
       type: object
       properties:
@@ -184,13 +147,6 @@ components:
         MaxRecords:
           type: integer
         Marker:
-          type: string
-    Tag:
-      type: object
-      properties:
-        Key:
-          type: string
-        Value:
           type: string
     Filter:
       type: object
@@ -243,6 +199,59 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
+    CreateDBInstanceOutput:
+      type: object
+      properties:
+        CreateDBInstanceResult:
+          type: object
+          properties:
+            DBInstance:
+              $ref: '#/components/schemas/DBInstance'
+    DeleteDBInstanceOutput:
+      type: object
+      properties:
+        DeleteDBInstanceResult:
+          type: object
+          properties:
+            DBInstance:
+              $ref: '#/components/schemas/DBInstance'
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+    Endpoint:
+      type: object
+      properties:
+        Address:
+          type: string
+        Port:
+          type: integer
+        HostedZoneId:
+          type: string
+    DBInstance:
+      type: object
+      properties:
+        DBInstanceIdentifier:
+          type: string
+        DBInstanceClass:
+          type: string
+        Engine:
+          type: string
+        DBInstanceStatus:
+          type: string
+        DBClusterIdentifier:
+          type: string
+        Endpoint:
+          $ref: '#/components/schemas/Endpoint'
+        AvailabilityZone:
+          type: string
+        PubliclyAccessible:
+          type: boolean
+        StorageEncrypted:
+          type: boolean
     DescribeDBInstancesOutput:
       type: object
       properties:
@@ -255,15 +264,6 @@ components:
                 $ref: '#/components/schemas/DBInstance'
             Marker:
               type: string
-    Endpoint:
-      type: object
-      properties:
-        Address:
-          type: string
-        Port:
-          type: integer
-        HostedZoneId:
-          type: string
   securitySchemes:
     sigv4:
       type: apiKey
