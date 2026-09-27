@@ -135,38 +135,47 @@ paths:
                       Marker: ''
 components:
   schemas:
-    DescribeDBInstancesInput:
+    DBInstance:
       type: object
       properties:
         DBInstanceIdentifier:
           type: string
-        Filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/Filter'
-        MaxRecords:
-          type: integer
-        Marker:
+        DBInstanceClass:
           type: string
-    Filter:
-      type: object
-      properties:
-        Name:
+        Engine:
           type: string
-        Values:
-          type: array
-          items:
-            type: string
-    DeleteDBInstanceInput:
-      type: object
-      required:
-      - DBInstanceIdentifier
-      properties:
-        DBInstanceIdentifier:
+        DBInstanceStatus:
           type: string
-        SkipFinalSnapshot:
+        DBClusterIdentifier:
+          type: string
+        Endpoint:
+          $ref: '#/components/schemas/Endpoint'
+        AvailabilityZone:
+          type: string
+        PubliclyAccessible:
           type: boolean
-        FinalDBSnapshotIdentifier:
+        StorageEncrypted:
+          type: boolean
+    DescribeDBInstancesOutput:
+      type: object
+      properties:
+        DescribeDBInstancesResult:
+          type: object
+          properties:
+            DBInstances:
+              type: array
+              items:
+                $ref: '#/components/schemas/DBInstance'
+            Marker:
+              type: string
+    Endpoint:
+      type: object
+      properties:
+        Address:
+          type: string
+        Port:
+          type: integer
+        HostedZoneId:
           type: string
     CreateDBInstanceInput:
       type: object
@@ -207,6 +216,13 @@ components:
           properties:
             DBInstance:
               $ref: '#/components/schemas/DBInstance'
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
     DeleteDBInstanceOutput:
       type: object
       properties:
@@ -215,55 +231,39 @@ components:
           properties:
             DBInstance:
               $ref: '#/components/schemas/DBInstance'
-    Tag:
+    Filter:
       type: object
       properties:
-        Key:
+        Name:
           type: string
-        Value:
-          type: string
-    Endpoint:
-      type: object
-      properties:
-        Address:
-          type: string
-        Port:
-          type: integer
-        HostedZoneId:
-          type: string
-    DBInstance:
+        Values:
+          type: array
+          items:
+            type: string
+    DescribeDBInstancesInput:
       type: object
       properties:
         DBInstanceIdentifier:
           type: string
-        DBInstanceClass:
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
           type: string
-        Engine:
-          type: string
-        DBInstanceStatus:
-          type: string
-        DBClusterIdentifier:
-          type: string
-        Endpoint:
-          $ref: '#/components/schemas/Endpoint'
-        AvailabilityZone:
-          type: string
-        PubliclyAccessible:
-          type: boolean
-        StorageEncrypted:
-          type: boolean
-    DescribeDBInstancesOutput:
+    DeleteDBInstanceInput:
       type: object
+      required:
+      - DBInstanceIdentifier
       properties:
-        DescribeDBInstancesResult:
-          type: object
-          properties:
-            DBInstances:
-              type: array
-              items:
-                $ref: '#/components/schemas/DBInstance'
-            Marker:
-              type: string
+        DBInstanceIdentifier:
+          type: string
+        SkipFinalSnapshot:
+          type: boolean
+        FinalDBSnapshotIdentifier:
+          type: string
   securitySchemes:
     sigv4:
       type: apiKey

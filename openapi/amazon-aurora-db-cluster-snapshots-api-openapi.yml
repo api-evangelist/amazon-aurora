@@ -136,15 +136,20 @@ paths:
                       Marker: ''
 components:
   schemas:
-    Filter:
+    CreateDBClusterSnapshotInput:
       type: object
+      required:
+      - DBClusterSnapshotIdentifier
+      - DBClusterIdentifier
       properties:
-        Name:
+        DBClusterSnapshotIdentifier:
           type: string
-        Values:
+        DBClusterIdentifier:
+          type: string
+        Tags:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/Tag'
     DeleteDBClusterSnapshotInput:
       type: object
       required:
@@ -152,14 +157,23 @@ components:
       properties:
         DBClusterSnapshotIdentifier:
           type: string
-    CreateDBClusterSnapshotOutput:
+    DescribeDBClusterSnapshotsInput:
       type: object
       properties:
-        CreateDBClusterSnapshotResult:
-          type: object
-          properties:
-            DBClusterSnapshot:
-              $ref: '#/components/schemas/DBClusterSnapshot'
+        DBClusterIdentifier:
+          type: string
+        DBClusterSnapshotIdentifier:
+          type: string
+        SnapshotType:
+          type: string
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
+          type: string
     DeleteDBClusterSnapshotOutput:
       type: object
       properties:
@@ -204,23 +218,6 @@ components:
                 $ref: '#/components/schemas/DBClusterSnapshot'
             Marker:
               type: string
-    DescribeDBClusterSnapshotsInput:
-      type: object
-      properties:
-        DBClusterIdentifier:
-          type: string
-        DBClusterSnapshotIdentifier:
-          type: string
-        SnapshotType:
-          type: string
-        Filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/Filter'
-        MaxRecords:
-          type: integer
-        Marker:
-          type: string
     Tag:
       type: object
       properties:
@@ -228,20 +225,23 @@ components:
           type: string
         Value:
           type: string
-    CreateDBClusterSnapshotInput:
+    Filter:
       type: object
-      required:
-      - DBClusterSnapshotIdentifier
-      - DBClusterIdentifier
       properties:
-        DBClusterSnapshotIdentifier:
+        Name:
           type: string
-        DBClusterIdentifier:
-          type: string
-        Tags:
+        Values:
           type: array
           items:
-            $ref: '#/components/schemas/Tag'
+            type: string
+    CreateDBClusterSnapshotOutput:
+      type: object
+      properties:
+        CreateDBClusterSnapshotResult:
+          type: object
+          properties:
+            DBClusterSnapshot:
+              $ref: '#/components/schemas/DBClusterSnapshot'
   securitySchemes:
     sigv4:
       type: apiKey

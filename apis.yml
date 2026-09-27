@@ -35,6 +35,7 @@ tags:
 - PostgreSQL
 - Relational Database
 - AWS
+- Database
 url: https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/apis.yml
 created: '2024-01-15'
 modified: '2026-09-16'
@@ -234,7 +235,7 @@ apis:
     url: https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/errors/amazon-aurora-problem-types.yml
 common:
 - type: Website
-  url: https://amazon.com
+  url: https://aws.amazon.com/rds/aurora/
 - type: Overlay
   url: overlays/amazon-aurora-openapi-overlay.yaml
 - type: AgenticAccess
@@ -292,5 +293,5 @@ common:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
-x-parent: aws
+x-parent: amazon-web-services
 x-relationship: product

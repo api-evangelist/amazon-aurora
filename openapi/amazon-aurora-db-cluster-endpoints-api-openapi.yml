@@ -101,15 +101,18 @@ paths:
                       Marker: ''
 components:
   schemas:
-    Filter:
+    DescribeDBClusterEndpointsOutput:
       type: object
       properties:
-        Name:
-          type: string
-        Values:
-          type: array
-          items:
-            type: string
+        DescribeDBClusterEndpointsResult:
+          type: object
+          properties:
+            DBClusterEndpoints:
+              type: array
+              items:
+                $ref: '#/components/schemas/DBClusterEndpoint'
+            Marker:
+              type: string
     DescribeDBClusterEndpointsInput:
       type: object
       properties:
@@ -125,31 +128,6 @@ components:
           type: integer
         Marker:
           type: string
-    DBClusterEndpoint:
-      type: object
-      properties:
-        DBClusterEndpointIdentifier:
-          type: string
-        DBClusterIdentifier:
-          type: string
-        DBClusterEndpointArn:
-          type: string
-        Endpoint:
-          type: string
-        Status:
-          type: string
-        EndpointType:
-          type: string
-        CustomEndpointType:
-          type: string
-        StaticMembers:
-          type: array
-          items:
-            type: string
-        ExcludedMembers:
-          type: array
-          items:
-            type: string
     CreateDBClusterEndpointOutput:
       type: object
       properties:
@@ -195,18 +173,31 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-    DescribeDBClusterEndpointsOutput:
+    DBClusterEndpoint:
       type: object
       properties:
-        DescribeDBClusterEndpointsResult:
-          type: object
-          properties:
-            DBClusterEndpoints:
-              type: array
-              items:
-                $ref: '#/components/schemas/DBClusterEndpoint'
-            Marker:
-              type: string
+        DBClusterEndpointIdentifier:
+          type: string
+        DBClusterIdentifier:
+          type: string
+        DBClusterEndpointArn:
+          type: string
+        Endpoint:
+          type: string
+        Status:
+          type: string
+        EndpointType:
+          type: string
+        CustomEndpointType:
+          type: string
+        StaticMembers:
+          type: array
+          items:
+            type: string
+        ExcludedMembers:
+          type: array
+          items:
+            type: string
     Tag:
       type: object
       properties:
@@ -214,6 +205,15 @@ components:
           type: string
         Value:
           type: string
+    Filter:
+      type: object
+      properties:
+        Name:
+          type: string
+        Values:
+          type: array
+          items:
+            type: string
   securitySchemes:
     sigv4:
       type: apiKey

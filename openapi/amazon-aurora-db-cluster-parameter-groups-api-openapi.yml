@@ -96,15 +96,6 @@ paths:
                       Marker: ''
 components:
   schemas:
-    Filter:
-      type: object
-      properties:
-        Name:
-          type: string
-        Values:
-          type: array
-          items:
-            type: string
     DBClusterParameterGroup:
       type: object
       properties:
@@ -116,14 +107,19 @@ components:
           type: string
         DBClusterParameterGroupArn:
           type: string
-    CreateDBClusterParameterGroupOutput:
+    DescribeDBClusterParameterGroupsInput:
       type: object
       properties:
-        CreateDBClusterParameterGroupResult:
-          type: object
-          properties:
-            DBClusterParameterGroup:
-              $ref: '#/components/schemas/DBClusterParameterGroup'
+        DBClusterParameterGroupName:
+          type: string
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
+          type: string
     DescribeDBClusterParameterGroupsOutput:
       type: object
       properties:
@@ -136,6 +132,30 @@ components:
                 $ref: '#/components/schemas/DBClusterParameterGroup'
             Marker:
               type: string
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+    Filter:
+      type: object
+      properties:
+        Name:
+          type: string
+        Values:
+          type: array
+          items:
+            type: string
+    CreateDBClusterParameterGroupOutput:
+      type: object
+      properties:
+        CreateDBClusterParameterGroupResult:
+          type: object
+          properties:
+            DBClusterParameterGroup:
+              $ref: '#/components/schemas/DBClusterParameterGroup'
     CreateDBClusterParameterGroupInput:
       type: object
       required:
@@ -153,26 +173,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-    Tag:
-      type: object
-      properties:
-        Key:
-          type: string
-        Value:
-          type: string
-    DescribeDBClusterParameterGroupsInput:
-      type: object
-      properties:
-        DBClusterParameterGroupName:
-          type: string
-        Filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/Filter'
-        MaxRecords:
-          type: integer
-        Marker:
-          type: string
   securitySchemes:
     sigv4:
       type: apiKey
