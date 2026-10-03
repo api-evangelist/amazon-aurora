@@ -136,27 +136,31 @@ paths:
                       Marker: ''
 components:
   schemas:
-    CreateDBClusterSnapshotInput:
+    CreateDBClusterSnapshotOutput:
       type: object
-      required:
-      - DBClusterSnapshotIdentifier
-      - DBClusterIdentifier
       properties:
-        DBClusterSnapshotIdentifier:
+        CreateDBClusterSnapshotResult:
+          type: object
+          properties:
+            DBClusterSnapshot:
+              $ref: '#/components/schemas/DBClusterSnapshot'
+    Filter:
+      type: object
+      properties:
+        Name:
           type: string
-        DBClusterIdentifier:
-          type: string
-        Tags:
+        Values:
           type: array
           items:
-            $ref: '#/components/schemas/Tag'
-    DeleteDBClusterSnapshotInput:
+            type: string
+    DeleteDBClusterSnapshotOutput:
       type: object
-      required:
-      - DBClusterSnapshotIdentifier
       properties:
-        DBClusterSnapshotIdentifier:
-          type: string
+        DeleteDBClusterSnapshotResult:
+          type: object
+          properties:
+            DBClusterSnapshot:
+              $ref: '#/components/schemas/DBClusterSnapshot'
     DescribeDBClusterSnapshotsInput:
       type: object
       properties:
@@ -174,14 +178,13 @@ components:
           type: integer
         Marker:
           type: string
-    DeleteDBClusterSnapshotOutput:
+    DeleteDBClusterSnapshotInput:
       type: object
+      required:
+      - DBClusterSnapshotIdentifier
       properties:
-        DeleteDBClusterSnapshotResult:
-          type: object
-          properties:
-            DBClusterSnapshot:
-              $ref: '#/components/schemas/DBClusterSnapshot'
+        DBClusterSnapshotIdentifier:
+          type: string
     DBClusterSnapshot:
       type: object
       properties:
@@ -225,23 +228,20 @@ components:
           type: string
         Value:
           type: string
-    Filter:
+    CreateDBClusterSnapshotInput:
       type: object
+      required:
+      - DBClusterSnapshotIdentifier
+      - DBClusterIdentifier
       properties:
-        Name:
+        DBClusterSnapshotIdentifier:
           type: string
-        Values:
+        DBClusterIdentifier:
+          type: string
+        Tags:
           type: array
           items:
-            type: string
-    CreateDBClusterSnapshotOutput:
-      type: object
-      properties:
-        CreateDBClusterSnapshotResult:
-          type: object
-          properties:
-            DBClusterSnapshot:
-              $ref: '#/components/schemas/DBClusterSnapshot'
+            $ref: '#/components/schemas/Tag'
   securitySchemes:
     sigv4:
       type: apiKey

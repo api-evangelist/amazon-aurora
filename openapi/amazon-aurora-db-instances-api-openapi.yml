@@ -135,48 +135,31 @@ paths:
                       Marker: ''
 components:
   schemas:
-    DBInstance:
+    CreateDBInstanceOutput:
       type: object
       properties:
-        DBInstanceIdentifier:
-          type: string
-        DBInstanceClass:
-          type: string
-        Engine:
-          type: string
-        DBInstanceStatus:
-          type: string
-        DBClusterIdentifier:
-          type: string
-        Endpoint:
-          $ref: '#/components/schemas/Endpoint'
-        AvailabilityZone:
-          type: string
-        PubliclyAccessible:
-          type: boolean
-        StorageEncrypted:
-          type: boolean
-    DescribeDBInstancesOutput:
-      type: object
-      properties:
-        DescribeDBInstancesResult:
+        CreateDBInstanceResult:
           type: object
           properties:
-            DBInstances:
-              type: array
-              items:
-                $ref: '#/components/schemas/DBInstance'
-            Marker:
-              type: string
-    Endpoint:
+            DBInstance:
+              $ref: '#/components/schemas/DBInstance'
+    Filter:
       type: object
       properties:
-        Address:
+        Name:
           type: string
-        Port:
-          type: integer
-        HostedZoneId:
-          type: string
+        Values:
+          type: array
+          items:
+            type: string
+    DeleteDBInstanceOutput:
+      type: object
+      properties:
+        DeleteDBInstanceResult:
+          type: object
+          properties:
+            DBInstance:
+              $ref: '#/components/schemas/DBInstance'
     CreateDBInstanceInput:
       type: object
       required:
@@ -208,38 +191,36 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-    CreateDBInstanceOutput:
+    DBInstance:
       type: object
       properties:
-        CreateDBInstanceResult:
-          type: object
-          properties:
-            DBInstance:
-              $ref: '#/components/schemas/DBInstance'
-    Tag:
-      type: object
-      properties:
-        Key:
+        DBInstanceIdentifier:
           type: string
-        Value:
+        DBInstanceClass:
           type: string
-    DeleteDBInstanceOutput:
+        Engine:
+          type: string
+        DBInstanceStatus:
+          type: string
+        DBClusterIdentifier:
+          type: string
+        Endpoint:
+          $ref: '#/components/schemas/Endpoint'
+        AvailabilityZone:
+          type: string
+        PubliclyAccessible:
+          type: boolean
+        StorageEncrypted:
+          type: boolean
+    Endpoint:
       type: object
       properties:
-        DeleteDBInstanceResult:
-          type: object
-          properties:
-            DBInstance:
-              $ref: '#/components/schemas/DBInstance'
-    Filter:
-      type: object
-      properties:
-        Name:
+        Address:
           type: string
-        Values:
-          type: array
-          items:
-            type: string
+        Port:
+          type: integer
+        HostedZoneId:
+          type: string
     DescribeDBInstancesInput:
       type: object
       properties:
@@ -252,6 +233,25 @@ components:
         MaxRecords:
           type: integer
         Marker:
+          type: string
+    DescribeDBInstancesOutput:
+      type: object
+      properties:
+        DescribeDBInstancesResult:
+          type: object
+          properties:
+            DBInstances:
+              type: array
+              items:
+                $ref: '#/components/schemas/DBInstance'
+            Marker:
+              type: string
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
           type: string
     DeleteDBInstanceInput:
       type: object
