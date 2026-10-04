@@ -96,14 +96,6 @@ paths:
                       Marker: ''
 components:
   schemas:
-    CreateDBClusterParameterGroupOutput:
-      type: object
-      properties:
-        CreateDBClusterParameterGroupResult:
-          type: object
-          properties:
-            DBClusterParameterGroup:
-              $ref: '#/components/schemas/DBClusterParameterGroup'
     Filter:
       type: object
       properties:
@@ -113,6 +105,24 @@ components:
           type: array
           items:
             type: string
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+    DBClusterParameterGroup:
+      type: object
+      properties:
+        DBClusterParameterGroupName:
+          type: string
+        DBParameterGroupFamily:
+          type: string
+        Description:
+          type: string
+        DBClusterParameterGroupArn:
+          type: string
     CreateDBClusterParameterGroupInput:
       type: object
       required:
@@ -130,6 +140,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
+    CreateDBClusterParameterGroupOutput:
+      type: object
+      properties:
+        CreateDBClusterParameterGroupResult:
+          type: object
+          properties:
+            DBClusterParameterGroup:
+              $ref: '#/components/schemas/DBClusterParameterGroup'
     DescribeDBClusterParameterGroupsOutput:
       type: object
       properties:
@@ -142,17 +160,6 @@ components:
                 $ref: '#/components/schemas/DBClusterParameterGroup'
             Marker:
               type: string
-    DBClusterParameterGroup:
-      type: object
-      properties:
-        DBClusterParameterGroupName:
-          type: string
-        DBParameterGroupFamily:
-          type: string
-        Description:
-          type: string
-        DBClusterParameterGroupArn:
-          type: string
     DescribeDBClusterParameterGroupsInput:
       type: object
       properties:
@@ -165,13 +172,6 @@ components:
         MaxRecords:
           type: integer
         Marker:
-          type: string
-    Tag:
-      type: object
-      properties:
-        Key:
-          type: string
-        Value:
           type: string
   securitySchemes:
     sigv4:

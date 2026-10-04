@@ -131,35 +131,25 @@ paths:
                       Marker: ''
 components:
   schemas:
-    DeleteGlobalClusterInput:
+    CreateGlobalClusterInput:
       type: object
       required:
       - GlobalClusterIdentifier
       properties:
         GlobalClusterIdentifier:
           type: string
-    DescribeGlobalClustersInput:
-      type: object
-      properties:
-        GlobalClusterIdentifier:
+        SourceDBClusterIdentifier:
           type: string
-        Filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/Filter'
-        MaxRecords:
-          type: integer
-        Marker:
+        Engine:
           type: string
-    Filter:
-      type: object
-      properties:
-        Name:
+        EngineVersion:
           type: string
-        Values:
-          type: array
-          items:
-            type: string
+        DatabaseName:
+          type: string
+        StorageEncrypted:
+          type: boolean
+        DeletionProtection:
+          type: boolean
     GlobalCluster:
       type: object
       properties:
@@ -183,25 +173,54 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GlobalClusterMember'
-    CreateGlobalClusterInput:
+    DescribeGlobalClustersInput:
+      type: object
+      properties:
+        GlobalClusterIdentifier:
+          type: string
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
+          type: string
+    DeleteGlobalClusterOutput:
+      type: object
+      properties:
+        DeleteGlobalClusterResult:
+          type: object
+          properties:
+            GlobalCluster:
+              $ref: '#/components/schemas/GlobalCluster'
+    Filter:
+      type: object
+      properties:
+        Name:
+          type: string
+        Values:
+          type: array
+          items:
+            type: string
+    GlobalClusterMember:
+      type: object
+      properties:
+        DBClusterArn:
+          type: string
+        Readers:
+          type: array
+          items:
+            type: string
+        IsWriter:
+          type: boolean
+    DeleteGlobalClusterInput:
       type: object
       required:
       - GlobalClusterIdentifier
       properties:
         GlobalClusterIdentifier:
           type: string
-        SourceDBClusterIdentifier:
-          type: string
-        Engine:
-          type: string
-        EngineVersion:
-          type: string
-        DatabaseName:
-          type: string
-        StorageEncrypted:
-          type: boolean
-        DeletionProtection:
-          type: boolean
     DescribeGlobalClustersOutput:
       type: object
       properties:
@@ -214,29 +233,10 @@ components:
                 $ref: '#/components/schemas/GlobalCluster'
             Marker:
               type: string
-    GlobalClusterMember:
-      type: object
-      properties:
-        DBClusterArn:
-          type: string
-        Readers:
-          type: array
-          items:
-            type: string
-        IsWriter:
-          type: boolean
     CreateGlobalClusterOutput:
       type: object
       properties:
         CreateGlobalClusterResult:
-          type: object
-          properties:
-            GlobalCluster:
-              $ref: '#/components/schemas/GlobalCluster'
-    DeleteGlobalClusterOutput:
-      type: object
-      properties:
-        DeleteGlobalClusterResult:
           type: object
           properties:
             GlobalCluster:

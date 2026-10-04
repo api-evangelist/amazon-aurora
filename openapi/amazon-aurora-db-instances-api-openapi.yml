@@ -135,31 +135,6 @@ paths:
                       Marker: ''
 components:
   schemas:
-    CreateDBInstanceOutput:
-      type: object
-      properties:
-        CreateDBInstanceResult:
-          type: object
-          properties:
-            DBInstance:
-              $ref: '#/components/schemas/DBInstance'
-    Filter:
-      type: object
-      properties:
-        Name:
-          type: string
-        Values:
-          type: array
-          items:
-            type: string
-    DeleteDBInstanceOutput:
-      type: object
-      properties:
-        DeleteDBInstanceResult:
-          type: object
-          properties:
-            DBInstance:
-              $ref: '#/components/schemas/DBInstance'
     CreateDBInstanceInput:
       type: object
       required:
@@ -191,6 +166,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
+    DescribeDBInstancesInput:
+      type: object
+      properties:
+        DBInstanceIdentifier:
+          type: string
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
+          type: string
+    DeleteDBInstanceInput:
+      type: object
+      required:
+      - DBInstanceIdentifier
+      properties:
+        DBInstanceIdentifier:
+          type: string
+        SkipFinalSnapshot:
+          type: boolean
+        FinalDBSnapshotIdentifier:
+          type: string
     DBInstance:
       type: object
       properties:
@@ -212,28 +211,23 @@ components:
           type: boolean
         StorageEncrypted:
           type: boolean
-    Endpoint:
+    CreateDBInstanceOutput:
       type: object
       properties:
-        Address:
-          type: string
-        Port:
-          type: integer
-        HostedZoneId:
-          type: string
-    DescribeDBInstancesInput:
+        CreateDBInstanceResult:
+          type: object
+          properties:
+            DBInstance:
+              $ref: '#/components/schemas/DBInstance'
+    Filter:
       type: object
       properties:
-        DBInstanceIdentifier:
+        Name:
           type: string
-        Filters:
+        Values:
           type: array
           items:
-            $ref: '#/components/schemas/Filter'
-        MaxRecords:
-          type: integer
-        Marker:
-          type: string
+            type: string
     DescribeDBInstancesOutput:
       type: object
       properties:
@@ -253,17 +247,23 @@ components:
           type: string
         Value:
           type: string
-    DeleteDBInstanceInput:
+    Endpoint:
       type: object
-      required:
-      - DBInstanceIdentifier
       properties:
-        DBInstanceIdentifier:
+        Address:
           type: string
-        SkipFinalSnapshot:
-          type: boolean
-        FinalDBSnapshotIdentifier:
+        Port:
+          type: integer
+        HostedZoneId:
           type: string
+    DeleteDBInstanceOutput:
+      type: object
+      properties:
+        DeleteDBInstanceResult:
+          type: object
+          properties:
+            DBInstance:
+              $ref: '#/components/schemas/DBInstance'
   securitySchemes:
     sigv4:
       type: apiKey

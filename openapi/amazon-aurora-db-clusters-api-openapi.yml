@@ -332,54 +332,96 @@ paths:
                         Status: creating
 components:
   schemas:
-    DBCluster:
+    DBClusterMember:
       type: object
+      properties:
+        DBInstanceIdentifier:
+          type: string
+        IsClusterWriter:
+          type: boolean
+        DBClusterParameterGroupStatus:
+          type: string
+        PromotionTier:
+          type: integer
+    RebootDBClusterInput:
+      type: object
+      required:
+      - DBClusterIdentifier
       properties:
         DBClusterIdentifier:
           type: string
-        DBClusterArn:
+    StartDBClusterOutput:
+      type: object
+      properties:
+        StartDBClusterResult:
+          type: object
+          properties:
+            DBCluster:
+              $ref: '#/components/schemas/DBCluster'
+    RestoreDBClusterFromSnapshotInput:
+      type: object
+      required:
+      - DBClusterIdentifier
+      - SnapshotIdentifier
+      - Engine
+      properties:
+        DBClusterIdentifier:
           type: string
-        Status:
+        SnapshotIdentifier:
           type: string
         Engine:
           type: string
         EngineVersion:
           type: string
-        Endpoint:
+        DBSubnetGroupName:
           type: string
-        ReaderEndpoint:
-          type: string
-        MultiAZ:
-          type: boolean
-        DatabaseName:
-          type: string
-        BackupRetentionPeriod:
-          type: integer
-        DBClusterParameterGroup:
-          type: string
-        DBSubnetGroup:
-          type: string
-        VpcSecurityGroups:
+        VpcSecurityGroupIds:
           type: array
           items:
-            $ref: '#/components/schemas/VpcSecurityGroupMembership'
-        ClusterCreateTime:
-          type: string
-          format: date-time
-        MasterUsername:
-          type: string
-        StorageEncrypted:
-          type: boolean
-        KmsKeyId:
-          type: string
-        DBClusterMembers:
+            type: string
+        Tags:
           type: array
           items:
-            $ref: '#/components/schemas/DBClusterMember'
+            $ref: '#/components/schemas/Tag'
+    StopDBClusterOutput:
+      type: object
+      properties:
+        StopDBClusterResult:
+          type: object
+          properties:
+            DBCluster:
+              $ref: '#/components/schemas/DBCluster'
+    VpcSecurityGroupMembership:
+      type: object
+      properties:
+        VpcSecurityGroupId:
+          type: string
+        Status:
+          type: string
     RebootDBClusterOutput:
       type: object
       properties:
         RebootDBClusterResult:
+          type: object
+          properties:
+            DBCluster:
+              $ref: '#/components/schemas/DBCluster'
+    DescribeDBClustersOutput:
+      type: object
+      properties:
+        DescribeDBClustersResult:
+          type: object
+          properties:
+            DBClusters:
+              type: array
+              items:
+                $ref: '#/components/schemas/DBCluster'
+            Marker:
+              type: string
+    CreateDBClusterOutput:
+      type: object
+      properties:
+        CreateDBClusterResult:
           type: object
           properties:
             DBCluster:
@@ -429,18 +471,80 @@ components:
           type: array
           items:
             type: string
-    DeleteDBClusterOutput:
+    StartDBClusterInput:
+      type: object
+      required:
+      - DBClusterIdentifier
+      properties:
+        DBClusterIdentifier:
+          type: string
+    DBCluster:
       type: object
       properties:
-        DeleteDBClusterResult:
-          type: object
-          properties:
-            DBCluster:
-              $ref: '#/components/schemas/DBCluster'
+        DBClusterIdentifier:
+          type: string
+        DBClusterArn:
+          type: string
+        Status:
+          type: string
+        Engine:
+          type: string
+        EngineVersion:
+          type: string
+        Endpoint:
+          type: string
+        ReaderEndpoint:
+          type: string
+        MultiAZ:
+          type: boolean
+        DatabaseName:
+          type: string
+        BackupRetentionPeriod:
+          type: integer
+        DBClusterParameterGroup:
+          type: string
+        DBSubnetGroup:
+          type: string
+        VpcSecurityGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/VpcSecurityGroupMembership'
+        ClusterCreateTime:
+          type: string
+          format: date-time
+        MasterUsername:
+          type: string
+        StorageEncrypted:
+          type: boolean
+        KmsKeyId:
+          type: string
+        DBClusterMembers:
+          type: array
+          items:
+            $ref: '#/components/schemas/DBClusterMember'
     ModifyDBClusterOutput:
       type: object
       properties:
         ModifyDBClusterResult:
+          type: object
+          properties:
+            DBCluster:
+              $ref: '#/components/schemas/DBCluster'
+    DeleteDBClusterInput:
+      type: object
+      required:
+      - DBClusterIdentifier
+      properties:
+        DBClusterIdentifier:
+          type: string
+        SkipFinalSnapshot:
+          type: boolean
+        FinalDBSnapshotIdentifier:
+          type: string
+    DeleteDBClusterOutput:
+      type: object
+      properties:
+        DeleteDBClusterResult:
           type: object
           properties:
             DBCluster:
@@ -452,51 +556,15 @@ components:
       properties:
         DBClusterIdentifier:
           type: string
-    StopDBClusterOutput:
+    Filter:
       type: object
       properties:
-        StopDBClusterResult:
-          type: object
-          properties:
-            DBCluster:
-              $ref: '#/components/schemas/DBCluster'
-    RestoreDBClusterFromSnapshotInput:
-      type: object
-      required:
-      - DBClusterIdentifier
-      - SnapshotIdentifier
-      - Engine
-      properties:
-        DBClusterIdentifier:
+        Name:
           type: string
-        SnapshotIdentifier:
-          type: string
-        Engine:
-          type: string
-        EngineVersion:
-          type: string
-        DBSubnetGroupName:
-          type: string
-        VpcSecurityGroupIds:
+        Values:
           type: array
           items:
             type: string
-        Tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    DescribeDBClustersOutput:
-      type: object
-      properties:
-        DescribeDBClustersResult:
-          type: object
-          properties:
-            DBClusters:
-              type: array
-              items:
-                $ref: '#/components/schemas/DBCluster'
-            Marker:
-              type: string
     Tag:
       type: object
       properties:
@@ -504,6 +572,27 @@ components:
           type: string
         Value:
           type: string
+    DescribeDBClustersInput:
+      type: object
+      properties:
+        DBClusterIdentifier:
+          type: string
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        MaxRecords:
+          type: integer
+        Marker:
+          type: string
+    RestoreDBClusterFromSnapshotOutput:
+      type: object
+      properties:
+        RestoreDBClusterFromSnapshotResult:
+          type: object
+          properties:
+            DBCluster:
+              $ref: '#/components/schemas/DBCluster'
     ModifyDBClusterInput:
       type: object
       required:
@@ -527,95 +616,6 @@ components:
           type: string
         DeletionProtection:
           type: boolean
-    Filter:
-      type: object
-      properties:
-        Name:
-          type: string
-        Values:
-          type: array
-          items:
-            type: string
-    DBClusterMember:
-      type: object
-      properties:
-        DBInstanceIdentifier:
-          type: string
-        IsClusterWriter:
-          type: boolean
-        DBClusterParameterGroupStatus:
-          type: string
-        PromotionTier:
-          type: integer
-    StartDBClusterOutput:
-      type: object
-      properties:
-        StartDBClusterResult:
-          type: object
-          properties:
-            DBCluster:
-              $ref: '#/components/schemas/DBCluster'
-    DeleteDBClusterInput:
-      type: object
-      required:
-      - DBClusterIdentifier
-      properties:
-        DBClusterIdentifier:
-          type: string
-        SkipFinalSnapshot:
-          type: boolean
-        FinalDBSnapshotIdentifier:
-          type: string
-    RebootDBClusterInput:
-      type: object
-      required:
-      - DBClusterIdentifier
-      properties:
-        DBClusterIdentifier:
-          type: string
-    CreateDBClusterOutput:
-      type: object
-      properties:
-        CreateDBClusterResult:
-          type: object
-          properties:
-            DBCluster:
-              $ref: '#/components/schemas/DBCluster'
-    DescribeDBClustersInput:
-      type: object
-      properties:
-        DBClusterIdentifier:
-          type: string
-        Filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/Filter'
-        MaxRecords:
-          type: integer
-        Marker:
-          type: string
-    VpcSecurityGroupMembership:
-      type: object
-      properties:
-        VpcSecurityGroupId:
-          type: string
-        Status:
-          type: string
-    RestoreDBClusterFromSnapshotOutput:
-      type: object
-      properties:
-        RestoreDBClusterFromSnapshotResult:
-          type: object
-          properties:
-            DBCluster:
-              $ref: '#/components/schemas/DBCluster'
-    StartDBClusterInput:
-      type: object
-      required:
-      - DBClusterIdentifier
-      properties:
-        DBClusterIdentifier:
-          type: string
   securitySchemes:
     sigv4:
       type: apiKey
