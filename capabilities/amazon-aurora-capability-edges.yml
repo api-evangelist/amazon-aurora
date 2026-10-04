@@ -1,0 +1,61 @@
+slug: amazon-aurora
+provider: Amazon Aurora
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: DB Clusters
+  spec_file: amazon-aurora-db-clusters-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.85
+  evidence: '"Amazon Aurora Create DB Cluster", "Amazon Aurora Start DB Cluster", "Amazon Aurora Restore
+    DB Cluster From Snapshot"'
+  reason: Lifecycle management of managed relational database clusters in the cloud = compute/storage/cloud
+    infrastructure management.
+- tag: DB Instances
+  spec_file: amazon-aurora-db-instances-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.85
+  evidence: '"Amazon Aurora Create DB Instance", schema DBInstance, Endpoint'
+  reason: Provisioning and deletion of cloud database instances is IT infrastructure management.
+- tag: Global Clusters
+  spec_file: amazon-aurora-global-clusters-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: '"Amazon Aurora Create Global Cluster", schema GlobalCluster, GlobalClusterMember'
+  reason: Multi-region database cluster provisioning — cloud infrastructure management.
+- tag: DB Cluster Parameter Groups
+  spec_file: amazon-aurora-db-cluster-parameter-groups-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.72
+  evidence: createDBClusterParameterGroup — "Amazon Aurora Create DB Cluster Parameter Group"; schema
+    DBClusterParameterGroup
+  reason: Configuration of managed cloud database cluster parameters — IT infrastructure (cloud database)
+    management. Could arguably be configuration management, but it is infrastructure provisioning config
+    for cloud DB resources.
+- tag: DB Cluster Endpoints
+  spec_file: amazon-aurora-db-cluster-endpoints-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: POST /?Action=CreateDBClusterEndpoint createDBClusterEndpoint; schema DBClusterEndpoint
+  reason: Manages connection endpoints for relational database clusters — database/cloud infrastructure
+    management.

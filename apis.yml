@@ -234,6 +234,9 @@ apis:
   - type: ErrorCatalog
     url: https://raw.githubusercontent.com/api-evangelist/amazon-aurora/refs/heads/main/errors/amazon-aurora-problem-types.yml
 common:
+- type: CapabilityMap
+  url: capabilities/amazon-aurora-capability-edges.yml
+  name: Amazon Aurora Business Capability Map
 - type: Website
   url: https://aws.amazon.com/rds/aurora/
 - type: Overlay
