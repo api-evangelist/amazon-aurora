@@ -1,0 +1,18 @@
+edges:
+- partner_name: PostgreSQL
+  partner: postgresql
+  partner_match: shape-anchor
+  channel: provider-built
+  relationship: compatible
+  direction: provider-built
+  shape: postgres-wire
+  type: docs
+  degree: full
+  evidence: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.AuroraPostgreSQL.html
+  evidence_kind: own-docs
+  evidence_file: https://github.com/api-evangelist/amazon-aurora/blob/main/evidence/compatibility/amazon-aurora-postgres-wire-1.md
+  quote: drop-in replacement for PostgreSQL and makes it simple and cost-effective to set up,
+  detected_by: sweep-shape-compat.py
+  first_seen: '2026-10-13'
+generated: '2026-10-13'
+method: searched
