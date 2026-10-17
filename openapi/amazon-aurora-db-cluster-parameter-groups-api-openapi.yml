@@ -96,15 +96,6 @@ paths:
                       Marker: ''
 components:
   schemas:
-    Filter:
-      type: object
-      properties:
-        Name:
-          type: string
-        Values:
-          type: array
-          items:
-            type: string
     Tag:
       type: object
       properties:
@@ -123,6 +114,14 @@ components:
           type: string
         DBClusterParameterGroupArn:
           type: string
+    CreateDBClusterParameterGroupOutput:
+      type: object
+      properties:
+        CreateDBClusterParameterGroupResult:
+          type: object
+          properties:
+            DBClusterParameterGroup:
+              $ref: '#/components/schemas/DBClusterParameterGroup'
     CreateDBClusterParameterGroupInput:
       type: object
       required:
@@ -140,26 +139,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-    CreateDBClusterParameterGroupOutput:
-      type: object
-      properties:
-        CreateDBClusterParameterGroupResult:
-          type: object
-          properties:
-            DBClusterParameterGroup:
-              $ref: '#/components/schemas/DBClusterParameterGroup'
-    DescribeDBClusterParameterGroupsOutput:
-      type: object
-      properties:
-        DescribeDBClusterParameterGroupsResult:
-          type: object
-          properties:
-            DBClusterParameterGroups:
-              type: array
-              items:
-                $ref: '#/components/schemas/DBClusterParameterGroup'
-            Marker:
-              type: string
     DescribeDBClusterParameterGroupsInput:
       type: object
       properties:
@@ -173,6 +152,27 @@ components:
           type: integer
         Marker:
           type: string
+    Filter:
+      type: object
+      properties:
+        Name:
+          type: string
+        Values:
+          type: array
+          items:
+            type: string
+    DescribeDBClusterParameterGroupsOutput:
+      type: object
+      properties:
+        DescribeDBClusterParameterGroupsResult:
+          type: object
+          properties:
+            DBClusterParameterGroups:
+              type: array
+              items:
+                $ref: '#/components/schemas/DBClusterParameterGroup'
+            Marker:
+              type: string
   securitySchemes:
     sigv4:
       type: apiKey

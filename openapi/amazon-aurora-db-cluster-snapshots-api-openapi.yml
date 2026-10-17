@@ -136,21 +136,13 @@ paths:
                       Marker: ''
 components:
   schemas:
-    DeleteDBClusterSnapshotInput:
+    Tag:
       type: object
-      required:
-      - DBClusterSnapshotIdentifier
       properties:
-        DBClusterSnapshotIdentifier:
+        Key:
           type: string
-    DeleteDBClusterSnapshotOutput:
-      type: object
-      properties:
-        DeleteDBClusterSnapshotResult:
-          type: object
-          properties:
-            DBClusterSnapshot:
-              $ref: '#/components/schemas/DBClusterSnapshot'
+        Value:
+          type: string
     DBClusterSnapshot:
       type: object
       properties:
@@ -175,6 +167,18 @@ components:
           type: string
         DBClusterSnapshotArn:
           type: string
+    DescribeDBClusterSnapshotsOutput:
+      type: object
+      properties:
+        DescribeDBClusterSnapshotsResult:
+          type: object
+          properties:
+            DBClusterSnapshots:
+              type: array
+              items:
+                $ref: '#/components/schemas/DBClusterSnapshot'
+            Marker:
+              type: string
     DescribeDBClusterSnapshotsInput:
       type: object
       properties:
@@ -192,42 +196,6 @@ components:
           type: integer
         Marker:
           type: string
-    Filter:
-      type: object
-      properties:
-        Name:
-          type: string
-        Values:
-          type: array
-          items:
-            type: string
-    CreateDBClusterSnapshotOutput:
-      type: object
-      properties:
-        CreateDBClusterSnapshotResult:
-          type: object
-          properties:
-            DBClusterSnapshot:
-              $ref: '#/components/schemas/DBClusterSnapshot'
-    Tag:
-      type: object
-      properties:
-        Key:
-          type: string
-        Value:
-          type: string
-    DescribeDBClusterSnapshotsOutput:
-      type: object
-      properties:
-        DescribeDBClusterSnapshotsResult:
-          type: object
-          properties:
-            DBClusterSnapshots:
-              type: array
-              items:
-                $ref: '#/components/schemas/DBClusterSnapshot'
-            Marker:
-              type: string
     CreateDBClusterSnapshotInput:
       type: object
       required:
@@ -242,6 +210,38 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
+    CreateDBClusterSnapshotOutput:
+      type: object
+      properties:
+        CreateDBClusterSnapshotResult:
+          type: object
+          properties:
+            DBClusterSnapshot:
+              $ref: '#/components/schemas/DBClusterSnapshot'
+    DeleteDBClusterSnapshotInput:
+      type: object
+      required:
+      - DBClusterSnapshotIdentifier
+      properties:
+        DBClusterSnapshotIdentifier:
+          type: string
+    Filter:
+      type: object
+      properties:
+        Name:
+          type: string
+        Values:
+          type: array
+          items:
+            type: string
+    DeleteDBClusterSnapshotOutput:
+      type: object
+      properties:
+        DeleteDBClusterSnapshotResult:
+          type: object
+          properties:
+            DBClusterSnapshot:
+              $ref: '#/components/schemas/DBClusterSnapshot'
   securitySchemes:
     sigv4:
       type: apiKey
