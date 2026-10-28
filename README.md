@@ -66,83 +66,229 @@
 
 Amazon Aurora is a MySQL and PostgreSQL-compatible relational database built for the cloud that combines the performance and availability of traditional enterprise databases with the simplicity and cost-effectiveness of open source databases.
 
-## Overview
+**Areas:** Amazon Aurora · MySQL · PostgreSQL · Relational Database · Database
 
-The Amazon Aurora API enables programmatic control over DB clusters, DB instances, cluster snapshots, parameter groups, custom endpoints, and global database configurations. It is accessed through the Amazon RDS API endpoint.
+## Amazon Aurora on APIs.io
 
-## API Documentation
+Everything profiled for Amazon Aurora is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/amazon-aurora/](https://apis.io/providers/amazon-aurora/)** — or go straight to one of the APIs or properties below.
 
-- **Human URL:** https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html
-- **Base URL:** https://rds.us-east-1.amazonaws.com
+### APIs (6)
 
-## Features
+- [Amazon Aurora DB Cluster Endpoints API](https://apis.io/apis/amazon-aurora/amazon-aurora-db-cluster-endpoints-api/) — Operations for managing Aurora cluster endpoints
+- [Amazon Aurora DB Cluster Parameter Groups API](https://apis.io/apis/amazon-aurora/amazon-aurora-db-cluster-parameter-groups-api/) — Operations for managing Aurora cluster parameter groups
+- [Amazon Aurora DB Cluster Snapshots API](https://apis.io/apis/amazon-aurora/amazon-aurora-db-cluster-snapshots-api/) — Operations for managing Aurora cluster snapshots
+- [Amazon Aurora DB Clusters API](https://apis.io/apis/amazon-aurora/amazon-aurora-db-clusters-api/) — Operations for managing Aurora DB clusters
+- [Amazon Aurora DB Instances API](https://apis.io/apis/amazon-aurora/amazon-aurora-db-instances-api/) — Operations for managing Aurora DB instances within clusters
+- [Amazon Aurora Global Clusters API](https://apis.io/apis/amazon-aurora/amazon-aurora-global-clusters-api/) — Operations for managing Aurora Global Databases
 
-- MySQL and PostgreSQL compatible relational database engine
-- Up to 5x throughput of standard MySQL and 3x of standard PostgreSQL
-- Auto-scaling storage from 10GB to 128TB
-- Up to 15 low-latency read replicas
-- Aurora Serverless for intermittent and unpredictable workloads
-- Aurora Global Database for multi-region deployments
-- Continuous backup to Amazon S3 with point-in-time recovery
-- Fast database cloning for testing and development
-- Parallel query for faster analytical queries
-- Machine learning integration through Aurora ML
+### Published properties
 
-## Use Cases
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- Enterprise applications requiring high availability and durability
-- SaaS applications needing scalable multi-tenant databases
-- E-commerce platforms with variable traffic patterns
-- Financial applications requiring ACID compliance
-- Global applications needing low-latency multi-region access
-- Development and testing with fast database cloning
+#### MCP servers (1)
 
-## Artifacts
+Model Context Protocol servers that expose the API to agents.
 
-### OpenAPI Specification
-`openapi/amazon-aurora-openapi.yml`
+- [amazon-aurora-mcp.yml](https://apis.io/servers/amazon-aurora/amazon-aurora-mcp-yml/)
 
-Complete OpenAPI 3.1.0 specification covering all Aurora API paths.
+#### Agentic access (1)
 
-### Spectral Rules
-`rules/amazon-aurora-spectral-rules.yml`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Naftiko Capabilities
-- `capabilities/shared/aurora-api.yaml` — Shared per-API capability definition
-- `capabilities/relational-database-management.yaml` — Workflow capability for relational database management
+- [Amazon Aurora Agentic Access](https://apis.io/agentic-access/amazon-aurora/amazon-aurora-agentic-access/)
 
-### Vocabulary
-`vocabulary/amazon-aurora-vocabulary.yaml`
+#### JSON Schema (55)
 
-### JSON Schemas
-`json-schema/` — 54 JSON Schema files for all objects.
+The data models the API reads and writes.
 
-### JSON Structures
-`json-structure/` — 54 JSON Structure files.
+- [Amazon Aurora DB Cluster](https://apis.io/schemas/amazon-aurora/amazon-aurora/)
+- [CreateDBClusterEndpointInput](https://apis.io/schemas/amazon-aurora/aurora-create-db-cluster-endpoint-input/)
+- [CreateDBClusterEndpointOutput](https://apis.io/schemas/amazon-aurora/aurora-create-db-cluster-endpoint-output/)
+- [CreateDBClusterInput](https://apis.io/schemas/amazon-aurora/aurora-create-db-cluster-input/)
+- [CreateDBClusterOutput](https://apis.io/schemas/amazon-aurora/aurora-create-db-cluster-output/)
+- [CreateDBClusterParameterGroupInput](https://apis.io/schemas/amazon-aurora/aurora-create-db-cluster-parameter-group-input/)
+- [CreateDBClusterParameterGroupOutput](https://apis.io/schemas/amazon-aurora/aurora-create-db-cluster-parameter-group-output/)
+- [CreateDBClusterSnapshotInput](https://apis.io/schemas/amazon-aurora/aurora-create-db-cluster-snapshot-input/)
+- [CreateDBClusterSnapshotOutput](https://apis.io/schemas/amazon-aurora/aurora-create-db-cluster-snapshot-output/)
+- [CreateDBInstanceInput](https://apis.io/schemas/amazon-aurora/aurora-create-db-instance-input/)
+- [CreateDBInstanceOutput](https://apis.io/schemas/amazon-aurora/aurora-create-db-instance-output/)
+- [CreateGlobalClusterInput](https://apis.io/schemas/amazon-aurora/aurora-create-global-cluster-input/)
+- [CreateGlobalClusterOutput](https://apis.io/schemas/amazon-aurora/aurora-create-global-cluster-output/)
+- [DBCluster](https://apis.io/schemas/amazon-aurora/aurora-db-cluster/)
+- [DBClusterEndpoint](https://apis.io/schemas/amazon-aurora/aurora-db-cluster-endpoint/)
+- [DBClusterMember](https://apis.io/schemas/amazon-aurora/aurora-db-cluster-member/)
+- [DBClusterParameterGroup](https://apis.io/schemas/amazon-aurora/aurora-db-cluster-parameter-group/)
+- [DBClusterSnapshot](https://apis.io/schemas/amazon-aurora/aurora-db-cluster-snapshot/)
+- [DBInstance](https://apis.io/schemas/amazon-aurora/aurora-db-instance/)
+- [DeleteDBClusterInput](https://apis.io/schemas/amazon-aurora/aurora-delete-db-cluster-input/)
+- [DeleteDBClusterOutput](https://apis.io/schemas/amazon-aurora/aurora-delete-db-cluster-output/)
+- [DeleteDBClusterSnapshotInput](https://apis.io/schemas/amazon-aurora/aurora-delete-db-cluster-snapshot-input/)
+- [DeleteDBClusterSnapshotOutput](https://apis.io/schemas/amazon-aurora/aurora-delete-db-cluster-snapshot-output/)
+- [DeleteDBInstanceInput](https://apis.io/schemas/amazon-aurora/aurora-delete-db-instance-input/)
+- [DeleteDBInstanceOutput](https://apis.io/schemas/amazon-aurora/aurora-delete-db-instance-output/)
+- …and 30 more published on APIs.io
 
-### JSON-LD Context
-`json-ld/amazon-aurora-context.jsonld`
+#### JSON Structure (54)
 
-### Examples
-`examples/` — 54 example JSON files.
+Data models expressed in JSON Structure.
 
-## Integrations
+- [Aurora Create Db Cluster Endpoint Input Structure](https://apis.io/json-structure/amazon-aurora/aurora-create-db-cluster-endpoint-input-structure/)
+- [Aurora Create Db Cluster Endpoint Output Structure](https://apis.io/json-structure/amazon-aurora/aurora-create-db-cluster-endpoint-output-structure/)
+- [Aurora Create Db Cluster Input Structure](https://apis.io/json-structure/amazon-aurora/aurora-create-db-cluster-input-structure/)
+- [Aurora Create Db Cluster Output Structure](https://apis.io/json-structure/amazon-aurora/aurora-create-db-cluster-output-structure/)
+- [Aurora Create Db Cluster Parameter Group Input Structure](https://apis.io/json-structure/amazon-aurora/aurora-create-db-cluster-parameter-group-input-structure/)
+- [Aurora Create Db Cluster Parameter Group Output Structure](https://apis.io/json-structure/amazon-aurora/aurora-create-db-cluster-parameter-group-output-structure/)
+- [Aurora Create Db Cluster Snapshot Input Structure](https://apis.io/json-structure/amazon-aurora/aurora-create-db-cluster-snapshot-input-structure/)
+- [Aurora Create Db Cluster Snapshot Output Structure](https://apis.io/json-structure/amazon-aurora/aurora-create-db-cluster-snapshot-output-structure/)
+- [Aurora Create Db Instance Input Structure](https://apis.io/json-structure/amazon-aurora/aurora-create-db-instance-input-structure/)
+- [Aurora Create Db Instance Output Structure](https://apis.io/json-structure/amazon-aurora/aurora-create-db-instance-output-structure/)
+- [Aurora Create Global Cluster Input Structure](https://apis.io/json-structure/amazon-aurora/aurora-create-global-cluster-input-structure/)
+- [Aurora Create Global Cluster Output Structure](https://apis.io/json-structure/amazon-aurora/aurora-create-global-cluster-output-structure/)
+- [Aurora Db Cluster Endpoint Structure](https://apis.io/json-structure/amazon-aurora/aurora-db-cluster-endpoint-structure/)
+- [Aurora Db Cluster Member Structure](https://apis.io/json-structure/amazon-aurora/aurora-db-cluster-member-structure/)
+- [Aurora Db Cluster Parameter Group Structure](https://apis.io/json-structure/amazon-aurora/aurora-db-cluster-parameter-group-structure/)
+- [Aurora Db Cluster Snapshot Structure](https://apis.io/json-structure/amazon-aurora/aurora-db-cluster-snapshot-structure/)
+- [Aurora Db Cluster Structure](https://apis.io/json-structure/amazon-aurora/aurora-db-cluster-structure/)
+- [Aurora Db Instance Structure](https://apis.io/json-structure/amazon-aurora/aurora-db-instance-structure/)
+- [Aurora Delete Db Cluster Input Structure](https://apis.io/json-structure/amazon-aurora/aurora-delete-db-cluster-input-structure/)
+- [Aurora Delete Db Cluster Output Structure](https://apis.io/json-structure/amazon-aurora/aurora-delete-db-cluster-output-structure/)
+- [Aurora Delete Db Cluster Snapshot Input Structure](https://apis.io/json-structure/amazon-aurora/aurora-delete-db-cluster-snapshot-input-structure/)
+- [Aurora Delete Db Cluster Snapshot Output Structure](https://apis.io/json-structure/amazon-aurora/aurora-delete-db-cluster-snapshot-output-structure/)
+- [Aurora Delete Db Instance Input Structure](https://apis.io/json-structure/amazon-aurora/aurora-delete-db-instance-input-structure/)
+- [Aurora Delete Db Instance Output Structure](https://apis.io/json-structure/amazon-aurora/aurora-delete-db-instance-output-structure/)
+- [Aurora Delete Global Cluster Input Structure](https://apis.io/json-structure/amazon-aurora/aurora-delete-global-cluster-input-structure/)
+- …and 29 more published on APIs.io
 
-- Amazon RDS
-- Amazon S3
-- AWS Lambda
-- Amazon CloudWatch
-- AWS IAM
-- Amazon VPC
-- AWS KMS
-- AWS Secrets Manager
-- Amazon SageMaker
-- AWS DMS
+#### JSON-LD (1)
 
-## Tags
+Linked-data contexts for the provider's vocabulary.
 
-Amazon Aurora, MySQL, PostgreSQL, Relational Database, AWS
+- [Amazon Aurora Context](https://apis.io/jsonld/amazon-aurora/amazon-aurora-context/)
 
-## Maintainers
+#### Vocabulary (1)
 
-- Kin Lane (kin@apievangelist.com)
+The provider's domain terms, defined.
+
+- [Amazon Aurora Vocabulary](https://apis.io/vocabularies/amazon-aurora/amazon-aurora-vocabulary/)
+
+#### Examples (54)
+
+Example requests and responses.
+
+- [Aurora Create Db Cluster Endpoint Input Example](https://apis.io/examples/amazon-aurora/aurora-create-db-cluster-endpoint-input-example/)
+- [Aurora Create Db Cluster Endpoint Output Example](https://apis.io/examples/amazon-aurora/aurora-create-db-cluster-endpoint-output-example/)
+- [Aurora Create Db Cluster Input Example](https://apis.io/examples/amazon-aurora/aurora-create-db-cluster-input-example/)
+- [Aurora Create Db Cluster Output Example](https://apis.io/examples/amazon-aurora/aurora-create-db-cluster-output-example/)
+- [Aurora Create Db Cluster Parameter Group Input Example](https://apis.io/examples/amazon-aurora/aurora-create-db-cluster-parameter-group-input-example/)
+- [Aurora Create Db Cluster Parameter Group Output Example](https://apis.io/examples/amazon-aurora/aurora-create-db-cluster-parameter-group-output-example/)
+- [Aurora Create Db Cluster Snapshot Input Example](https://apis.io/examples/amazon-aurora/aurora-create-db-cluster-snapshot-input-example/)
+- [Aurora Create Db Cluster Snapshot Output Example](https://apis.io/examples/amazon-aurora/aurora-create-db-cluster-snapshot-output-example/)
+- [Aurora Create Db Instance Input Example](https://apis.io/examples/amazon-aurora/aurora-create-db-instance-input-example/)
+- [Aurora Create Db Instance Output Example](https://apis.io/examples/amazon-aurora/aurora-create-db-instance-output-example/)
+- [Aurora Create Global Cluster Input Example](https://apis.io/examples/amazon-aurora/aurora-create-global-cluster-input-example/)
+- [Aurora Create Global Cluster Output Example](https://apis.io/examples/amazon-aurora/aurora-create-global-cluster-output-example/)
+- [Aurora Db Cluster Endpoint Example](https://apis.io/examples/amazon-aurora/aurora-db-cluster-endpoint-example/)
+- [Aurora Db Cluster Example](https://apis.io/examples/amazon-aurora/aurora-db-cluster-example/)
+- [Aurora Db Cluster Member Example](https://apis.io/examples/amazon-aurora/aurora-db-cluster-member-example/)
+- [Aurora Db Cluster Parameter Group Example](https://apis.io/examples/amazon-aurora/aurora-db-cluster-parameter-group-example/)
+- [Aurora Db Cluster Snapshot Example](https://apis.io/examples/amazon-aurora/aurora-db-cluster-snapshot-example/)
+- [Aurora Db Instance Example](https://apis.io/examples/amazon-aurora/aurora-db-instance-example/)
+- [Aurora Delete Db Cluster Input Example](https://apis.io/examples/amazon-aurora/aurora-delete-db-cluster-input-example/)
+- [Aurora Delete Db Cluster Output Example](https://apis.io/examples/amazon-aurora/aurora-delete-db-cluster-output-example/)
+- [Aurora Delete Db Cluster Snapshot Input Example](https://apis.io/examples/amazon-aurora/aurora-delete-db-cluster-snapshot-input-example/)
+- [Aurora Delete Db Cluster Snapshot Output Example](https://apis.io/examples/amazon-aurora/aurora-delete-db-cluster-snapshot-output-example/)
+- [Aurora Delete Db Instance Input Example](https://apis.io/examples/amazon-aurora/aurora-delete-db-instance-input-example/)
+- [Aurora Delete Db Instance Output Example](https://apis.io/examples/amazon-aurora/aurora-delete-db-instance-output-example/)
+- [Aurora Delete Global Cluster Input Example](https://apis.io/examples/amazon-aurora/aurora-delete-global-cluster-input-example/)
+- …and 29 more published on APIs.io
+
+#### Collections (6)
+
+Postman and Open Collection request collections.
+
+- [Amazon Aurora DB Cluster Endpoints API](https://apis.io/collections/amazon-aurora/open-amazon-aurora-db-cluster-endpoints-api/)
+- [Amazon Aurora DB Cluster Endpoints DB Cluster Parameter Groups API](https://apis.io/collections/amazon-aurora/open-amazon-aurora-db-cluster-parameter-groups-api/)
+- [Amazon Aurora DB Cluster Endpoints DB Cluster Snapshots API](https://apis.io/collections/amazon-aurora/open-amazon-aurora-db-cluster-snapshots-api/)
+- [Amazon Aurora DB Cluster Endpoints DB Clusters API](https://apis.io/collections/amazon-aurora/open-amazon-aurora-db-clusters-api/)
+- [Amazon Aurora DB Cluster Endpoints DB Instances API](https://apis.io/collections/amazon-aurora/open-amazon-aurora-db-instances-api/)
+- [Amazon Aurora DB Cluster Endpoints Global Clusters API](https://apis.io/collections/amazon-aurora/open-amazon-aurora-global-clusters-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Amazon Aurora Openapi Overlay](https://apis.io/overlays/amazon-aurora/amazon-aurora-openapi-overlay/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Amazon Aurora — jsonschema rules](https://apis.io/rules/amazon-aurora/amazon-aurora-jsonschema-spectral-rules/)
+- [Amazon Aurora API Rules](https://apis.io/rules/amazon-aurora/amazon-aurora-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Amazon Aurora Authentication](https://apis.io/security/amazon-aurora/amazon-aurora-authentication/)
+- [Amazon Aurora Domain Security](https://apis.io/security/amazon-aurora/amazon-aurora-domain-security/)
+- [Amazon Aurora Vulnerability Disclosure](https://apis.io/security/amazon-aurora/amazon-aurora-vulnerability-disclosure/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://aws.amazon.com/rds/aurora/)
+
+## API Evangelist rating
+
+**Kin Score 30.8** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 81.7 |
+| Contract quality | 65.5 |
+| Contract governance | 31.8 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 11.9 |
+| Access clarity | 0.0 |
+
+**Agent readiness 30.4** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 20.1** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/amazon-aurora/](https://apis.io/providers/amazon-aurora/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Amazon Aurora: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/amazon-aurora/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
